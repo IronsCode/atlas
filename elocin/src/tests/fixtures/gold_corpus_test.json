@@ -1,0 +1,28 @@
+{
+  "_comment": "HELD-OUT TEST corpus — the CI quality gate scores against this, not the tuning corpus. RULE: do not edit the lexicon to make a specific note here pass; that turns the test set back into a training set (the whole point of improvement #4). Notes deliberately include the failure classes the old 45-note corpus never tested: negated positives, low/high numeric scores, and true-negative / idiom notes that must produce NOTHING. Caveat: authored by one person for now; when real beta data exists, resample this from held-out real observations with a second annotator (improvement #9).",
+  "lexicon": "1.2",
+  "notes": [
+    { "raw": "Emma did not do well on the assessment today", "expected": { "skills": [], "methods": [], "outcome": "negative" } },
+    { "raw": "Noah was not confident and made no improvement", "expected": { "skills": [], "methods": [], "outcome": "negative" } },
+    { "raw": "Aisha could not stay on task during the lesson", "expected": { "skills": ["engagement"], "methods": [], "outcome": "negative" } },
+    { "raw": "Diego got 3 out of 10 on the spelling quiz", "expected": { "skills": ["writing"], "methods": [], "outcome": "negative" } },
+    { "raw": "Liam scored 40% on the number check", "expected": { "skills": [], "methods": [], "outcome": "negative" } },
+    { "raw": "Marcus got 9 out of 10 correct on the sight word test", "expected": { "skills": ["sight_words"], "methods": [], "outcome": "positive" } },
+
+    { "raw": "During the transition to lunch the class lined up", "expected": { "skills": [], "methods": [], "outcome": "unknown" } },
+    { "raw": "Read the sentence on the board aloud", "expected": { "skills": [], "methods": [], "outcome": "unknown" } },
+    { "raw": "Field trip permission slips are due Monday", "expected": { "skills": [], "methods": [], "outcome": "unknown" } },
+    { "raw": "Picture day is on Friday so no academics today", "expected": { "skills": [], "methods": [], "outcome": "unknown" } },
+
+    { "raw": "Sophia segmented the word into onset and rime", "expected": { "skills": ["phonemic_awareness"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Liam used the ten frame to show the number", "expected": { "skills": ["subitizing"], "methods": ["kinesthetic"], "outcome": "unknown" } },
+    { "raw": "Diego took turns with a friend at the table", "expected": { "skills": ["turn_taking", "peer_interaction"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Noah followed the two step direction the first time", "expected": { "skills": ["following_directions"], "methods": [], "outcome": "positive" } },
+    { "raw": "Aisha balanced on the balance beam without help", "expected": { "skills": ["gross_motor", "independence"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Liam sounded out the word using an anchor chart", "expected": { "skills": ["phonics"], "methods": ["visual"], "outcome": "unknown" } },
+    { "raw": "Emma lined up without a verbal prompt", "expected": { "skills": [], "methods": [{ "key": "verbal_prompt", "negated": true }], "outcome": "unknown" } },
+    { "raw": "Diego stayed on task during independent work", "expected": { "skills": ["engagement"], "methods": ["independent"], "outcome": "unknown" } },
+    { "raw": "Marcus wrote a full sentence by himself", "expected": { "skills": ["writing"], "methods": [], "outcome": "unknown" } },
+    { "raw": "the class sang the counting song at circle time", "expected": { "skills": ["counting"], "methods": ["music_chant", "whole_group"], "outcome": "unknown" } }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "version": "1.3",
+  "description": "Elocin core deterministic tagging lexicon v1. Universal pre-K-2 vocabulary. Method keys are a CLOSED set of 16; curriculum packs add triggers to these keys but never new keys. Skill keys are additive over the pre-lexicon set (existing keys kept stable). Per-trigger tiers: triggers_high = exact hit auto-applies; triggers_medium (single common nouns / ambiguous) = suggestion only, never auto-applied. Normalization preserves ':' and '-' so 1:1 / 1-on-1 match. Negation and outcome word lists are DISJOINT (no double-counting).",
+  "methods": {
+    "visual": {
+      "label": "Visual / Picture cues",
+      "triggers_high": ["picture card", "flash card", "flashcard", "anchor chart", "visual schedule", "picture schedule", "number line", "number bond", "visual aid", "visual cue", "graphic organizer", "visual support"],
+      "triggers_medium": ["visual", "picture", "diagram", "photo"]
+    },
+    "kinesthetic": {
+      "label": "Hands-on / Manipulatives",
+      "triggers_high": ["manipulative", "unifix", "linking cubes", "counting bears", "base ten", "base-ten", "ten frame", "playdough", "play dough", "sand tray", "hands on", "hands-on", "number rack", "rekenrek"],
+      "triggers_medium": ["cube", "counter", "block", "tile", "bead", "clay"]
+    },
+    "gestural": {
+      "label": "Gestural / Embodied",
+      "triggers_high": ["hand signal", "sky write", "skywriting", "sky writing", "air write", "air writing", "finger tracing", "tapping out", "tapped out", "tap it out", "arm tapping"],
+      "triggers_medium": ["gesture", "point", "pointing", "sign"]
+    },
+    "verbal_prompt": {
+      "label": "Verbal prompt / Cue",
+      "triggers_high": ["verbal prompt", "verbal cue", "verbal reminder", "verbal support"],
+      "triggers_medium": ["prompt", "cue", "reminder", "coached", "hint"]
+    },
+    "physical_assist": {
+      "label": "Physical assistance",
+      "triggers_high": ["hand over hand", "hand-over-hand", "physical assist", "physical assistance", "physical guidance", "physical support", "guided her hand", "guided his hand"],
+      "triggers_medium": ["assisted physically", "helped hold"]
+    },
+    "modeling": {
+      "label": "Modeling / Demonstration",
+      "triggers_high": ["modeled", "modeling", "demonstration", "demonstrated", "showed how", "i do we do you do", "my turn your turn", "think aloud", "gradual release"],
+      "triggers_medium": ["model", "example", "showed"]
+    },
+    "one_on_one": {
+      "label": "1-on-1 support",
+      "triggers_high": ["one on one", "one-on-one", "1:1", "1-on-1", "1 on 1", "teacher table", "side by side"],
+      "triggers_medium": ["individually", "pulled aside"]
+    },
+    "small_group": {
+      "label": "Small group",
+      "triggers_high": ["small group", "group work", "guided group", "guided reading group", "table group", "math group", "reading group"],
+      "triggers_medium": ["group activity", "center group"]
+    },
+    "whole_group": {
+      "label": "Whole group",
+      "triggers_high": ["whole group", "whole class", "carpet time", "circle time", "morning meeting", "class discussion", "whole-group"],
+      "triggers_medium": ["large group"]
+    },
+    "partner": {
+      "label": "Partner / Buddy",
+      "triggers_high": ["with a partner", "turn and talk", "think pair share", "partner work", "buddy read", "buddy reading", "peer partner"],
+      "triggers_medium": ["partner", "buddy"]
+    },
+    "independent": {
+      "label": "Independent practice",
+      "triggers_high": ["independent practice", "independent work", "independently", "on his own", "on her own", "on their own", "independent center", "self directed", "self-directed", "work time"],
+      "triggers_medium": ["worked alone", "by himself", "by herself"]
+    },
+    "repetition": {
+      "label": "Repetition / Practice",
+      "triggers_high": ["repetition", "sound drill", "blending drill", "word chaining", "spiral review", "echo read", "choral read", "over and over"],
+      "triggers_medium": ["repeat", "practice", "drill", "rehearse", "review"]
+    },
+    "music_chant": {
+      "label": "Music / Chant / Song",
+      "triggers_high": ["counting song", "clapping song", "morning verse", "rhyme song", "song", "sang"],
+      "triggers_medium": ["chant", "music", "tune", "verse", "jingle"]
+    },
+    "sensory": {
+      "label": "Sensory support",
+      "triggers_high": ["wiggle seat", "wobble cushion", "noise cancelling", "sensory break", "movement break", "sensory bin", "calm down corner", "weighted lap pad", "brain break"],
+      "triggers_medium": ["fidget", "headphones", "chewy", "vest", "weighted"]
+    },
+    "reinforcement": {
+      "label": "Reinforcement / Rewards",
+      "triggers_high": ["token board", "first then", "first-then", "reward chart", "star chart", "positive reinforcement", "high five"],
+      "triggers_medium": ["sticker", "token", "praise", "praised", "reward", "earned"]
+    },
+    "chunking": {
+      "label": "Chunking / Task breakdown",
+      "triggers_high": ["broke it down", "broke down", "step by step", "one step at a time", "task breakdown", "smaller steps", "scaffolded"],
+      "triggers_medium": ["chunk", "segmented the task"]
+    }
+  },
+  "skills": {
+    "literacy": {
+      "phonics": { "triggers_high": ["phonics", "cvc", "decode", "sound out", "sounding out", "letter sound", "digraph", "phoneme grapheme"], "triggers_medium": ["blend", "sound", "segment"] },
+      "phonemic_awareness": { "triggers_high": ["phonemic awareness", "first sound", "segment orally", "onset rime", "onset and rime", "syllable segmentation", "rhyme", "rhyming", "rhyming words", "rhyming pairs"], "triggers_medium": ["syllable", "clap syllables"] },
+      "letter_knowledge": { "triggers_high": ["letter name", "letter id", "letter identification", "recognize letters", "name the letter", "name the letters", "named the letters", "uppercase letters", "lowercase letters", "alphabet knowledge"], "triggers_medium": ["alphabet", "uppercase", "lowercase"] },
+      "letter_formation": { "triggers_high": ["letter formation", "form letters", "form the letters", "forming letters", "reversal", "b and d", "d and b", "handwriting"], "triggers_medium": ["pencil control", "form the letter"] },
+      "sight_words": { "triggers_high": ["sight word", "heart word", "tricky word", "trick word", "red word", "high frequency word"], "triggers_medium": [] },
+      "fluency": { "triggers_high": ["fluency", "tracking print", "read with expression", "phrasing", "decodable reader", "decodable text", "read aloud", "read out loud", "reading aloud", "read to the class", "oral reading"], "triggers_medium": ["choppy", "expression", "decodable"] },
+      "reading_comprehension": { "triggers_high": ["reading comprehension", "comprehension", "retell", "retold", "main idea", "story elements", "answered questions about the story", "sequenced the story"], "triggers_medium": ["predict", "prediction", "recall"] },
+      "reading": { "triggers_high": ["read the passage", "read a book", "read the text", "guided reading"], "triggers_medium": ["big word", "big words"] },
+      "writing": { "triggers_high": ["writing", "wrote", "spelling", "invented spelling", "write a sentence", "wrote a sentence", "full sentence", "complete sentence", "dictation", "journal"], "triggers_medium": ["spacing", "label", "copy words", "sentence", "write"] }
+    },
+    "maths": {
+      "counting": { "triggers_high": ["count to", "counted to", "counting to", "counted", "counting", "rote count", "skip count", "count objects", "counting objects", "counted the", "counting the"], "triggers_medium": ["count"] },
+      "one_to_one": { "triggers_high": ["one to one", "one-to-one", "touch count", "point and count"], "triggers_medium": [] },
+      "number_recognition": { "triggers_high": ["number recognition", "numeral", "teen numbers", "recognize numbers", "number id"], "triggers_medium": ["numbers"] },
+      "addition": { "triggers_high": ["addition", "number bond", "make ten", "plus", "sum"], "triggers_medium": ["add", "adding", "join", "combine"] },
+      "subtraction": { "triggers_high": ["subtraction", "take away", "took away", "how many left", "minus"], "triggers_medium": ["subtract", "difference"] },
+      "subitizing": { "triggers_high": ["subitize", "subitizing", "dot cards", "ten frame", "quick images"], "triggers_medium": [] },
+      "shapes_patterns": { "triggers_high": ["ab pattern", "abc pattern", "extend the pattern", "extended the pattern", "2d shape", "3d shape", "geometry"], "triggers_medium": ["shape", "pattern", "sort", "sorting"] },
+      "measurement_comparison": { "triggers_high": ["measurement", "compare length", "compared", "longer than", "shorter than", "taller than", "taller", "shorter", "longer", "more than", "fewer than"], "triggers_medium": ["measure", "compare"] }
+    },
+    "behaviour": {
+      "self_regulation": { "triggers_high": ["self regulate", "self-regulate", "self regulation", "coping strategy", "calm down", "calming strategy", "deep breath", "meltdown", "big feelings", "struggled with the transition", "hard time transitioning"], "triggers_medium": ["regulate", "took a break", "transition", "transitions"] },
+      "engagement": { "triggers_high": ["on task", "off task", "off-task", "lost focus", "sustained attention", "stay on task"], "triggers_medium": ["engaged", "focused", "participated", "distracted", "attend"] }
+    },
+    "social": {
+      "collaboration": { "triggers_high": ["collaborate", "collaboration", "worked together", "cooperated", "teamwork"], "triggers_medium": ["team", "cooperation"] },
+      "communication": { "triggers_high": ["asked for help", "raised her hand", "raised his hand", "raised their hand", "verbalized", "used words to", "expressed"], "triggers_medium": ["communicate", "expressed", "greeted", "asked why", "asked a question", "wondered", "curious", "how does", "why does"] },
+      "turn_taking": { "triggers_high": ["took turns", "turn taking", "turn-taking", "waited for a turn", "gave a turn"], "triggers_medium": ["taking turns"] },
+      "sharing_cooperation": { "triggers_high": ["shared materials", "shared the", "willing to share", "grace and courtesy"], "triggers_medium": ["shared", "sharing", "share"] },
+      "peer_interaction": { "triggers_high": ["played with peers", "helped a peer", "helped a friend", "with a peer", "with peers", "with a friend", "joined the group", "comforted a friend"], "triggers_medium": ["peers", "peer", "friend"] },
+      "following_directions": { "triggers_high": ["followed directions", "following directions", "follow directions", "one step direction", "two step direction", "followed the routine", "did what was asked"], "triggers_medium": ["listened to instructions"] }
+    },
+    "motor": {
+      "fine_motor": { "triggers_high": ["fine motor", "pencil grip", "cutting", "cut with scissors", "cut along", "scissors", "tracing", "lacing", "pincer grasp"], "triggers_medium": ["traced", "beads", "buttons", "zipper"] },
+      "gross_motor": { "triggers_high": ["gross motor", "balance beam", "ball skills", "climbing", "hopping", "hopped", "on one foot", "balanced on one foot"], "triggers_medium": ["run", "jump", "hop", "skip", "climb", "throw", "catch", "balance"] }
+    },
+    "independence": {
+      "independence": { "triggers_high": ["without help", "without prompting", "without assistance", "self start", "self-start", "self help", "self-help"], "triggers_medium": ["independently", "on his own", "on her own", "zipped", "buttoned", "dressed", "put on", "put away", "poured", "tidied up", "cleaned up"] }
+    },
+    "problem_solving": {
+      "problem_solving": { "triggers_high": ["problem solve", "problem-solving", "problem solving", "figured out", "tried a new way", "trial and error"], "triggers_medium": ["strategy", "solution", "figure out", "persisted"] }
+    }
+  },
+  "outcomes": {
+    "positive": ["mastered", "independently", "confidently", "correct", "correctly", "accurate", "accurately", "improved", "improvement", "success", "successful", "successfully", "did well", "accomplished", "excelled", "achieved", "got it", "nailed it", "with ease", "no prompts", "consistent", "consistently", "made progress", "proud", "breakthrough", "was able to", "managed to", "finally able", "did it"],
+    "negative": ["struggled", "struggle", "distracted", "lost focus", "off task", "frustrated", "frustration", "gave up", "shut down", "avoided", "resisted", "difficulty", "difficult", "could not", "couldnt", "cant", "cannot", "unable", "confused", "failed", "refused", "reversed", "incorrect", "not yet", "hard time"]
+  },
+  "negations": ["not", "never", "no", "didnt", "doesnt", "dont", "without", "refused to", "no longer", "wouldnt", "wont", "hasnt", "isnt", "instead of"],
+  "action_verbs": ["wrote", "write", "writing", "counted", "count", "counting", "read", "reading", "shared", "share", "built", "build", "building", "made", "make", "drew", "draw", "drawing", "painted", "paint", "cut", "glued", "glue", "sorted", "sort", "matched", "match", "stacked", "stack", "poured", "pour", "zipped", "zip", "buttoned", "button", "tied", "tie", "climbed", "climb", "jumped", "jump", "hopped", "hop", "ran", "run", "threw", "throw", "caught", "catch", "kicked", "kick", "rolled", "roll", "asked", "ask", "answered", "answer", "told", "tell", "named", "name", "pointed", "point", "showed", "show", "helped", "help", "played", "play", "sang", "sing", "danced", "dance", "followed", "follow", "finished", "finish", "tried", "try", "solved", "solve", "fixed", "fix", "opened", "open", "washed", "wash", "cleaned", "clean", "traced", "trace", "colored", "color", "spelled", "spell", "measured", "measure", "compared", "compare", "balanced", "balance", "walked", "walk", "listened", "listen", "waited", "wait", "chose", "choose", "picked", "pick", "arranged", "arrange", "placed", "place"],
+  "abbreviations": {
+    "num line": "number line",
+    "wksht": "worksheet",
+    "ind": "independent",
+    "indep": "independent",
+    "sm grp": "small group",
+    "lg grp": "large group",
+    "wg": "whole group",
+    "sg": "small group",
+    "hoh": "hand over hand",
+    "b/c": "because",
+    "w/": "with",
+    "w/o": "without",
+    "1:1": "one on one",
+    "hf": "high frequency",
+    "hfw": "high frequency word"
+  },
+  "patterns": {
+    "score": "\\b(\\d+)\\s*(?:/|out of|of)\\s*(\\d+)\\b",
+    "percent": "\\b(\\d{1,3})\\s*%",
+    "first_time": "\\bfirst time\\b",
+    "attempts": "\\bon the (\\d+)(?:st|nd|rd|th) try\\b|\\bafter (\\d+) tries\\b",
+    "prompts": "\\b(\\d+)\\s+prompts?\\b"
+  }
+}

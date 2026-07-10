@@ -1,0 +1,58 @@
+{
+  "_comment": "DEV / tuning corpus for lexicon evaluation. `expected` = what a human teacher would intend, NOT what the engine currently produces — so a <100% score is expected and shows where to grow. methods list keys (with optional negated). You MAY tune the lexicon against these. The CI quality gate uses the HELD-OUT gold_corpus_test.json instead. Grow this toward 150-300 notes from real observations + lexicon_misses. Run: npm run lexicon:eval",
+  "lexicon": "1.2",
+  "notes": [
+    { "raw": "Emma sounded out the CVC word using picture cards", "expected": { "skills": ["phonics"], "methods": ["visual"], "outcome": "unknown" } },
+    { "raw": "Noah blended the sounds independently and got them all correct", "expected": { "skills": ["phonics"], "methods": ["independent"], "outcome": "positive" } },
+    { "raw": "Aisha read out loud to the class with expression", "expected": { "skills": ["fluency"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Liam identified rhyming words during our song", "expected": { "skills": ["phonemic_awareness"], "methods": ["music_chant"], "outcome": "unknown" } },
+    { "raw": "Emma wrote her name neatly on the paper", "expected": { "skills": ["writing"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Marcus reversed his b and d again in his handwriting", "expected": { "skills": ["letter_formation"], "methods": [], "outcome": "negative" } },
+    { "raw": "Aisha recognized 5 sight words on the flash cards", "expected": { "skills": ["sight_words"], "methods": ["visual"], "outcome": "positive" } },
+    { "raw": "Noah retold the story in the right order", "expected": { "skills": ["reading_comprehension"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Diego struggled to decode and gave up", "expected": { "skills": ["phonics"], "methods": [], "outcome": "negative" } },
+    { "raw": "Liam named all the uppercase letters", "expected": { "skills": ["letter_knowledge"], "methods": [], "outcome": "unknown" } },
+
+    { "raw": "Emma counted to 20 with one to one correspondence", "expected": { "skills": ["counting", "one_to_one"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Aisha used ten frames to subitize the dots", "expected": { "skills": ["subitizing"], "methods": ["kinesthetic"], "outcome": "unknown" } },
+    { "raw": "Noah solved the addition problem using a number bond", "expected": { "skills": ["addition"], "methods": ["visual"], "outcome": "unknown" } },
+    { "raw": "Liam compared which tower was taller", "expected": { "skills": ["measurement_comparison"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Emma extended the AB pattern correctly", "expected": { "skills": ["shapes_patterns"], "methods": [], "outcome": "positive" } },
+    { "raw": "Diego took away 3 and knew how many were left", "expected": { "skills": ["subtraction"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Aisha recognized the numeral 7", "expected": { "skills": ["number_recognition"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Marcus counted the days on the calendar", "expected": { "skills": ["counting"], "methods": [], "outcome": "unknown" } },
+
+    { "raw": "Emma stayed on task for the whole lesson", "expected": { "skills": ["engagement"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Diego had a meltdown during the transition", "expected": { "skills": ["self_regulation"], "methods": [], "outcome": "negative" } },
+    { "raw": "Noah used his coping strategy to calm down", "expected": { "skills": ["self_regulation"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Liam lost focus and became distracted", "expected": { "skills": ["engagement"], "methods": [], "outcome": "negative" } },
+    { "raw": "Aisha followed the two step direction", "expected": { "skills": ["following_directions"], "methods": [], "outcome": "unknown" } },
+
+    { "raw": "Emma took turns with a peer during the game", "expected": { "skills": ["turn_taking", "peer_interaction"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Noah shared the blocks willingly", "expected": { "skills": ["sharing_cooperation"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Diego asked for help when he was stuck", "expected": { "skills": ["communication"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Aisha comforted a friend who was upset", "expected": { "skills": ["peer_interaction"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Liam worked together with Sam to build a tower", "expected": { "skills": ["collaboration"], "methods": [], "outcome": "unknown" } },
+
+    { "raw": "Marcus used a proper pencil grip while writing", "expected": { "skills": ["fine_motor", "writing"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Emma cut along the line with scissors", "expected": { "skills": ["fine_motor"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Noah balanced on one foot for ten seconds", "expected": { "skills": ["gross_motor"], "methods": [], "outcome": "unknown" } },
+    { "raw": "Diego hopped on one foot across the room", "expected": { "skills": ["gross_motor"], "methods": [], "outcome": "unknown" } },
+
+    { "raw": "Emma did not respond to the visual schedule", "expected": { "skills": [], "methods": [{ "key": "visual", "negated": true }], "outcome": "unknown" } },
+    { "raw": "Noah worked in a small group but was off task", "expected": { "skills": ["engagement"], "methods": ["small_group"], "outcome": "negative" } },
+    { "raw": "Marcus needed hand over hand to form the letters", "expected": { "skills": ["letter_formation"], "methods": ["physical_assist"], "outcome": "unknown" } },
+    { "raw": "Diego used a first-then board to finish the work", "expected": { "skills": [], "methods": ["reinforcement"], "outcome": "unknown" } },
+    { "raw": "the class sang the alphabet song together", "expected": { "skills": ["letter_knowledge"], "methods": ["music_chant"], "outcome": "unknown" } },
+    { "raw": "Aisha practiced her sight words over and over", "expected": { "skills": ["sight_words"], "methods": ["repetition"], "outcome": "unknown" } },
+    { "raw": "the teacher broke the task into smaller steps for Liam", "expected": { "skills": [], "methods": ["chunking"], "outcome": "unknown" } },
+
+    { "raw": "Emma used the golden beads to add", "packs": ["montessori"], "expected": { "skills": ["addition"], "methods": ["kinesthetic"], "outcome": "unknown" } },
+    { "raw": "Aisha tapped out the sounds in the word", "packs": ["structured_literacy"], "expected": { "skills": ["phonemic_awareness"], "methods": ["gestural"], "outcome": "unknown" } },
+    { "raw": "we did a number talk about making ten", "packs": ["structured_math"], "expected": { "skills": [], "methods": ["whole_group", "verbal_prompt"], "outcome": "unknown" } },
+
+    { "raw": "Emma was able to write a full sentence today", "expected": { "skills": ["writing"], "methods": [], "outcome": "positive" } },
+    { "raw": "Noah mastered counting to 100", "expected": { "skills": ["counting"], "methods": [], "outcome": "positive" } },
+    { "raw": "Aisha got 8 out of 10 correct on the quiz", "expected": { "skills": [], "methods": [], "outcome": "positive" } }
+  ]
+}

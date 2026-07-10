@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "pack": "montessori",
+  "description": "Montessori vocabulary mapped onto core keys only. No new keys.",
+  "methods": {
+    "kinesthetic": { "triggers_high": ["golden beads", "bead chain", "moveable alphabet", "movable alphabet", "sandpaper letters", "number rods", "pink tower", "knobbed cylinders", "spindle box", "metal insets"], "triggers_medium": ["practical life material"] },
+    "modeling": { "triggers_high": ["presentation", "three-period lesson", "three period lesson"], "triggers_medium": ["presented the material"] },
+    "repetition": { "triggers_high": ["work cycle"], "triggers_medium": ["repeated the work", "returned to the work"] },
+    "independent": { "triggers_high": ["chose her work", "chose his work", "practical life work", "uninterrupted work"], "triggers_medium": ["work", "works", "chose work"] }
+  },
+  "skills": {
+    "literacy": {
+      "letter_formation": { "triggers_high": ["sandpaper letters", "moveable alphabet", "movable alphabet", "metal insets"] },
+      "phonics": { "triggers_high": ["sound game"], "triggers_medium": ["moveable alphabet", "movable alphabet"] }
+    },
+    "maths": {
+      "counting": { "triggers_high": ["number rods", "spindle box", "bead chain"] },
+      "addition": { "triggers_high": ["golden beads", "decimal system"] }
+    },
+    "motor": { "fine_motor": { "triggers_high": ["practical life", "pink tower", "knobbed cylinders", "metal insets", "pouring", "spooning", "buttoning frame"] } },
+    "social": {
+      "sharing_cooperation": { "triggers_high": ["grace and courtesy"] },
+      "following_directions": { "triggers_high": ["grace and courtesy"] }
+    },
+    "behaviour": { "engagement": { "triggers_high": ["uninterrupted work", "deep concentration"], "triggers_medium": ["normalization", "concentrated on the work"] } }
+  }
+}

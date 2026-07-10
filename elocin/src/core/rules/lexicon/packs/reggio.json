@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "pack": "reggio",
+  "description": "Reggio Emilia vocabulary mapped onto core keys only. No new keys.",
+  "methods": {
+    "kinesthetic": { "triggers_high": ["loose parts", "atelier", "atelierista", "light table", "wire sculpture", "clay work", "natural materials"], "triggers_medium": ["provocation", "invitation"] },
+    "independent": { "triggers_high": ["project work", "inquiry"], "triggers_medium": ["provocation", "invitation"] },
+    "partner": { "triggers_high": ["small-world play", "small world play", "collaborative project", "co-constructed"] }
+  },
+  "skills": {
+    "problem_solving": { "problem_solving": { "triggers_high": ["explored the provocation", "investigated", "tested an idea", "hypothesized"], "triggers_medium": ["wondered how", "wondered"] } },
+    "social": {
+      "peer_interaction": { "triggers_high": ["small world play", "collaborative project", "co-constructed"] },
+      "communication": { "triggers_high": ["made his thinking visible", "made her thinking visible", "documentation panel", "represented her idea", "represented his idea"] }
+    },
+    "motor": { "fine_motor": { "triggers_high": ["atelier", "clay work", "wire sculpture"], "triggers_medium": ["loose parts"] } }
+  }
+}

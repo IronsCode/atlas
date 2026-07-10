@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "pack": "highscope",
+  "description": "HighScope vocabulary mapped onto core keys only. No new keys.",
+  "methods": {
+    "chunking": { "triggers_high": ["plan-do-review", "plan do review"] },
+    "verbal_prompt": { "triggers_high": ["planning time", "recall time", "plan-do-review"], "triggers_medium": ["message board time"] },
+    "visual": { "triggers_high": ["planning board", "message board"] },
+    "independent": { "triggers_medium": ["work time"] }
+  },
+  "skills": {
+    "literacy": { "reading_comprehension": { "triggers_high": ["recall time"] } },
+    "behaviour": { "self_regulation": { "triggers_high": ["problem-solving approach", "problem solving approach"] } },
+    "social": { "communication": { "triggers_high": ["planning time", "recall time"] } }
+  }
+}

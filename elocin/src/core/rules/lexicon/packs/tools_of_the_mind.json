@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "pack": "tools_of_the_mind",
+  "description": "Tools of the Mind vocabulary mapped onto core keys only. No new keys.",
+  "methods": {
+    "visual": { "triggers_high": ["play plan", "planning board"] },
+    "partner": { "triggers_high": ["buddy reading", "buddy read"] },
+    "chunking": { "triggers_high": ["scaffolded writing"] }
+  },
+  "skills": {
+    "behaviour": { "self_regulation": { "triggers_high": ["play plan", "private speech", "freeze game", "self-regulation game"] } },
+    "literacy": {
+      "fluency": { "triggers_high": ["buddy reading"] },
+      "writing": { "triggers_high": ["scaffolded writing"] }
+    },
+    "motor": { "fine_motor": { "triggers_high": ["graphics practice"] } }
+  }
+}

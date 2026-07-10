@@ -1,0 +1,152 @@
+/* =============================================================================
+   Elocin design system — CSS custom properties
+   Proposed "Calm Intelligence" identity (teal / slate / coral / Inter).
+   Consume via var(--...). Components should reference the SEMANTIC tokens
+   (--color-brand, --color-text …), not the raw ramps, so a theme flip is a
+   one-file change. Light is default; .dark on <html> (or a data attribute)
+   remaps the semantic layer.
+   ============================================================================= */
+
+:root {
+  /* ---- Primitive ramps ---------------------------------------------------- */
+  --teal-50:#F0FDFA; --teal-100:#CCFBF1; --teal-200:#99F6E4; --teal-300:#5EEAD4;
+  --teal-400:#2DD4BF; --teal-500:#14B8A6; --teal-600:#0D9488; --teal-700:#0F766E;
+  --teal-800:#115E59; --teal-900:#134E4A; --teal-950:#042F2E;
+
+  --slate-50:#F8FAFC; --slate-100:#F1F5F9; --slate-200:#E2E8F0; --slate-300:#CBD5E1;
+  --slate-400:#94A3B8; --slate-500:#64748B; --slate-600:#475569; --slate-700:#334155;
+  --slate-800:#1E293B; --slate-900:#0F172A; --slate-950:#020617;
+
+  --coral-50:#FFF3F1; --coral-100:#FFE4E0; --coral-200:#FFCEC7; --coral-300:#FCA89D;
+  --coral-400:#FB8A7B; --coral-500:#F97366; --coral-600:#E85A4D; --coral-700:#C4453A;
+  --coral-800:#A03A31; --coral-900:#83332C;
+
+  --green-50:#F0FDF4; --green-500:#22C55E; --green-600:#16A34A; --green-700:#15803D;
+  --amber-50:#FFFBEB; --amber-500:#F59E0B; --amber-600:#D97706; --amber-700:#B45309;
+  --red-50:#FEF2F2;   --red-500:#EF4444;   --red-600:#DC2626;   --red-700:#B91C1C;
+  --sky-50:#F0F9FF;   --sky-500:#0EA5E9;   --sky-600:#0284C7;   --sky-700:#0369A1;
+
+  /* ---- Semantic (light) --------------------------------------------------- */
+  --color-bg:              #FCFCFB;
+  --color-surface:         #FFFFFF;
+  --color-surface-sunken:  var(--slate-50);
+  --color-border:          #E5E7EB;
+  --color-border-strong:   var(--slate-300);
+
+  --color-text:            var(--slate-900);
+  --color-text-muted:      var(--slate-500);
+  --color-text-subtle:     var(--slate-400);
+
+  --color-brand:           var(--teal-700);
+  --color-brand-hover:     var(--teal-800);
+  --color-brand-subtle:    var(--teal-50);
+  --color-on-brand:        #FFFFFF;
+
+  --color-accent:          var(--coral-500);
+  --color-accent-strong:   var(--coral-700);   /* use when text-on-accent is required */
+
+  --color-success:         var(--green-500);
+  --color-success-subtle:  var(--green-50);
+  --color-success-strong:  var(--green-700);
+  --color-warning:         var(--amber-500);
+  --color-warning-subtle:  var(--amber-50);
+  --color-warning-strong:  var(--amber-700);
+  --color-error:           var(--red-600);
+  --color-error-subtle:    var(--red-50);
+  --color-error-strong:    var(--red-700);
+  --color-info:            var(--sky-600);
+  --color-info-subtle:     var(--sky-50);
+
+  --focus-ring:            0 0 0 3px rgba(15,118,110,0.35);
+
+  /* ---- Typography --------------------------------------------------------- */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700;
+
+  --text-display: 3rem/3.25rem;   /* 48/52 */
+  --text-h1: 2.25rem/2.625rem;    /* 36/42 */
+  --text-h2: 1.75rem/2.25rem;     /* 28/36 */
+  --text-h3: 1.375rem/1.875rem;   /* 22/30 */
+  --text-h4: 1.125rem/1.625rem;   /* 18/26 */
+  --text-body-lg: 1.125rem/1.75rem;
+  --text-body: 1rem/1.5rem;
+  --text-body-sm: 0.875rem/1.25rem;
+  --text-caption: 0.8125rem/1.125rem;
+  --text-overline: 0.75rem/1rem;
+
+  /* ---- Spacing (4px grid) ------------------------------------------------- */
+  --space-0:0; --space-0-5:2px; --space-1:4px; --space-2:8px; --space-3:12px;
+  --space-4:16px; --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px;
+  --space-12:48px; --space-16:64px; --space-20:80px; --space-24:96px; --space-32:128px;
+
+  /* ---- Radius ------------------------------------------------------------- */
+  --radius-xs:4px; --radius-sm:6px; --radius-md:8px; --radius-lg:10px;
+  --radius-xl:12px; --radius-2xl:16px; --radius-full:9999px;
+
+  /* ---- Elevation (cool-tinted, soft) ------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(15,23,42,.04);
+  --shadow-sm: 0 1px 3px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
+  --shadow-md: 0 4px 12px rgba(15,23,42,.08);
+  --shadow-lg: 0 12px 32px -8px rgba(15,23,42,.12);
+  --shadow-xl: 0 24px 64px -16px rgba(15,23,42,.18);
+
+  /* ---- Motion ------------------------------------------------------------- */
+  --dur-fast:140ms; --dur-medium:220ms; --dur-slow:380ms;
+  --ease-standard: cubic-bezier(.2,.8,.2,1);
+  --ease-exit: cubic-bezier(.4,0,1,1);
+
+  /* ---- Data-viz categorical ---------------------------------------------- */
+  --viz-1:var(--teal-600); --viz-2:var(--slate-500); --viz-3:var(--coral-500);
+  --viz-4:var(--amber-500); --viz-5:var(--sky-600); --viz-6:#7C3AED;
+  --viz-7:var(--teal-300); --viz-8:var(--slate-400);
+
+  color-scheme: light;
+}
+
+/* =============================================================================
+   Dark theme — re-mapped semantics (not an inversion). Brand teal lightens,
+   borders + surface elevation carry hierarchy (shadows nearly disappear).
+   ============================================================================= */
+.dark, [data-theme="dark"] {
+  --color-bg:              #0B1220;
+  --color-surface:         #131C2B;
+  --color-surface-sunken:  #0E1626;
+  --color-border:          #26324A;
+  --color-border-strong:   var(--slate-700);
+
+  --color-text:            #E6EAF2;
+  --color-text-muted:      var(--slate-400);
+  --color-text-subtle:     var(--slate-500);
+
+  --color-brand:           var(--teal-400);
+  --color-brand-hover:     var(--teal-300);
+  --color-brand-subtle:    #0E2A28;
+  --color-on-brand:        #04231F;
+
+  --color-accent:          var(--coral-400);
+  --color-accent-strong:   var(--coral-300);
+
+  --color-success:         #4ADE80;
+  --color-success-subtle:  #0E2A1B;
+  --color-warning:         #FBBF24;
+  --color-warning-subtle:  #2A2110;
+  --color-error:           #F87171;
+  --color-error-subtle:    #2A1414;
+  --color-info:            #38BDF8;
+  --color-info-subtle:     #0C2233;
+
+  --focus-ring:            0 0 0 3px rgba(45,212,191,.40);
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.45);
+  --shadow-lg: 0 12px 32px -8px rgba(0,0,0,.55);
+  --shadow-xl: 0 24px 64px -16px rgba(0,0,0,.6);
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast:0ms; --dur-medium:0ms; --dur-slow:0ms; }
+}

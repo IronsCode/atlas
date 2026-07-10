@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "pack": "waldorf",
+  "description": "Waldorf vocabulary mapped onto core keys only. No new keys.",
+  "methods": {
+    "whole_group": { "triggers_high": ["main lesson", "circle time story"] },
+    "music_chant": { "triggers_high": ["morning verse", "main lesson book"], "triggers_medium": ["verse"] },
+    "gestural": { "triggers_high": ["eurythmy", "movement circle", "form drawing"] }
+  },
+  "skills": {
+    "literacy": {
+      "letter_formation": { "triggers_high": ["form drawing"] },
+      "reading_comprehension": { "triggers_high": ["circle time story"] }
+    },
+    "motor": {
+      "fine_motor": { "triggers_high": ["wet-on-wet painting", "wet on wet painting", "form drawing", "handwork"] },
+      "gross_motor": { "triggers_high": ["eurythmy", "movement circle"] }
+    }
+  }
+}

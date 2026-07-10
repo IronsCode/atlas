@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Never send path/query (e.g. a password-reset token) to cross-origin
+         resources (fonts/CDNs) via the Referer header. -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#4A7C59" />
+    <meta
+      name="description"
+      content="Elocin turns natural classroom observations into structured developmental evidence, student progress, and parent-ready reports — so early childhood teachers spend less time documenting and more time teaching."
+    />
+
+    <!-- Open Graph / social defaults (per-page values are set at runtime) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Elocin" />
+    <meta property="og:title" content="Elocin — Observation & documentation for early childhood educators" />
+    <meta
+      property="og:description"
+      content="Less time documenting, more time teaching. Turn classroom observations into meaningful student progress."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tabler icon webfont — the design system's mandated icon set, used by
+         the conference report (icon class strings come back from the API). -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css"
+    />
+    <title>Elocin — Observation & documentation for early childhood educators</title>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Elocin",
+        "applicationCategory": "EducationApplication",
+        "operatingSystem": "Web",
+        "description": "Observation and documentation platform for early childhood educators. Turn classroom observations into structured developmental evidence, student progress, and reports.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

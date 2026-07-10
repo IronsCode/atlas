@@ -1,0 +1,24 @@
+{
+  "dev": {
+    "notes": 45,
+    "skills_f1": 0.9639,
+    "skills_precision": 1,
+    "skills_recall": 0.9302,
+    "methods_f1": 1,
+    "methods_precision": 1,
+    "methods_recall": 1,
+    "outcome_accuracy": 0.9556,
+    "suggestion_precision": 0.2727
+  },
+  "test": {
+    "notes": 20,
+    "skills_f1": 0.963,
+    "skills_precision": 1,
+    "skills_recall": 0.9286,
+    "methods_f1": 1,
+    "methods_precision": 1,
+    "methods_recall": 1,
+    "outcome_accuracy": 0.95,
+    "suggestion_precision": 0.1111
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "pack": "structured_math",
+  "description": "Structured math (Eureka/EngageNY, Bridges, Math Expressions) mapped onto core keys only. No new keys.",
+  "methods": {
+    "visual": { "triggers_high": ["number bond", "quick images", "number path"] },
+    "kinesthetic": { "triggers_high": ["rekenrek", "number rack", "math workplaces"] },
+    "repetition": { "triggers_high": ["sprint", "fluency sprint"] },
+    "whole_group": { "triggers_high": ["number talk"] },
+    "verbal_prompt": { "triggers_high": ["number talk"] },
+    "small_group": { "triggers_medium": ["work places", "workplaces"] },
+    "independent": { "triggers_medium": ["math workplaces", "work places"] }
+  },
+  "skills": {
+    "maths": {
+      "addition": { "triggers_high": ["number bond", "make ten"] },
+      "subitizing": { "triggers_high": ["rekenrek", "number rack", "quick images", "dot cards"] }
+    }
+  }
+}

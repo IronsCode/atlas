@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#F7F5F0;--surface:#FFFFFF;--surface2:#F0EDE6;--border:#E2DDD5;
+  --ink:#1C2B3A;--ink2:#4A5568;--ink3:#8896A5;
+  --sage:#4A7C59;--sage-light:#EBF3EE;--sage-mid:#C5DEC9;
+  --amber:#E8960A;--amber-light:#FEF6E4;--amber-mid:#FADA8B;
+  --red:#C0392B;--red-light:#FDECEA;
+  --blue:#2C6FAC;--blue-light:#EBF2FA;
+  --radius:10px;--radius-sm:6px;
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:14px;color:var(--ink);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);padding:1rem 0}
+
+/* -- SHELL -- */
+.shell{border:0.5px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);display:flex;min-height:620px;box-shadow:0 4px 24px rgba(28,43,58,.07)}
+.sidebar{width:188px;flex-shrink:0;background:#1C2B3A;display:flex;flex-direction:column}
+.sb-top{padding:16px 14px 12px}
+.sb-logo{color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;gap:7px;letter-spacing:-.2px}
+.sb-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--sage)}
+.sb-ctx{color:#8896A5;font-size:11px;margin-top:3px}
+.sb-divider{height:0.5px;background:rgba(255,255,255,.08);margin:8px 0}
+.sb-section{font-size:10px;font-weight:500;color:#4A5568;text-transform:uppercase;letter-spacing:.07em;padding:10px 14px 4px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;font-size:13px;color:#8896A5;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;border-radius:0;transition:.12s}
+.ni:hover{color:#CBD5E0}
+.ni.on{background:rgba(74,124,89,.18);color:#81C995}
+.ni i{font-size:15px;flex-shrink:0}
+.sb-footer{margin-top:auto;padding:12px 14px;border-top:0.5px solid rgba(255,255,255,.06)}
+.role-chip{display:flex;align-items:center;gap:6px;font-size:11px;color:#8896A5}
+.role-dot{width:6px;height:6px;border-radius:50%;background:var(--sage)}
+
+/* -- MAIN -- */
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{padding:13px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface)}
+.tb-title{font-size:15px;font-weight:600;color:var(--ink)}
+.tb-sub{font-size:11px;color:var(--ink3);margin-top:1px}
+.tb-actions{display:flex;gap:8px}
+.btn-primary{background:var(--sage);color:#fff;border:none;border-radius:var(--radius-sm);padding:7px 14px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px}
+.btn-ghost{background:transparent;color:var(--ink2);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:7px 12px;font-size:13px;font-family:inherit;cursor:pointer}
+.content{padding:16px 18px;flex:1;overflow-y:auto}
+
+/* -- SCREEN ROUTING -- */
+.screen{display:none}.screen.on{display:block}
+
+/* -- UTILITY -- */
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
+.bg{background:var(--sage-light);color:var(--sage)}
+.ba{background:var(--amber-light);color:var(--amber)}
+.br{background:var(--red-light);color:var(--red)}
+.bb{background:var(--blue-light);color:var(--blue)}
+.bk{background:var(--surface2);color:var(--ink2)}
+.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:13px 15px;margin-bottom:10px}
+.card:last-child{margin-bottom:0}
+.card-c{cursor:pointer;transition:.12s}.card-c:hover{border-color:#C5DEC9;box-shadow:0 2px 8px rgba(74,124,89,.08)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.kpi{background:var(--surface2);border-radius:var(--radius-sm);padding:10px 12px;text-align:center}
+.kpi-v{font-size:22px;font-weight:600;color:var(--ink);line-height:1}
+.kpi-l{font-size:11px;color:var(--ink3);margin-top:2px}
+.kpi-s{font-size:11px;color:var(--ink2);margin-top:1px}
+.sec-lbl{font-size:11px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.sec-lbl i{font-size:13px}
+.divider{height:0.5px;background:var(--border);margin:12px 0}
+.pbar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.pbar-row:last-child{margin-bottom:0}
+.pbar-lbl{font-size:12px;color:var(--ink2);flex:1}
+.pbar-track{flex:2;height:7px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.pbar-fill{height:100%;border-radius:4px}
+.pbar-val{font-size:11px;color:var(--ink3);width:28px;text-align:right}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.av-sm{width:30px;height:30px}
+.av-md{width:38px;height:38px;font-size:13px}
+.av-a{background:#FAEEDA;color:#7B4F10}
+.av-g{background:#EBF3EE;color:#2E6644}
+.av-b{background:var(--blue-light);color:var(--blue)}
+.av-r{background:var(--red-light);color:var(--red)}
+.stu-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);cursor:pointer}
+.stu-row:last-child{border-bottom:none}
+.stu-name{font-size:13px;font-weight:500;color:var(--ink)}
+.stu-sub{font-size:11px;color:var(--ink3)}
+.obs-text{font-size:12px;color:var(--ink2);line-height:1.55;font-family:'Lora',serif;font-style:italic}
+.obs-meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px}
+.obs-date{font-size:11px;color:var(--ink3)}
+.conf-dot{width:7px;height:7px;border-radius:50%}
+.cd-hi{background:var(--sage)}.cd-mid{background:var(--amber)}.cd-lo{background:var(--red)}
+.insight{background:var(--sage-light);border:0.5px solid var(--sage-mid);border-radius:var(--radius);padding:10px 12px;display:flex;gap:8px;align-items:flex-start;margin-bottom:12px}
+.insight i{color:var(--sage);font-size:14px;flex-shrink:0;margin-top:1px}
+.insight span{font-size:12px;color:#2E5038;line-height:1.55}
+.warn{background:var(--amber-light);border:0.5px solid var(--amber-mid);border-radius:var(--radius);padding:9px 11px;display:flex;gap:7px;align-items:flex-start;margin-bottom:8px}
+.warn i{color:var(--amber);font-size:14px;flex-shrink:0;margin-top:1px}
+.warn span{font-size:12px;color:#5C3D00;line-height:1.5}
+.chip{padding:5px 11px;border-radius:20px;border:0.5px solid var(--border);font-size:12px;cursor:pointer;color:var(--ink2);background:var(--surface);font-family:inherit;transition:.12s}
+.chip.on{background:var(--sage-light);color:var(--sage);border-color:var(--sage-mid)}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+
+/* -- CAPTURE SCREEN -- */
+.obs-compose{background:var(--surface2);border:0.5px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px}
+.compose-ta{width:100%;min-height:76px;resize:none;border:none;background:transparent;font-size:13px;font-family:'Lora',serif;font-style:italic;color:var(--ink);line-height:1.6;outline:none}
+.compose-ta::placeholder{color:var(--ink3);font-style:italic}
+.compose-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.parse-pill{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3);padding:3px 8px;background:var(--surface);border-radius:20px;border:0.5px solid var(--border)}
+.parse-pill i{font-size:12px;color:var(--sage)}
+
+/* -- TIMELINE -- */
+.tl-item{display:flex;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border)}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.tl-body{flex:1}
+.tl-date{font-size:11px;color:var(--ink3);margin-bottom:2px}
+.tl-text{font-size:12px;color:var(--ink2);line-height:1.5}
+.tl-out{font-size:11px;color:var(--sage);margin-top:3px}
+
+/* -- PROGRESS BARS -- */
+.prog-wrap{margin-bottom:7px}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);margin-bottom:3px}
+.prog-track{height:7px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px}
+
+/* -- PARENT CARD -- */
+.parent-card{border:0.5px solid var(--border);border-radius:var(--radius);padding:13px 15px;margin-bottom:8px;background:var(--surface);cursor:pointer;transition:.12s}
+.parent-card:hover{border-color:var(--sage-mid);box-shadow:0 2px 8px rgba(74,124,89,.08)}
+.parent-prose{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:10px}
+.home-tip{border-left:2.5px solid var(--sage);padding:5px 10px;margin-bottom:6px;border-radius:0 4px 4px 0;background:var(--sage-light)}
+.home-tip-cat{font-size:10px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+.home-tip-text{font-size:12px;color:#2E5038;line-height:1.5}
+
+/* -- CONFERENCE -- */
+.conf-q{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px}
+.conf-q-lbl{font-size:11px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.conf-q-lbl i{font-size:13px}
+.conf-prose{font-size:13px;color:var(--ink2);line-height:1.7;font-family:'Lora',serif}
+.narrative{font-size:13px;line-height:1.75;color:var(--ink2);font-family:'Lora',serif}
+.subj-card{border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 11px;background:var(--surface2)}
+.subj-name{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;justify-content:space-between}
+
+/* -- MILESTONE -- */
+.ms-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:12px}
+.ms-item:last-child{border-bottom:none}
+.ms-icon{width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px}
+.ms-done{background:var(--sage-light);color:var(--sage)}
+.ms-pend{background:var(--surface2);color:var(--ink3)}
+.ms-flag{background:var(--amber-light);color:var(--amber)}
+.ms-label{color:var(--ink);line-height:1.4}
+.ms-sub{font-size:11px;color:var(--ink3);margin-top:1px}
+
+/* -- GOAL -- */
+.goal-item{padding:9px 0;border-bottom:0.5px solid var(--border)}
+.goal-item:last-child{border-bottom:none}
+.goal-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
+.goal-title{font-size:13px;font-weight:500;color:var(--ink)}
+.goal-pct{font-size:16px;font-weight:600}
+
+/* -- BACK -- */
+.back-btn{display:none;align-items:center;gap:3px;font-size:13px;color:var(--sage);cursor:pointer;border:none;background:none;padding:0;font-family:inherit;margin-bottom:12px}
+.back-btn.vis{display:flex}
+
+/* -- PRINT -- */
+@media print{.btn-primary,.btn-ghost{display:none}.shell{box-shadow:none;border:none;min-height:auto}.sidebar{display:none}}
+</style>
+</head>
+<body>
+
+<div class="shell" id="shell">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sb-top">
+      <div class="sb-logo"><span class="sb-logo-dot"></span>Elocin</div>
+      <div class="sb-ctx">Room 4 · Kindergarten · 2024–25</div>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-section">Workspace</div>
+    <button class="ni on" onclick="nav('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Dashboard</button>
+    <button class="ni" onclick="nav('capture',this)"><i class="ti ti-pencil-plus"></i>Add observation</button>
+    <button class="ni" onclick="nav('students',this)"><i class="ti ti-users"></i>Students</button>
+    <div class="sb-section">Reports</div>
+    <button class="ni" onclick="nav('conference',this)"><i class="ti ti-file-report"></i>Conference</button>
+    <button class="ni" onclick="nav('milestones',this)"><i class="ti ti-checkup-list"></i>Milestones</button>
+    <div class="sb-section">Admin</div>
+    <button class="ni" onclick="nav('admin',this)"><i class="ti ti-chart-pie"></i>Admin</button>
+    <div class="sb-footer">
+      <div class="role-chip"><span class="role-dot"></span>Ms. Patel · Teacher</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <button class="back-btn" id="bbtn" onclick="goBack()"><i class="ti ti-chevron-left"></i>Back</button>
+        <div class="tb-title" id="tbt">Dashboard</div>
+        <div class="tb-sub" id="tbs">Week of 14 Oct 2024</div>
+      </div>
+      <div class="tb-actions">
+        <button class="btn-ghost" onclick="window.print()"><i class="ti ti-printer" style="font-size:13px;margin-right:4px"></i>Print</button>
+        <button class="btn-primary" onclick="nav('capture',null)"><i class="ti ti-plus" style="font-size:14px"></i>Add note</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+<!-- -- DASHBOARD -- -->
+<div class="screen on" id="s-dashboard">
+  <div class="insight"><i class="ti ti-sparkles"></i><span>Marcus and Lily need active support this week. Kinesthetic methods are showing the strongest results across 3 students. 2 conference reports are ready.</span></div>
+  <div class="grid4" style="margin-bottom:14px">
+    <div class="kpi"><div class="kpi-v">18</div><div class="kpi-l">Students</div><div class="kpi-s">4 flagged</div></div>
+    <div class="kpi"><div class="kpi-v">47</div><div class="kpi-l">Notes this week</div><div class="kpi-s">32 teacher · 15 TA</div></div>
+    <div class="kpi"><div class="kpi-v">74%</div><div class="kpi-l">Avg confidence</div><div class="kpi-s">2 LOW flagged</div></div>
+    <div class="kpi"><div class="kpi-v">12</div><div class="kpi-l">Active goals</div><div class="kpi-s">3 on track</div></div>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="sec-lbl"><i class="ti ti-alert-circle"></i>Needs attention</div>
+      <div class="card">
+        <div class="stu-row" onclick="goStudent('Marcus')"><div class="av av-sm av-r">MA</div><div style="flex:1"><div class="stu-name">Marcus</div><div class="stu-sub">B/D reversal · counting 14–19</div></div><span class="badge br">Priority</span></div>
+        <div class="stu-row" onclick="goStudent('Lily')"><div class="av av-sm av-b">LI</div><div style="flex:1"><div class="stu-name">Lily</div><div class="stu-sub">Attention · large group</div></div><span class="badge ba">Monitor</span></div>
+        <div class="stu-row" onclick="goStudent('Emma')"><div class="av av-sm av-a">EM</div><div style="flex:1"><div class="stu-name">Emma</div><div class="stu-sub">Phonics without visual support</div></div><span class="badge bb">Progressing</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-lbl"><i class="ti ti-chart-bar"></i>Method effectiveness</div>
+      <div class="card">
+        <div class="pbar-row"><span class="pbar-lbl">Kinesthetic</span><div class="pbar-track"><div class="pbar-fill" style="width:84%;background:var(--sage)"></div></div><span class="pbar-val">84%</span></div>
+        <div class="pbar-row"><span class="pbar-lbl">1-on-1 guided</span><div class="pbar-track"><div class="pbar-fill" style="width:79%;background:var(--sage)"></div></div><span class="pbar-val">79%</span></div>
+        <div class="pbar-row"><span class="pbar-lbl">Visual / picture</span><div class="pbar-track"><div class="pbar-fill" style="width:72%;background:var(--blue)"></div></div><span class="pbar-val">72%</span></div>
+        <div class="pbar-row"><span class="pbar-lbl">Gestural</span><div class="pbar-track"><div class="pbar-fill" style="width:68%;background:var(--blue)"></div></div><span class="pbar-val">68%</span></div>
+        <div class="pbar-row"><span class="pbar-lbl">Group work</span><div class="pbar-track"><div class="pbar-fill" style="width:41%;background:var(--amber)"></div></div><span class="pbar-val">41%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-lbl" style="margin-top:14px"><i class="ti ti-list"></i>Recent observations</div>
+  <div class="card">
+    <div style="padding:8px 0;border-bottom:0.5px solid var(--border)"><div class="obs-meta"><span class="obs-date">Today · 1:10 pm</span><span class="badge bb">Maths</span><span class="badge bk">Teacher</span><span class="conf-dot cd-hi" style="margin-left:auto"></span></div><div class="obs-text">"Marcus confused b and d again — correct every time after bat-and-ball gesture."</div></div>
+    <div style="padding:8px 0;border-bottom:0.5px solid var(--border)"><div class="obs-meta"><span class="obs-date">Today · 9:35 am</span><span class="badge bb">Literacy</span><span class="badge bk">Teacher</span><span class="conf-dot cd-hi" style="margin-left:auto"></span></div><div class="obs-text">"Lily lost focus mid-lesson. Completed worksheet accurately when I sat 1-on-1."</div></div>
+    <div style="padding:8px 0"><div class="obs-meta"><span class="obs-date">Today · 9:05 am</span><span class="badge bb">Literacy</span><span class="badge ba">TA</span><span class="conf-dot cd-mid" style="margin-left:auto"></span></div><div class="obs-text">"Emma got 3/5 CVC blending with picture cards vs 1/5 without."</div></div>
+  </div>
+</div>
+
+<!-- -- CAPTURE -- -->
+<div class="screen" id="s-capture">
+  <div id="cap-toast"></div>
+  <div class="sec-lbl"><i class="ti ti-user"></i>Student</div>
+  <div class="chip-row" id="stu-chips">
+    <button class="chip" onclick="pc(this)">Emma</button>
+    <button class="chip" onclick="pc(this)">Noah</button>
+    <button class="chip" onclick="pc(this)">Lily</button>
+    <button class="chip" onclick="pc(this)">Marcus</button>
+    <button class="chip" onclick="pc(this)">Whole class</button>
+  </div>
+  <div class="sec-lbl"><i class="ti ti-books"></i>Domain</div>
+  <div class="chip-row" id="ctx-chips">
+    <button class="chip on" onclick="px(this)">Literacy</button>
+    <button class="chip" onclick="px(this)">Maths</button>
+    <button class="chip" onclick="px(this)">Behaviour</button>
+    <button class="chip" onclick="px(this)">Social</button>
+    <button class="chip" onclick="px(this)">Motor</button>
+  </div>
+  <div class="sec-lbl"><i class="ti ti-note"></i>Observation</div>
+  <div class="obs-compose">
+    <textarea class="compose-ta" id="obs-ta" placeholder="Write what you saw — any format, any length…" oninput="onType()" onblur="afterBlur()"></textarea>
+    <div class="compose-footer">
+      <span style="font-size:11px;color:var(--ink3)" id="wc">0 words</span>
+      <div class="parse-pill" id="parse-pill" style="display:none"><i class="ti ti-cpu"></i><span id="parse-pill-text">Analysing…</span></div>
+    </div>
+  </div>
+  <div id="nudge-area"></div>
+  <div style="display:flex;gap:8px">
+    <button class="btn-primary" onclick="submitObs()"><i class="ti ti-check" style="font-size:14px"></i>Save observation</button>
+    <button class="btn-ghost" onclick="clearCap()">Clear</button>
+  </div>
+</div>
+
+<!-- -- STUDENTS -- -->
+<div class="screen" id="s-students">
+  <div class="sec-lbl"><i class="ti ti-users"></i>Class roster — tap to view profile</div>
+  <div class="card">
+    <div class="stu-row" onclick="goStudent('Emma')"><div class="av av-sm av-a">EM</div><div style="flex:1"><div class="stu-name">Emma</div><div class="stu-sub">7 notes · evidence 39%</div></div><span class="badge bb">Progressing</span></div>
+    <div class="stu-row" onclick="goStudent('Noah')"><div class="av av-sm av-g">NO</div><div style="flex:1"><div class="stu-name">Noah</div><div class="stu-sub">3 notes · evidence 45%</div></div><span class="badge bg">On track</span></div>
+    <div class="stu-row" onclick="goStudent('Lily')"><div class="av av-sm av-b">LI</div><div style="flex:1"><div class="stu-name">Lily</div><div class="stu-sub">6 notes · evidence 37%</div></div><span class="badge ba">Monitor</span></div>
+    <div class="stu-row" onclick="goStudent('Marcus')"><div class="av av-sm av-r">MA</div><div style="flex:1"><div class="stu-name">Marcus</div><div class="stu-sub">9 notes · evidence 55%</div></div><span class="badge br">Priority</span></div>
+  </div>
+</div>
+
+<!-- -- STUDENT PROFILE -- -->
+<div class="screen" id="s-student"><div id="stu-content"></div></div>
+
+<!-- -- CONFERENCE -- -->
+<div class="screen" id="s-conference">
+  <div class="chip-row" id="conf-chips">
+    <button class="chip on" onclick="pconf(this,'Marcus')">Marcus</button>
+    <button class="chip" onclick="pconf(this,'Emma')">Emma</button>
+    <button class="chip" onclick="pconf(this,'Lily')">Lily</button>
+    <button class="chip" onclick="pconf(this,'Noah')">Noah</button>
+  </div>
+  <div id="conf-content"></div>
+</div>
+
+<!-- -- MILESTONES -- -->
+<div class="screen" id="s-milestones">
+  <div class="filter-row">
+    <button class="chip on" onclick="fms('all',this)">All</button>
+    <button class="chip" onclick="fms('literacy',this)">Literacy</button>
+    <button class="chip" onclick="fms('maths',this)">Maths</button>
+    <button class="chip" onclick="fms('social',this)">Social</button>
+    <button class="chip" onclick="fms('motor',this)">Motor</button>
+  </div>
+  <div class="card" id="ms-list"></div>
+</div>
+
+<!-- -- ADMIN -- -->
+<div class="screen" id="s-admin">
+  <div class="insight"><i class="ti ti-chart-pie"></i><span>Room 4 observation frequency is up 18% this month. Two students flagged for specialist review.</span></div>
+  <div class="grid4" style="margin-bottom:14px">
+    <div class="kpi"><div class="kpi-v">18</div><div class="kpi-l">Students</div><div class="kpi-s">1 class</div></div>
+    <div class="kpi"><div class="kpi-v">187</div><div class="kpi-l">Observations</div><div class="kpi-s">this term</div></div>
+    <div class="kpi"><div class="kpi-v">24</div><div class="kpi-l">Active goals</div><div class="kpi-s">12 on track</div></div>
+    <div class="kpi"><div class="kpi-v">11</div><div class="kpi-l">Parent opt-ins</div><div class="kpi-s">of 18</div></div>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="sec-lbl"><i class="ti ti-users"></i>Active users</div>
+      <div class="card">
+        <div class="stu-row" style="cursor:default"><div class="av av-sm av-b">MP</div><div style="flex:1"><div class="stu-name">Ms. Patel</div><div class="stu-sub">Teacher · 42 notes this week</div></div><span class="badge bg">Active</span></div>
+        <div class="stu-row" style="cursor:default"><div class="av av-sm av-g">JR</div><div style="flex:1"><div class="stu-name">J. Rivera</div><div class="stu-sub">TA · 14 notes this week</div></div><span class="badge bg">Active</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-lbl"><i class="ti ti-alert-triangle"></i>Specialist flags</div>
+      <div class="card">
+        <div style="padding:7px 0;border-bottom:0.5px solid var(--border)"><div class="obs-meta"><span class="stu-name" style="font-size:13px">Lily</span><span class="badge ba">Attention</span></div><div style="font-size:12px;color:var(--ink2)">Attention pattern observed 4× in 2 weeks. Possible SEND referral.</div></div>
+        <div style="padding:7px 0"><div class="obs-meta"><span class="stu-name" style="font-size:13px">Marcus</span><span class="badge br">Literacy</span></div><div style="font-size:12px;color:var(--ink2)">B/D reversal across 9 observations. Specialist review recommended.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+<script>
+var stk=[],selStu='',selCtx='Literacy';
+var POS=['correct','correctly','improved','better','did well','completed','accurate','100%','confident','settled'],NEG=['struggled','confused','wrong','error','couldn\'t','difficulty','lost','refused','distracted'];
+var SKILL_KW={phonics:['phonics','blending','cvc','decode'],letter_formation:['b and d','reversal','handwriting'],counting:['counting','count','number line'],addition:['addition','adding','cubes','number bonds'],engagement:['focus','attention','distracted','engaged'],behaviour:['behaviour','disruptive','carpet','settled']};
+var METHOD_KW={visual:['picture card','visual','flashcard'],kinesthetic:['manipulative','cubes','counters','hands-on'],gestural:['gesture','bat and ball','hand signal'],guided:['1-on-1','one-on-one','sat with','proximity'],independent:['independently','independent','alone'],group:['group','paired','partner']};
+function norm(t){return t.toLowerCase().replace(/\bcvc\b/gi,'cvc words').replace(/\bnum\s*line\b/gi,'number line').replace(/\b1[-\s]on[-\s]1\b/gi,'one-on-one').replace(/\bb\s*[&\/]\s*d\b/gi,'b and d').replace(/couldn'?t/gi,'could not')}
+function detectSkills(n){return Object.keys(SKILL_KW).filter(k=>SKILL_KW[k].some(kw=>n.includes(kw)))}
+function detectMethods(n){return Object.keys(METHOD_KW).filter(k=>METHOD_KW[k].some(kw=>n.includes(kw)))}
+function detectOutcome(n){var p=POS.some(k=>n.includes(k)),ng=NEG.some(k=>n.includes(k));return p&&ng?'mixed':p?'positive':ng?'negative':'unknown'}
+function scoreConf(s,sk,m,o){var c=(s?1:0)+(sk.length?1:0)+(m.length?1:0)+(o!=='unknown'?1:0);return{score:c,tier:c>=4?'HIGH':c>=2?'MEDIUM':'LOW'}}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));document.getElementById('s-'+id).classList.add('on')}
+function setTop(t,s,back){document.getElementById('tbt').textContent=t;document.getElementById('tbs').textContent=s||'Week of 14 Oct 2024';var bb=document.getElementById('bbtn');bb.classList.toggle('vis',back)}
+function curS(){var s=document.querySelector('.screen.on');return s?s.id.replace('s-',''):'dashboard'}
+
+function nav(id,el){
+  stk=[];
+  document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  else{var map={dashboard:0,capture:1,students:2,conference:3,milestones:4,admin:5};var nb=document.querySelectorAll('.ni');if(nb[map[id]])nb[map[id]].classList.add('on')}
+  var t={dashboard:'Dashboard',capture:'Add observation',students:'Students',conference:'Conference workspace',milestones:'Milestones',admin:'Admin dashboard'};
+  setTop(t[id]||id,'',false);
+  if(id==='conference')renderConf('Marcus');
+  if(id==='milestones')renderMilestones('all');
+  showScreen(id);
+}
+
+function goBack(){if(!stk.length)return;var p=stk.pop();showScreen(p.screen);setTop(p.title,p.sub||'',stk.length>0)}
+
+function goStudent(name){
+  stk.push({screen:curS(),title:document.getElementById('tbt').textContent});
+  var D={Emma:{av:'av-a',col:'#E8960A',ev:39,status:'Progressing',notes:[{d:'Today',t:'3/5 CVC blending with picture cards vs 1/5 without.',ctx:'Literacy',c:'HIGH'},{d:'Tue',t:'Addition with cubes — all 5 correct, first 100% this week.',ctx:'Maths',c:'HIGH'},{d:'Mon',t:'Did well today.',ctx:'Literacy',c:'LOW'}],methods:{visual:'HIGH',kinesthetic:'HIGH'},badM:['Auditory-only'],action:'Always pair phonics letter practice with picture cards. Remove scaffold gradually as accuracy improves.'},Noah:{av:'av-g',col:'#4A7C59',ev:45,status:'On track',notes:[{d:'Wed',t:'Blended 4/5 CVC words independently. Distracted in group.',ctx:'Literacy',c:'HIGH'},{d:'Mon',t:'Counted to 30 confidently.',ctx:'Maths',c:'MEDIUM'}],methods:{independent:'HIGH'},badM:['Group (distraction)'],action:'Prepare extension tasks. Seat independently during literacy.'},Lily:{av:'av-b',col:'#2C6FAC',ev:37,status:'Monitor',notes:[{d:'Today',t:'Lost focus mid-lesson. Accurate worksheet 1-on-1.',ctx:'Literacy',c:'HIGH'},{d:'Tue',t:'Cubes for maths — improved noticeably.',ctx:'Maths',c:'HIGH'},{d:'Mon',t:'Distracted at carpet again.',ctx:'Behaviour',c:'MEDIUM'}],methods:{guided:'HIGH',kinesthetic:'HIGH'},badM:['Large group'],action:'Proximity check-in at task start. Consider SENCo referral — pattern 4× in 2 weeks.'},Marcus:{av:'av-r',col:'#C0392B',ev:55,status:'Priority',notes:[{d:'Today',t:'Confused b and d (4th time). Correct after bat-and-ball gesture.',ctx:'Literacy',c:'HIGH'},{d:'Today',t:'Disruptive at carpet. Settled with 1-on-1 reminder.',ctx:'Behaviour',c:'HIGH'},{d:'Tue',t:'6 errors on counting worksheet, numbers 14–19.',ctx:'Maths',c:'HIGH'}],methods:{gestural:'HIGH',guided:'HIGH'},badM:['Written drill'],action:'Daily bat-ball anchor at lesson start. Desk number line 10–20 for all maths tasks.'}};
+  var s=D[name];if(!s)return;
+  var init=name.substring(0,2).toUpperCase();
+  var mH=Object.entries(s.methods).map(([k,v])=>`<span class="badge bg" style="margin-right:4px">${k} · ${v}</span>`).join('');
+  var bH=s.badM.map(m=>`<span class="badge br" style="margin-right:4px">${m}</span>`).join('');
+  var oH=s.notes.map(n=>`<div style="padding:7px 0;border-bottom:0.5px solid var(--border)"><div class="obs-meta"><span class="obs-date">${n.d}</span><span class="badge bb">${n.ctx}</span><span class="conf-dot ${n.c==='HIGH'?'cd-hi':n.c==='MEDIUM'?'cd-mid':'cd-lo'}" style="margin-left:auto"></span></div><div class="obs-text">"${n.t}"</div></div>`).join('');
+  document.getElementById('stu-content').innerHTML=`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div class="av av-md ${s.av}">${init}</div>
+      <div style="flex:1"><div style="font-size:16px;font-weight:600;color:var(--ink)">${name}</div><div style="font-size:12px;color:var(--ink3)">Kindergarten · ${s.notes.length} observations · evidence ${s.ev}%</div></div>
+      <span class="badge ${s.status==='Priority'?'br':s.status==='Monitor'?'ba':s.status==='Progressing'?'bb':'bg'}">${s.status}</span>
+    </div>
+    <div style="height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:14px"><div style="height:100%;width:${s.ev}%;background:${s.col};border-radius:3px;transition:width .4s"></div></div>
+    <div class="grid2" style="margin-bottom:12px">
+      <div class="card"><div class="sec-lbl" style="margin-bottom:6px"><i class="ti ti-check"></i>Effective methods</div>${mH}</div>
+      <div class="card"><div class="sec-lbl" style="margin-bottom:6px"><i class="ti ti-x"></i>Less effective</div>${bH}</div>
+    </div>
+    <div class="insight"><i class="ti ti-target"></i><span>${s.action}</span></div>
+    <div class="sec-lbl" style="margin-top:12px"><i class="ti ti-list"></i>Observation log</div>
+    <div class="card">${oH}</div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn-primary" onclick="stk.push({screen:'student',title:'${name}'});renderConf('${name}');document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.ni')[3].classList.add('on');setTop('Conference workspace','',true);showScreen('conference')"><i class="ti ti-file-report" style="font-size:14px"></i>Conference report</button>
+      <button class="btn-ghost" onclick="stk.push({screen:'student',title:'${name}'});nav('capture',null)">Add observation</button>
+    </div>`;
+  setTop(name+"'s profile",'',true);showScreen('student');
+}
+
+function renderConf(name){
+  document.querySelectorAll('#conf-chips .chip').forEach(b=>b.classList.remove('on'));
+  var btn=[...document.querySelectorAll('#conf-chips .chip')].find(b=>b.textContent===name);
+  if(btn)btn.classList.add('on');
+  var D={Marcus:{q1:'Marcus is making steady progress this term. His B/D letter reversal responds consistently to the bat-and-ball gesture — a reliable cue that works every time it\'s used. Counting accuracy above 13 and carpet behaviour are active focus areas.',q2:'The gestural correction for B/D reversal is showing consistent results across 9 observations. Behaviour at carpet has improved when given a quiet 1-on-1 prompt before group sessions.',q3:'Letter formation (B/D reversal), number recognition past 13, and carpet behaviour are the three active priorities.',q4:'Continue daily bat-ball anchor at lesson start. Place a desk number line 10–20 for all maths tasks. TA to provide quiet redirection before carpet time.'},Emma:{q1:'Emma is progressing confidently in maths and building her phonics foundation. Picture-supported tasks produce significantly better blending results than auditory-only instruction.',q2:'Visual scaffolding in phonics is working well — observed 7 times. Kinesthetic maths (cubes, counters) reached 100% accuracy this week for the first time.',q3:'CVC blending without visual support remains the primary literacy focus.',q4:'Always pair letter practice with picture cards. Gradually reduce visual support as accuracy improves. Continue kinesthetic maths approach.'},Lily:{q1:'Lily shows clear academic ability when settled and focused. Sustained attention in large-group settings is the primary barrier to performance.',q2:'Accuracy is strong when support is in place. Kinesthetic maths approaches have improved engagement noticeably mid-week.',q3:'Sustained attention in large-group settings and independent task initiation.',q4:'Proximity check-in at every task start. Consider SENCo referral — pattern observed 4× across 2 weeks.'},Noah:{q1:'Noah is performing strongly across all assessed areas. Reading and maths are both above expected grade level.',q2:'Phonics fluency and counting above 30 are confirmed strengths this term.',q3:'No urgent concerns. Extension material needed to maintain engagement.',q4:'Prepare 2–3 extension tasks per session. Seat independently during literacy.'}};
+  var s=D[name]||D.Marcus;
+  var avMap={Emma:'av-a',Noah:'av-g',Lily:'av-b',Marcus:'av-r'};
+  var colMap={Emma:'#E8960A',Noah:'#4A7C59',Lily:'#2C6FAC',Marcus:'#C0392B'};
+  var col=colMap[name]||'#4A7C59';
+  document.getElementById('conf-content').innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div class="av av-md ${avMap[name]||'av-g'}">${name.substring(0,2).toUpperCase()}</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600">${name}</div><div style="font-size:11px;color:var(--ink3)">Conference report · Week of 14 Oct 2024</div></div>
+      <button class="btn-ghost" onclick="window.print()" style="font-size:12px"><i class="ti ti-printer" style="font-size:13px;margin-right:4px"></i>Print</button>
+    </div>
+    <div class="conf-q"><div class="conf-q-lbl"><i class="ti ti-circle-number-1"></i>How is ${name} doing?</div><div class="conf-prose">${s.q1}</div></div>
+    <div class="conf-q"><div class="conf-q-lbl"><i class="ti ti-circle-number-2"></i>What progress has been made?</div><div class="conf-prose">${s.q2}</div></div>
+    <div class="conf-q"><div class="conf-q-lbl"><i class="ti ti-circle-number-3"></i>Where does ${name} need support?</div><div class="conf-prose">${s.q3}</div></div>
+    <div class="conf-q"><div class="conf-q-lbl"><i class="ti ti-circle-number-4"></i>What are the next recommended actions?</div><div class="conf-prose">${s.q4}</div></div>
+    <div class="card" style="margin-top:4px">
+      <div class="sec-lbl" style="margin-bottom:8px"><i class="ti ti-home"></i>Home support</div>
+      <div class="home-tip"><div class="home-tip-cat">Daily</div><div class="home-tip-text">Read together for 15 minutes. Ask open questions: "What did you notice?" rather than "How was school?"</div></div>
+      <div class="home-tip"><div class="home-tip-cat">Weekly</div><div class="home-tip-text">Practise the specific focus skill with hands-on materials where possible — short bursts work best.</div></div>
+      <div class="home-tip" style="margin-bottom:0"><div class="home-tip-cat">Communication</div><div class="home-tip-text">Celebrate attempts, not just results. "I noticed you kept trying" goes further than "well done."</div></div>
+    </div>
+    <button onclick="alert('AI narrative would generate here using Claude — only touchpoint in the report.')" style="width:100%;margin-top:10px;padding:9px;border-radius:var(--radius-sm);border:0.5px solid var(--sage-mid);background:var(--sage-light);color:var(--sage);font-size:13px;cursor:pointer;font-family:inherit;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px"><i class="ti ti-sparkles"></i>Generate parent-friendly narrative →</button>`;
+}
+
+var MS=[{cat:'literacy',t:'Recognises all 26 uppercase letters',s:'done'},{cat:'literacy',t:'Blends CVC words independently',s:'pending'},{cat:'literacy',t:'Retells a story with beginning, middle, end',s:'flag'},{cat:'maths',t:'Counts to 20 without support',s:'done'},{cat:'maths',t:'Adds within 10 using objects',s:'flag'},{cat:'maths',t:'Understands more/less',s:'done'},{cat:'social',t:'Takes turns in group activities',s:'done'},{cat:'social',t:'Resolves conflicts with support',s:'pending'},{cat:'motor',t:'Holds pencil with correct grip',s:'flag'},{cat:'motor',t:'Cuts along a straight line',s:'done'}];
+function renderMilestones(f){document.getElementById('ms-list').innerHTML=MS.filter(m=>f==='all'||m.cat===f).map(m=>`<div class="ms-item"><div class="ms-icon ${m.s==='done'?'ms-done':m.s==='flag'?'ms-flag':'ms-pend'}">${m.s==='done'?'✓':m.s==='flag'?'⚠':'○'}</div><div><div class="ms-label">${m.t}</div><div class="ms-sub">${m.cat.charAt(0).toUpperCase()+m.cat.slice(1)} · ${m.s==='done'?'Achieved':m.s==='flag'?'Needs attention':'In progress'}</div></div></div>`).join('')}
+function fms(f,el){document.querySelectorAll('#s-milestones .chip').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderMilestones(f)}
+function pconf(el,name){document.querySelectorAll('#conf-chips .chip').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderConf(name)}
+
+function pc(el){document.querySelectorAll('#stu-chips .chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');selStu=el.textContent}
+function px(el){document.querySelectorAll('#ctx-chips .chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');selCtx=el.textContent}
+function onType(){var v=document.getElementById('obs-ta').value;var w=v.trim().split(/\s+/).filter(Boolean).length;document.getElementById('wc').textContent=w+' word'+(w===1?'':'s');document.getElementById('parse-pill').style.display='none';document.getElementById('nudge-area').innerHTML=''}
+function afterBlur(){
+  var v=document.getElementById('obs-ta').value.trim();if(!v)return;
+  var n=norm(v);var sk=detectSkills(n);var me=detectMethods(n);var out=detectOutcome(n);var {score,tier}=scoreConf(selStu,sk,me,out);
+  var pp=document.getElementById('parse-pill');pp.style.display='flex';
+  document.getElementById('parse-pill-text').textContent=`${tier} confidence · ${sk.length} skill${sk.length!==1?'s':''} · ${me.length} method${me.length!==1?'s':''}`;
+  pp.style.background=tier==='HIGH'?'var(--sage-light)':tier==='MEDIUM'?'var(--amber-light)':'var(--red-light)';
+  pp.querySelector('i').style.color=tier==='HIGH'?'var(--sage)':tier==='MEDIUM'?'var(--amber)':'var(--red)';
+  var flags=[];
+  if(!selStu)flags.push('Select a student');
+  if(!sk.length)flags.push('Add a skill area');
+  if(!me.length)flags.push('Mention the method used');
+  if(out==='unknown')flags.push('Note the outcome');
+  document.getElementById('nudge-area').innerHTML=flags.length?`<div class="warn" style="margin-bottom:10px"><i class="ti ti-bulb"></i><span>${flags.join(' · ')}</span></div>`:'';
+}
+function submitObs(){var v=document.getElementById('obs-ta').value.trim();if(!v)return;var t=document.getElementById('cap-toast');t.innerHTML='<div style="background:var(--sage-light);border:0.5px solid var(--sage-mid);border-radius:var(--radius-sm);padding:9px 12px;font-size:12px;color:var(--sage);display:flex;align-items:center;gap:6px;margin-bottom:10px"><i class="ti ti-check"></i>Observation saved'+(selStu?' for '+selStu:'')+'. Profile updated.</div>';setTimeout(()=>{t.innerHTML=''},3000);clearCap()}
+function clearCap(){document.getElementById('obs-ta').value='';document.getElementById('wc').textContent='0 words';document.getElementById('nudge-area').innerHTML='';document.getElementById('parse-pill').style.display='none';document.querySelectorAll('#stu-chips .chip,#ctx-chips .chip').forEach(c=>c.classList.remove('on'));document.querySelector('#ctx-chips .chip').classList.add('on')}
+
+renderConf('Marcus');
+renderMilestones('all');
+</script>
+</html>

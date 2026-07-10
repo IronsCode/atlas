@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Elocin — Dashboard (mockup, real data only)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+svg.icon{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-0.15em}
+:root{
+  --bg:#F7F5F0;--surface:#FFFFFF;--surface2:#F0EDE6;--border:#E2DDD5;
+  --ink:#1C2B3A;--ink2:#4A5568;--ink3:#8896A5;
+  --sage:#4A7C59;--sage-light:#EBF3EE;
+  --amber:#E8960A;--danger:#C0392B;--info:#2C6FAC;
+  --radius:10px;--radius-sm:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+
+.note{max-width:1040px;margin:16px auto 0;font-size:12px;color:var(--ink3);padding:0 4px}
+.note b{color:var(--ink2)}
+
+.shell{max-width:1040px;margin:12px auto 40px;border:0.5px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);display:flex;min-height:640px;box-shadow:0 4px 24px rgba(28,43,58,.07)}
+
+/* sidebar — same structure as the real SidebarShell.jsx, icons added */
+.sidebar{width:208px;flex-shrink:0;background:#1C2B3A;display:flex;flex-direction:column}
+.sb-top{padding:20px 16px 12px}
+.sb-logo{color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
+.sb-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--sage)}
+.sb-org{color:#8896A5;font-size:12px;margin-top:4px;padding-left:16px}
+.sb-div{height:0.5px;background:rgba(255,255,255,.1);margin:12px 16px}
+.nav{flex:1;padding:4px 0}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13px;color:#8896A5;text-decoration:none;border-left:3px solid transparent}
+.ni svg.icon{width:16px;height:16px;flex-shrink:0}
+.ni.on{background:rgba(74,124,89,.18);color:var(--sage);border-left-color:var(--sage)}
+.ni:not(.on):hover{color:#CBD5E0}
+.sb-bottom{margin-top:auto;border-top:0.5px solid rgba(255,255,255,.1);padding:12px 16px}
+.role-row{display:flex;align-items:center;gap:6px;font-size:12px;color:#8896A5;margin-bottom:8px}
+.role-dot{width:6px;height:6px;border-radius:50%;background:var(--sage)}
+.signout{font-size:12px;color:var(--danger);background:none;border:none;cursor:pointer;padding:0;font-family:inherit}
+
+/* main */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{padding:16px 24px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.tb-title{font-size:17px;font-weight:600}
+.content{padding:24px;flex:1;overflow-y:auto}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.kpi{background:var(--surface2);border-radius:var(--radius-sm);padding:14px;text-align:center}
+.kpi svg.icon{width:20px;height:20px;color:var(--sage);margin-bottom:6px}
+.kpi-v{font-size:22px;font-weight:600;line-height:1}
+.kpi-l{font-size:12px;color:var(--ink3);margin-top:3px}
+
+.form-row{display:flex;gap:8px;margin-bottom:20px}
+.input{flex:1;border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13px;font-family:inherit;background:var(--surface)}
+.input::placeholder{color:var(--ink3)}
+.btn{background:var(--sage);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 16px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;display:flex;align-items:center;gap:6px}
+
+.sec-lbl{font-size:12px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+
+.classroom{display:flex;align-items:center;gap:12px;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;text-decoration:none;color:inherit;transition:.12s}
+.classroom:hover{border-color:#C5DEC9;box-shadow:0 2px 8px rgba(74,124,89,.08)}
+.classroom:last-child{margin-bottom:0}
+.classroom-icon{width:36px;height:36px;border-radius:8px;background:var(--sage-light);color:var(--sage);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.classroom-icon svg.icon{width:18px;height:18px}
+.classroom-name{font-weight:500;font-size:13px}
+.classroom-sub{font-size:11px;color:var(--ink3);margin-top:1px}
+.badge{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:4px 10px;border-radius:20px;background:var(--surface2);color:var(--ink2);font-weight:500}
+</style>
+</head>
+<body>
+
+<div class="note">
+  Mockup of <b>DashboardPage.jsx</b> + sidebar, using only fields the backend
+  actually returns (<code>GET /teams</code>: name, student_count,
+  obs_count_week, avg_confidence_score). No attendance / reading-level /
+  growth-score fields — those were explicitly rejected as fabricated in
+  Session 17. Icons are the only new visual element; no data model changed.
+</div>
+
+<div class="shell">
+  <div class="sidebar">
+    <div class="sb-top">
+      <div class="sb-logo"><span class="sb-logo-dot"></span>Elocin</div>
+    </div>
+    <div class="sb-org">Westfield Elementary</div>
+    <div class="sb-div"></div>
+    <div class="nav">
+      <a class="ni on" href="#"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+      <a class="ni" href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Milestones</a>
+      <a class="ni" href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>Admin</a>
+    </div>
+    <div class="sb-bottom">
+      <div class="role-row"><span class="role-dot"></span>Ms. Patel · owner</div>
+      <button class="signout">Sign out</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="tb-title">Your classrooms</div>
+    </div>
+    <div class="content">
+
+      <div class="kpi-grid">
+        <div class="kpi"><svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="kpi-v">47</div><div class="kpi-l">Students</div></div>
+        <div class="kpi"><svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg><div class="kpi-v">63</div><div class="kpi-l">Observations this week</div></div>
+        <div class="kpi"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l6-6"/><path d="M12 2v4"/></svg><div class="kpi-v">2.4</div><div class="kpi-l">Avg confidence score</div></div>
+      </div>
+
+      <div class="form-row">
+        <input class="input" placeholder="New classroom name">
+        <button class="btn"><svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create</button>
+      </div>
+
+      <div class="sec-lbl">Classrooms</div>
+
+      <a class="classroom" href="#">
+        <div class="classroom-icon"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
+        <div>
+          <div class="classroom-name">Room 4 — Kindergarten</div>
+          <div class="classroom-sub">18 students</div>
+        </div>
+        <span class="badge">18 students</span>
+      </a>
+      <a class="classroom" href="#">
+        <div class="classroom-icon"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
+        <div>
+          <div class="classroom-name">Room 7 — Grade 2</div>
+          <div class="classroom-sub">16 students</div>
+        </div>
+        <span class="badge">16 students</span>
+      </a>
+      <a class="classroom" href="#">
+        <div class="classroom-icon"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
+        <div>
+          <div class="classroom-name">Room 12 — Grade 4</div>
+          <div class="classroom-sub">13 students</div>
+        </div>
+        <span class="badge">13 students</span>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "pack": "creative_curriculum",
+  "description": "The Creative Curriculum / Teaching Strategies GOLD vocabulary mapped onto core keys only. No new keys.",
+  "methods": {
+    "modeling": { "triggers_high": ["intentional teaching card", "intentional teaching", "teaching card"] },
+    "music_chant": { "triggers_high": ["mighty minutes"] },
+    "whole_group": { "triggers_high": ["mighty minutes", "question of the day"], "triggers_medium": ["large group time"] },
+    "small_group": { "triggers_medium": ["center time", "centers", "center rotation"] },
+    "independent": { "triggers_medium": ["work station", "free choice center"] }
+  },
+  "skills": {
+    "behaviour": { "engagement": { "triggers_high": ["question of the day"] } },
+    "problem_solving": { "problem_solving": { "triggers_high": ["study investigation", "investigated the study"], "triggers_medium": ["study"] } },
+    "literacy": {
+      "reading": { "triggers_high": ["library center", "book center"] },
+      "writing": { "triggers_high": ["writing center", "message center"] }
+    },
+    "motor": { "fine_motor": { "triggers_high": ["art center", "manipulatives center", "toys and games center"] } }
+  }
+}

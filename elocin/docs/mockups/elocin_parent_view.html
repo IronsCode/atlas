@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Elocin — Parent view (mockup)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#F7F5F0;--surface:#FFFFFF;--surface2:#F0EDE6;--border:#E2DDD5;
+  --ink:#1C2B3A;--ink2:#4A5568;--ink3:#8896A5;
+  --sage:#4A7C59;--sage-light:#EBF3EE;--sage-mid:#C5DEC9;
+  --amber:#E8960A;--amber-light:#FEF6E4;
+  --radius:10px;--radius-sm:6px;
+  font-family:'DM Sans',system-ui,sans-serif;font-size:14px;color:var(--ink);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg)}
+
+/* no sidebar, no staff nav at all — this is its own unauthenticated-style
+   page reached via a private link/token, not a toggle inside the staff app */
+.page{max-width:480px;margin:0 auto;min-height:100vh;background:var(--surface);box-shadow:0 0 40px rgba(28,43,58,.06)}
+.header{padding:18px 20px 14px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header-logo{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink3)}
+.header-logo-dot{width:6px;height:6px;border-radius:50%;background:var(--sage)}
+
+.content{padding:18px 20px 32px}
+.title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.title{font-size:17px;font-weight:600}
+.sub{font-size:12px;color:var(--ink3);margin-bottom:16px}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;background:var(--sage-light);color:var(--sage)}
+
+.highlight{background:var(--sage-light);border:0.5px solid var(--sage-mid);border-radius:var(--radius);padding:13px 15px;margin-bottom:16px}
+.highlight-lbl{font-size:11px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.highlight-text{font-size:13px;color:#2E5038;line-height:1.6}
+
+.card{border:0.5px solid var(--border);border-radius:var(--radius);padding:15px 16px;margin-bottom:14px;background:var(--surface)}
+.card-lbl{font-size:11px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.prose{font-size:13px;color:var(--ink2);line-height:1.65}
+
+.tip{border-left:2.5px solid var(--sage);padding:6px 11px;margin-top:10px;border-radius:0 4px 4px 0;background:var(--sage-light)}
+.tip-cat{font-size:10px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+.tip-text{font-size:12px;color:#2E5038;line-height:1.5}
+
+.status-row{display:flex;gap:6px;flex-wrap:wrap}
+.badge.ba{background:var(--amber-light);color:var(--amber)}
+
+.footer-note{margin-top:20px;font-size:11px;color:var(--ink3);text-align:center;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="header">
+    <div class="header-logo"><span class="header-logo-dot"></span>Elocin</div>
+    <span style="font-size:11px;color:var(--ink3)">Shared by Ms. Patel</span>
+  </div>
+
+  <div class="content">
+    <div class="title-row">
+      <div class="title">Emma's weekly update</div>
+      <span class="badge"><i class="ti ti-trending-up" style="font-size:12px"></i>Improving</span>
+    </div>
+    <div class="sub">Week of 14 Oct · Room 4</div>
+
+    <div class="highlight">
+      <div class="highlight-lbl"><i class="ti ti-star"></i>This week's highlight</div>
+      <div class="highlight-text">Emma got all her addition questions right using counting cubes — her first 100% this term. We're so proud of this milestone.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lbl"><i class="ti ti-heart"></i>How Emma is doing</div>
+      <div class="prose">Emma is making steady progress. Her maths is coming on strongly with hands-on materials. In literacy she's still building phonics confidence and responds best when pictures are used alongside letters.</div>
+      <div class="tip">
+        <div class="tip-cat">Daily</div>
+        <div class="tip-text">Read together for 15 minutes. Point to both the letters and the pictures — this matches what works best for Emma in class.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-cat">Weekly</div>
+        <div class="tip-text">Try a simple addition game using household objects like buttons or coins — she loves hands-on counting.</div>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <span class="badge">Maths: improving</span>
+      <span class="badge ba">Phonics: practising</span>
+    </div>
+
+    <div class="footer-note">This is a private link shared with you by Emma's teacher.<br>It isn't part of the staff app and requires no login.</div>
+  </div>
+</div>
+
+</body>
+</html>

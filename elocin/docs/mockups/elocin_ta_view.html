@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Elocin — TA view (mockup)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#F7F5F0;--surface:#FFFFFF;--surface2:#F0EDE6;--border:#E2DDD5;
+  --ink:#1C2B3A;--ink2:#4A5568;--ink3:#8896A5;
+  --sage:#4A7C59;--sage-light:#EBF3EE;--sage-mid:#C5DEC9;
+  --amber:#E8960A;--amber-light:#FEF6E4;--amber-mid:#FADA8B;
+  --red:#C0392B;--red-light:#FDECEA;
+  --blue:#2C6FAC;--blue-light:#EBF2FA;
+  --radius:10px;--radius-sm:6px;
+  font-family:'DM Sans',system-ui,sans-serif;font-size:14px;color:var(--ink);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);padding:1rem 0}
+.shell{max-width:1040px;margin:0 auto;border:0.5px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);display:flex;min-height:620px;box-shadow:0 4px 24px rgba(28,43,58,.07)}
+
+/* sidebar — deliberately fewer items than the teacher sidebar: TA role has no Reports/Admin section at all */
+.sidebar{width:188px;flex-shrink:0;background:#1C2B3A;display:flex;flex-direction:column}
+.sb-top{padding:16px 14px 12px}
+.sb-logo{color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;gap:7px}
+.sb-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--sage)}
+.sb-ctx{color:#8896A5;font-size:11px;margin-top:3px}
+.sb-divider{height:0.5px;background:rgba(255,255,255,.08);margin:8px 0}
+.sb-section{font-size:10px;font-weight:500;color:#4A5568;text-transform:uppercase;letter-spacing:.07em;padding:10px 14px 4px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;font-size:13px;color:#8896A5;border:none;background:transparent;width:100%;text-align:left;font-family:inherit}
+.ni i{font-size:15px;flex-shrink:0}
+.ni.on{background:rgba(74,124,89,.18);color:#81C995}
+.sb-footer{margin-top:auto;padding:12px 14px;border-top:0.5px solid rgba(255,255,255,.06)}
+.role-chip{display:flex;align-items:center;gap:6px;font-size:11px;color:#8896A5}
+.role-dot{width:6px;height:6px;border-radius:50%;background:var(--amber)}
+
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{padding:13px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.tb-title{font-size:15px;font-weight:600}
+.tb-sub{font-size:11px;color:var(--ink3);margin-top:1px}
+.content{padding:16px 18px;flex:1;overflow-y:auto}
+
+.warn{background:var(--amber-light);border:0.5px solid var(--amber-mid);border-radius:var(--radius);padding:10px 12px;display:flex;gap:7px;align-items:flex-start;margin-bottom:14px}
+.warn i{color:var(--amber);font-size:14px;flex-shrink:0;margin-top:1px}
+.warn span{font-size:12px;color:#5C3D00;line-height:1.5}
+
+.sec-lbl{font-size:11px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:13px 15px;margin-bottom:10px}
+.card:last-child{margin-bottom:0}
+.chip{padding:5px 11px;border-radius:20px;border:0.5px solid var(--border);font-size:12px;cursor:pointer;color:var(--ink2);background:var(--surface);font-family:inherit}
+.chip.on{background:var(--sage-light);color:var(--sage);border-color:var(--sage-mid)}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.obs-compose{background:var(--surface2);border:0.5px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:14px}
+.compose-ta{width:100%;min-height:64px;resize:none;border:none;background:transparent;font-size:13px;font-family:'Lora',serif;font-style:italic;color:var(--ink);line-height:1.6;outline:none}
+.compose-ta::placeholder{color:var(--ink3);font-style:italic}
+.compose-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.btn-primary{background:var(--sage);color:#fff;border:none;border-radius:var(--radius-sm);padding:7px 14px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px}
+
+.obs-meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px}
+.obs-date{font-size:11px;color:var(--ink3)}
+.obs-text{font-size:12px;color:var(--ink2);line-height:1.55;font-family:'Lora',serif;font-style:italic}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
+.bb{background:var(--blue-light);color:var(--blue)}
+.ba{background:var(--amber-light);color:var(--amber)}
+.conf-dot{width:7px;height:7px;border-radius:50%}
+.cd-hi{background:var(--sage)}
+
+.stu-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border)}
+.stu-row:last-child{border-bottom:none}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;width:30px;height:30px}
+.av-a{background:#FAEEDA;color:#7B4F10}
+.av-g{background:#EBF3EE;color:#2E6644}
+.av-b{background:var(--blue-light);color:var(--blue)}
+.av-r{background:var(--red-light);color:var(--red)}
+.stu-name{font-size:13px;font-weight:500}
+.stu-sub{font-size:11px;color:var(--ink3)}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="sidebar">
+    <div class="sb-top">
+      <div class="sb-logo"><span class="sb-logo-dot"></span>Elocin</div>
+      <div class="sb-ctx">Room 4 · Kindergarten</div>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-section">Workspace</div>
+    <button class="ni on"><i class="ti ti-pencil-plus"></i>Add observation</button>
+    <button class="ni"><i class="ti ti-users"></i>Students</button>
+    <div class="sb-footer">
+      <div class="role-chip"><span class="role-dot"></span>J. Rivera · Teaching Assistant</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="tb-title">Add observation</div>
+        <div class="tb-sub">Room 4 · Kindergarten</div>
+      </div>
+    </div>
+    <div class="content">
+
+      <div class="warn"><i class="ti ti-info-circle"></i><span>TA access: you can add observations and view student profiles. Reports, milestones, and admin are teacher-only — those nav items don't exist in this account, they're not just hidden.</span></div>
+
+      <div class="sec-lbl"><i class="ti ti-user"></i>Student</div>
+      <div class="chip-row">
+        <button class="chip on">Emma</button>
+        <button class="chip">Noah</button>
+        <button class="chip">Lily</button>
+        <button class="chip">Marcus</button>
+        <button class="chip">Whole class</button>
+      </div>
+
+      <div class="sec-lbl"><i class="ti ti-books"></i>Domain</div>
+      <div class="chip-row">
+        <button class="chip on">Literacy</button>
+        <button class="chip">Maths</button>
+        <button class="chip">Behaviour</button>
+        <button class="chip">Social</button>
+      </div>
+
+      <div class="sec-lbl"><i class="ti ti-note"></i>Observation</div>
+      <div class="obs-compose">
+        <textarea class="compose-ta" placeholder="Write what you observed…"></textarea>
+        <div class="compose-footer">
+          <span style="font-size:11px;color:var(--ink3)">0 words</span>
+          <button class="btn-primary"><i class="ti ti-check" style="font-size:14px"></i>Save observation</button>
+        </div>
+      </div>
+
+      <div class="sec-lbl"><i class="ti ti-list"></i>My notes today</div>
+      <div class="card">
+        <div style="padding-bottom:8px;border-bottom:0.5px solid var(--border);margin-bottom:8px">
+          <div class="obs-meta"><span class="obs-date">1:30 pm</span><span class="badge bb">Maths</span><span class="conf-dot cd-hi" style="margin-left:auto"></span></div>
+          <div class="obs-text">"Emma used cubes for addition — all 5 correct. First 100% this week."</div>
+        </div>
+        <div>
+          <div class="obs-meta"><span class="obs-date">11:00 am</span><span class="badge ba">Behaviour</span><span class="conf-dot cd-hi" style="margin-left:auto"></span></div>
+          <div class="obs-text">"Marcus disruptive at carpet, poking kids. Settled after quiet 1-on-1 reminder."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

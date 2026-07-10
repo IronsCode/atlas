@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "pack": "structured_literacy",
+  "description": "Structured literacy (Fundations / Heggerty / UFLI / Orton-Gillingham / Wilson) mapped onto core keys only. No new keys.",
+  "methods": {
+    "gestural": { "triggers_high": ["tapping out", "tapped out", "tap it", "sky writing", "skywriting", "arm tapping"] },
+    "repetition": { "triggers_high": ["sound drill", "drill sounds", "blending drill", "echo read", "choral read", "word chains", "word chaining"] },
+    "visual": { "triggers_high": ["sound wall", "sound cards", "keyword card", "grapheme card", "elkonin boxes", "sound boxes"] },
+    "kinesthetic": { "triggers_high": ["elkonin boxes", "letter tiles", "magnetic letters", "magnetic tiles", "push the chips"] },
+    "modeling": { "triggers_high": ["i do we do you do", "my turn your turn"] }
+  },
+  "skills": {
+    "literacy": {
+      "phonemic_awareness": { "triggers_high": ["tapping out", "tap it", "elkonin boxes", "sound boxes", "segment the word", "phoneme grapheme"] },
+      "phonics": { "triggers_high": ["fundations", "heggerty", "ufli", "orton gillingham", "orton-gillingham", "og lesson", "sound drill", "grapheme", "nonsense word"] },
+      "sight_words": { "triggers_high": ["trick words", "red words", "heart words"] },
+      "fluency": { "triggers_high": ["decodable", "decodable reader", "phrase reading", "echo read", "choral read"] },
+      "writing": { "triggers_high": ["dictation", "encoding", "sound spelling"] },
+      "letter_formation": { "triggers_high": ["sky writing", "skywriting"] }
+    }
+  }
+}
