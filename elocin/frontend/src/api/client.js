@@ -71,7 +71,13 @@ async function downloadReportPdf(id) {
 }
 
 export const api = {
+  // Stages a pending signup + emails a verification link (no account/token yet).
   signup: (body) => request('/auth/signup', { method: 'POST', body, auth: false }),
+  // Validates the emailed link and returns the staged { email, org_name }.
+  verifySignup: (token) => request(`/auth/verify-signup/${token}`, { auth: false }),
+  // Sets the password → creates the org + owner and returns an auth token.
+  completeSignup: (token, body) =>
+    request(`/auth/verify-signup/${token}/complete`, { method: 'POST', body, auth: false }),
   signin: (body) => request('/auth/signin', { method: 'POST', body, auth: false }),
   me: () => request('/auth/me'),
   updateProfile: (body) => request('/auth/me', { method: 'PATCH', body }),

@@ -5,12 +5,21 @@
  * drives the milestone set, so it must be consistent — free text ('K' vs
  * 'Kindergarten' vs 'kinder') quietly breaks grouping/milestones. Every place
  * that enters a grade uses <GradeSelect>, which writes one of these canonical
- * values. Pre-K–2 first, but the full K–12 range is here for expansion.
+ * values.
+ *
+ * TRIAL SCOPE: capped at Pre-K–2 — the deterministic parser lexicon is tuned
+ * for pre-K–2, so exposing K–12 would let design partners log grades the engine
+ * can't tag well. To restore the full K–12 range for expansion, replace the
+ * Grade 1/2 entries with:
+ *   ...Array.from({ length: 12 }, (_, i) => ({ value: String(i + 1), label: `Grade ${i + 1}` }))
+ * (existing/legacy values outside this list are still preserved by GradeSelect,
+ * so narrowing the list never drops data already stored.)
  */
 export const GRADE_OPTIONS = [
   { value: 'Pre-K', label: 'Pre-K' },
   { value: 'K', label: 'Kindergarten' },
-  ...Array.from({ length: 12 }, (_, i) => ({ value: String(i + 1), label: `Grade ${i + 1}` }))
+  { value: '1', label: 'Grade 1' },
+  { value: '2', label: 'Grade 2' }
 ]
 
 /**

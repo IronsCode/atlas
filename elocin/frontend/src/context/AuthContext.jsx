@@ -30,8 +30,14 @@ export function AuthProvider({ children }) {
     setOrganization(data.organization)
   }, [])
 
+  // Signup no longer logs in — it only triggers the verification email. The
+  // session is established later by completeSignup (after the email link).
   const signUp = useCallback(async (fields) => {
-    const data = await api.signup(fields)
+    return api.signup(fields)
+  }, [])
+
+  const completeSignup = useCallback(async (verifyToken, password) => {
+    const data = await api.completeSignup(verifyToken, { password })
     setToken(data.token)
     setUser(data.user)
     setOrganization(data.organization)
@@ -55,7 +61,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, organization, loading, signIn, signUp, signOut, acceptInvite, updateUser, updateOrganization }}
+      value={{ user, organization, loading, signIn, signUp, completeSignup, signOut, acceptInvite, updateUser, updateOrganization }}
     >
       {children}
     </AuthContext.Provider>

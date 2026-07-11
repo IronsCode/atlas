@@ -83,30 +83,31 @@ describe('auth hardening (requires DB)', { skip: !DB_AVAILABLE }, () => {
   test('reset-password: valid token sets new password, is single-use, and auto-logs-in', async () => {
     const u = await freshUser()
     const raw = await injectResetToken(u.user.id)
-    const r = await post('/auth/reset-password', { token: raw, new_password: 'brandnewpass1' })
+    const r = await post('/auth/reset-password', { token: raw, new_password: 'Brandnewpass1!' })
     assert.equal(r.status, 200)
     const body = await r.json()
     assert.ok(body.token, 'returns an auth token (auto-login)')
     // single-use: the same token cannot be replayed
-    const replay = await post('/auth/reset-password', { token: raw, new_password: 'anotherpass1' })
+    const replay = await post('/auth/reset-password', { token: raw, new_password: 'Anotherpass1!' })
     assert.equal(replay.status, 400)
     // the new password works
-    const signin = await post('/auth/signin', { email: u.user.email, password: 'brandnewpass1' })
+    const signin = await post('/auth/signin', { email: u.user.email, password: 'Brandnewpass1!' })
     assert.equal(signin.status, 200)
   })
 
   test('reset-password: expired token is rejected', async () => {
     const u = await freshUser()
     const raw = await injectResetToken(u.user.id, { expiresSql: "NOW() - INTERVAL '1 minute'" })
-    const r = await post('/auth/reset-password', { token: raw, new_password: 'whatever123' })
+    const r = await post('/auth/reset-password', { token: raw, new_password: 'Whatever123!' })
     assert.equal(r.status, 400)
   })
 
   test('reset-password: invalid token and short password are rejected', async () => {
-    const bad = await post('/auth/reset-password', { token: 'deadbeef', new_password: 'longenough1' })
+    const bad = await post('/auth/reset-password', { token: 'deadbeef', new_password: 'Longenough1!' })
     assert.equal(bad.status, 400)
     const u = await freshUser()
     const raw = await injectResetToken(u.user.id)
+    // Fails the strength policy (no uppercase/number/special) → 400.
     const short = await post('/auth/reset-password', { token: raw, new_password: 'short' })
     assert.equal(short.status, 400)
   })
@@ -116,7 +117,7 @@ describe('auth hardening (requires DB)', { skip: !DB_AVAILABLE }, () => {
     assert.equal((await me(u.token)).status, 200)
     await sleep(1100)                          // cross a whole-second boundary
     const raw = await injectResetToken(u.user.id)
-    const r = await post('/auth/reset-password', { token: raw, new_password: 'freshpass123' })
+    const r = await post('/auth/reset-password', { token: raw, new_password: 'Freshpass123!' })
     const { token: newToken } = await r.json()
     assert.equal((await me(u.token)).status, 401, 'old token invalidated')
     assert.equal((await me(newToken)).status, 200, 'reset-issued token works')
@@ -138,7 +139,7 @@ describe('auth hardening (requires DB)', { skip: !DB_AVAILABLE }, () => {
     const u = await freshUser()               // signup password = testpassword123
     await sleep(1100)
     const r = await post('/auth/change-password',
-      { current_password: 'testpassword123', new_password: 'changedpass1' }, u.token)
+      { current_password: 'testpassword123', new_password: 'Changedpass1!' }, u.token)
     assert.equal(r.status, 200)
     const { token: newToken } = await r.json()
     assert.ok(newToken, 'change-password returns a fresh token')

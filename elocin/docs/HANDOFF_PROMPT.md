@@ -1,7 +1,7 @@
 # Claude Handoff Prompt
 
 Paste everything in the code block below into a fresh Claude Code session
-(with the Elocin repo open) to continue the Post-S33 gated program.
+(with the Elocin repo open) to continue the Post-S35 gated program.
 
 ---
 
@@ -14,9 +14,10 @@ without a real backing field; when a plan conflicts with a LOCKED interface or
 the stored seed parses, STOP and show me the conflict instead of resolving it
 silently.
 
-WHERE THINGS STAND (Post-S34 — M0/M1A/M1B GREEN; GO-LIVE hardening DONE; remaining
+WHERE THINGS STAND (Post-S35 — M0/M1A/M1B GREEN; GO-LIVE hardening DONE; email-verified signup +
+password policy DONE; remaining
 before pilots is OPERATIONAL deploy, not code — see "## Session 34" in PROJECT_STATE):
-- Tests: ~221 across 20 suites, all green. RUN PER-FILE (node --env-file=.env --test
+- Tests: ~225 across 21 suites, all green. RUN PER-FILE (node --env-file=.env --test
   src/tests/<name>.test.js) — the all-files glob contends on the local DB pool and
   can hang; that's an env quirk, not a failure. Suites added since S33: interpretations,
   telemetry, settings, crud, stage0_tools, authHardening, emailReset, users. Frontend
@@ -63,6 +64,16 @@ GATED PROGRAM (advance only on acceptance criteria, never calendar):
   EditClassroomModal.jsx (used by BOTH the classroom page and Admin; Admin classroom rows
   have Edit + Delete). Add-student is a modal (right-aligned button). Docs: docs/LAUNCH.md
   (go-live runbook), docs/WORKING_STATE.md (live ops + ADDITIVE-migration rules).
+- AUTH / SIGNUP ✅ (S35) — signup is VERIFY-FIRST. POST /auth/signup {org_name, full_name, email}
+  only STAGES a pending_signups row (migration 017, additive) + emails a link (Resend live /
+  dev SAMPLE-MODE logs it); the org+owner are created ONLY after the email is verified AND a
+  password is set (GET /auth/verify-signup/:token, POST /auth/verify-signup/:token/complete) —
+  enumeration-safe, no orphan orgs. A SHARED PASSWORD POLICY (lib/password.js: >=8 + upper +
+  lower + number + special) is enforced on ALL set-password paths (signup-complete, reset,
+  change-password, invite-accept) with a live checklist. Frontend: SignUpPage (email-only) +
+  new VerifyEmailPage (/verify-email). NOTE: the shared test FIXTURE now seeds org+owner
+  DIRECTLY in the DB then signs in (signup is email-gated); TEST_PASSWORD stays testpassword123.
+  auth.test.js stages pending_signups rows directly (the emailed token isn't readable).
 
 ENGINE (unchanged, still the core; deterministic, no LLM): versioned LEXICON v1.3
 (core/rules/lexicon/core.v1.json + 8 packs + normalize.js, driven by parseObservation.js).
@@ -107,8 +118,8 @@ DEV ENVIRONMENT:
   Vite grabs 5174, API calls silently fail). Check lsof before starting; don't kill a
   dev server you didn't start.
 - DB reset (LOCAL): drop+recreate elocin, then `npm run migrate` — it now runs migrations
-  001,003–014 then 002_seed (the demo seed runs LAST) then the interpretations backfill.
-  For PROD use `npm run migrate:prod` (schema only, 001+003–014, NO seed/backfill).
+  001, 003–014, 016, 017 then 002_seed (the demo seed runs LAST) then the interpretations backfill.
+  For PROD use `npm run migrate:prod` (schema only, 001, 003–014, 016, 017, NO seed/backfill).
 - After ANY lexicon change: `npm run lexicon:seed` (regenerates 002_seed.sql AND the
   regression fixture), reload the dev DB, then `npm test` + `npm run lexicon:eval`. Bump
   the lexicon version + docs/LEXICON_CHANGELOG.md + the p.lexicon assertion in

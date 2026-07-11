@@ -1,5 +1,23 @@
 # Elocin — Project State
-**Updated:** Session 34 (2026-07-10) — **GO-LIVE hardening + account/goals/settings
+**Updated:** Session 35 (2026-07-11) — **Email-verified signup + a global password
+policy; first git baseline; S34 verification pass.** Signup is now **verify-first**:
+`POST /auth/signup` takes only `{org_name, full_name, email}`, stages a `pending_signups`
+row (migration **017**, additive) and emails a verification link (**Resend** live / dev
+SAMPLE-MODE logs it). The org + owner are created **only after** the email is verified AND
+a password is set (`GET /auth/verify-signup/:token`, `POST /auth/verify-signup/:token/complete`)
+— **enumeration-safe** (identical 202 for taken/new emails), no orphan orgs/users. A shared
+**password policy** (`lib/password.js`: ≥8 + uppercase + lowercase + number + special) is
+enforced on **every** set-password path (signup-complete, reset, change-password,
+invite-accept), each with a live requirements checklist. Also: the whole `elocin/` tree was
+**committed to git for the first time** (baseline `c57e1a7`, local `main`, **no remote yet**;
+the signup work on top is **still uncommitted**); the full suite was re-run per-file
+(**225 passing / 21 suites** — corrects the stale 188/194 counts below); and the S34 UI
+(dashboard outcomes tile, goals add/edit/mark-achieved, rebuilt Settings) was
+**screenshot-verified**. Remaining before pilots is still **operational** (deploy
+Neon/Render/Vercel/Resend, verify the sending domain, backup + restore drill). Prior phase =
+the M0→M1A→M1B gated program (below).
+
+**Prior update:** Session 34 (2026-07-10) — **GO-LIVE hardening + account/goals/settings
 UX.** Auth hardened end-to-end (password reset via **Resend**, `password_changed_at`
 JWT session-invalidation, in-memory rate limiting, security headers, weak-secret +
 email-config boot guards, 24h HS256 tokens); **encrypted, restore-verified backups**;
@@ -59,9 +77,9 @@ gated program (below).
   not an inline form. Docs added: `docs/LAUNCH.md` (go-live runbook) +
   `docs/WORKING_STATE.md` (live ops / additive-migration rules). New npm scripts:
   `migrate:prod` (schema only — NO demo seed), `metrics`, `baseline`.
-- **Validation:** **~194 tests across 16 suites, all green** (run per-file; the
+- **Validation:** **225 tests across 21 suites, all green** (run per-file; the
   all-files glob contends on the local DB pool). New suites since M1A:
-  `interpretations`, `telemetry`, `settings`, `crud`. Frontend build + lint clean.
+  `interpretations`, `telemetry`, `settings`, `crud`, `password`. Frontend build + lint clean.
 
 **NEXT PHASE — GO LIVE (gated, not yet started).** Elocin still runs **locally
 only**. Order:
@@ -422,6 +440,63 @@ events (or a maintained projection table refreshed from them); the
 existing `observation_audit` table is the closest thing already in the
 schema to this pattern (append-only, alongside a mutable `observations`
 row) and is the natural starting reference point.
+
+---
+
+## Session 35 — Email-verified signup + global password policy (2026-07-11)
+
+Three arcs: (A) first **git baseline** + a **verification pass** on Session 34's work, then
+(B) a new **verify-first signup** flow with (C) a **shared password policy** across every
+password-setting path. **225 tests / 21 suites green; frontend build + lint clean.** The
+signup work is **not yet committed** (baseline commit `c57e1a7` predates it — ask before
+committing).
+
+**A. Baseline + verification (the launch-prep steps 1–3):**
+- **Git:** the previously-untracked `elocin/` tree is now committed — baseline `c57e1a7` on
+  local `main` (root repo `/Users/duwanirons/Desktop/atlas`; added a root `.gitignore` for
+  `.DS_Store`/`.claude`; only `.env.example` tracked, real `.env` excluded). **No remote
+  configured yet** — P3 deploy needs one (VS Code "Publish to GitHub" → **private** repo,
+  student data).
+- **Tests:** re-ran per-file — **221/20 at the baseline commit**, **225/21** after this
+  session. Corrected stale counts (LAUNCH said 188; S34 said ~194).
+- **Screenshots:** S34 UI verified live (dashboard "This week's outcomes" tile, PersonPage
+  Add-goal + Goals-tab Edit/Mark-achieved, rebuilt 4-section Settings).
+
+**B. Verify-first signup (migration 017 `pending_signups`, additive):**
+- `POST /auth/signup` `{org_name, full_name, email}` → stages a `pending_signups` row
+  (SHA-256 token hash, 24h expiry) + fires `sendSignupVerification` (Resend live /
+  SAMPLE-MODE). **No account, no password, no token** here. **Enumeration-safe:** identical
+  202 whether or not the email is taken; a pending row + email are only produced for a
+  genuinely new address; a re-signup replaces the prior pending row.
+- `GET /auth/verify-signup/:token` → validates + stamps `email_verified_at`, returns
+  `{email, org_name, full_name}` (409 if the email got claimed meanwhile).
+- `POST /auth/verify-signup/:token/complete` `{password}` → requires verified + valid policy,
+  creates org + owner **in one transaction** (re-checks the email inside the txn to avoid a
+  race), deletes the pending row, auto-logs-in (same shape as signin). Org/owner only ever
+  exist verified.
+- Frontend: `SignUpPage` collects email-only → "Check your email" state; new `VerifyEmailPage`
+  (`/verify-email?token=`) validates on mount (strips the token from the URL like
+  ResetPassword), shows the set-password form with the live checklist; `AuthContext.signUp` no
+  longer logs in (just requests verification) + new `completeSignup`; `api.signup`/
+  `verifySignup`/`completeSignup`.
+
+**C. Shared password policy (`lib/password.js`, both sides):**
+- Rules: **≥8 chars + uppercase + lowercase + number + special char.** `validatePassword()`
+  server-side (authoritative) on signup-complete, **reset-password, change-password, and
+  invite-accept** (replaced the old `length < 8` checks). change-password verifies the current
+  password **first** (a wrong current still 403s regardless of new-password strength). Frontend
+  mirror (`frontend/src/lib/password.js`) + `components/PasswordRequirements.jsx` checklist on
+  signup / reset / invite / Settings.
+- Tests: new `password.test.js` (validator unit, 3), rewrote `auth.test.js` for the staged
+  flow (stages `pending_signups` rows directly — the emailed token isn't readable), reworked
+  the shared **fixture** to seed org+owner **directly in the DB** + sign in (real signup is now
+  two-step/email-gated; `TEST_PASSWORD` kept as `testpassword123` so existing current-password
+  assertions hold), and made every new-password in settings/authHardening/users
+  policy-compliant.
+
+**Follow-ups:** push to a **private** GitHub remote before deploy; `sendStaffInvite` is still
+SAMPLE-MODE (wire to Resend like the others when needed); consider a `pending_signups` expiry
+sweep (harmless to leave, but rows accumulate).
 
 ---
 

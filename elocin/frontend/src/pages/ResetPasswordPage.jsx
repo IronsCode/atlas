@@ -4,6 +4,8 @@ import { api, setToken } from '../api/client.js'
 import { Card } from '../components/ui/Card.jsx'
 import { Button } from '../components/ui/Button.jsx'
 import { Input } from '../components/ui/Input.jsx'
+import { PasswordRequirements } from '../components/PasswordRequirements.jsx'
+import { passwordMeetsPolicy } from '../lib/password.js'
 
 export function ResetPasswordPage() {
   const [params] = useSearchParams()
@@ -21,7 +23,7 @@ export function ResetPasswordPage() {
   async function handleSubmit(e) {
     e.preventDefault()
     setError(null)
-    if (next.length < 8) return setError('Password must be at least 8 characters.')
+    if (!passwordMeetsPolicy(next)) return setError('Please meet all the password requirements below.')
     if (next !== confirm) return setError('Passwords do not match.')
     setSubmitting(true)
     try {
@@ -56,11 +58,12 @@ export function ResetPasswordPage() {
       <form onSubmit={handleSubmit} className="space-y-3">
         <Input
           type="password"
-          placeholder="New password (min 8 characters)"
+          placeholder="New password"
           value={next}
           onChange={(e) => setNext(e.target.value)}
           required
         />
+        <PasswordRequirements password={next} />
         <Input
           type="password"
           placeholder="Confirm new password"

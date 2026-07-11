@@ -36,14 +36,14 @@ describe('settings write endpoints (requires DB)', { skip: !DB_AVAILABLE }, () =
   })
 
   test('change-password rejects a wrong current password, accepts the right one, and the new password works', async () => {
-    const wrong = await authed('/auth/change-password', { method: 'POST', body: JSON.stringify({ current_password: 'nope-wrong', new_password: 'brandnew123' }) })
+    const wrong = await authed('/auth/change-password', { method: 'POST', body: JSON.stringify({ current_password: 'nope-wrong', new_password: 'Brandnew123!' }) })
     assert.equal(wrong.status, 403)
 
-    const ok = await authed('/auth/change-password', { method: 'POST', body: JSON.stringify({ current_password: 'testpassword123', new_password: 'brandnew123' }) })
+    const ok = await authed('/auth/change-password', { method: 'POST', body: JSON.stringify({ current_password: 'testpassword123', new_password: 'Brandnew123!' }) })
     assert.equal(ok.status, 200)
 
     // sign in with the NEW password succeeds
-    const signin = await fetch(`${baseUrl}/auth/signin`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: 'brandnew123' }) })
+    const signin = await fetch(`${baseUrl}/auth/signin`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: 'Brandnew123!' }) })
     assert.equal(signin.status, 200)
     assert.ok((await signin.json()).token)
   })

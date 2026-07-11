@@ -30,7 +30,7 @@ describe('staff deactivation (requires DB)', { skip: !DB_AVAILABLE }, () => {
     })).json()
     const inviteToken = invite.accept_url.split('/accept-invite/')[1]
     const accepted = await (await req(`/auth/invite/${inviteToken}/accept`, {
-      method: 'POST', body: { password: 'teacherpass1' }
+      method: 'POST', body: { password: 'Teacherpass1!' }
     })).json()
     return { id: invite.id, token: accepted.token }
   }

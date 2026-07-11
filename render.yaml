@@ -1,0 +1,31 @@
+# Render blueprint for the Elocin API (free tier).
+# The app lives in the elocin/ subdirectory of this repo, so rootDir = elocin.
+# Deploy: Render dashboard → New → Blueprint → pick this repo. Then set the
+# `sync: false` env vars in the dashboard (they're intentionally not in git).
+#
+# Free-tier note: the service sleeps when idle (~30–60s cold start) — fine for
+# a few pilot teachers.
+services:
+  - type: web
+    name: elocin-api
+    runtime: node
+    rootDir: elocin
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true      # Render generates a strong secret (satisfies the weak-secret boot guard)
+      - key: DATABASE_URL
+        sync: false              # Neon connection string (…?sslmode=require)
+      - key: FRONTEND_URL
+        sync: false              # your Vercel URL, e.g. https://elocin.vercel.app (CORS is exact-match)
+      - key: RESEND_API_KEY
+        sync: false              # from resend.com — required in prod (boot fails without it)
+      - key: FROM_EMAIL
+        sync: false              # e.g. "Elocin <no-reply@yourdomain.com>" (needs a verified Resend domain)
+      - key: ELOCIN_BACKUP_PASSPHRASE
+        sync: false              # optional: AES-256 for offsite backup copies

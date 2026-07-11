@@ -5,6 +5,8 @@ import { api } from '../api/client.js'
 import { Card } from '../components/ui/Card.jsx'
 import { Button } from '../components/ui/Button.jsx'
 import { Input } from '../components/ui/Input.jsx'
+import { PasswordRequirements } from '../components/PasswordRequirements.jsx'
+import { passwordMeetsPolicy } from '../lib/password.js'
 
 export function AcceptInvitePage() {
   const { token } = useParams()
@@ -27,6 +29,7 @@ export function AcceptInvitePage() {
   async function handleSubmit(e) {
     e.preventDefault()
     setError(null)
+    if (!passwordMeetsPolicy(password)) return setError('Please meet all the password requirements below.')
     setSubmitting(true)
     try {
       await acceptInvite(token, password)
@@ -61,12 +64,12 @@ export function AcceptInvitePage() {
       <form onSubmit={handleSubmit} className="space-y-3">
         <Input
           type="password"
-          placeholder="Choose a password (min 8 characters)"
+          placeholder="Choose a password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          minLength={8}
         />
+        <PasswordRequirements password={password} />
         <Button disabled={submitting} className="w-full">
           {submitting ? 'Setting password…' : 'Set password and sign in'}
         </Button>

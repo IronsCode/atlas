@@ -7,6 +7,7 @@ import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 import { NavBar } from './components/NavBar.jsx'
 import { SidebarShell } from './components/SidebarShell.jsx'
 import { SignUpPage } from './pages/SignUpPage.jsx'
+import { VerifyEmailPage } from './pages/VerifyEmailPage.jsx'
 import { SignInPage } from './pages/SignInPage.jsx'
 import { AcceptInvitePage } from './pages/AcceptInvitePage.jsx'
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage.jsx'
@@ -72,6 +73,7 @@ export default function App() {
 
           {/* Auth */}
           <Route path="/signup" element={<PublicLayout><SignUpPage /></PublicLayout>} />
+          <Route path="/verify-email" element={<PublicLayout><VerifyEmailPage /></PublicLayout>} />
           <Route path="/signin" element={<PublicLayout><SignInPage /></PublicLayout>} />
           <Route path="/accept-invite/:token" element={<PublicLayout><AcceptInvitePage /></PublicLayout>} />
           <Route path="/forgot-password" element={<PublicLayout><ForgotPasswordPage /></PublicLayout>} />

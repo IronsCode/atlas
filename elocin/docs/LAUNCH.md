@@ -12,7 +12,8 @@ advance only when a step's checks pass, not because time passed.
 
 ## 0. Where we are
 - App runs **locally only** (Docker Postgres + Vite).
-- M0 / M1A / M1B are green; `npm test` = 188 passing.
+- M0 / M1A / M1B are green; `npm test` = **225 passing (21 suites)** — run per-file
+  (`node --env-file=.env --test src/tests/<name>.test.js`); the all-files glob contends on the DB pool.
 - Free target stack: **Neon** (Postgres) · **Render** (API) · **Vercel**
   (frontend) · **Resend** (email). Total cost: $0 on default subdomains.
 
@@ -40,6 +41,14 @@ Do not deploy the auth endpoints to the internet without these.
 
 ## P3 — Deploy (free stack)
 
+> **Config prepped (Session 35):** `render.yaml` (repo root, `rootDir: elocin`) is a Render
+> blueprint for the API; `elocin/frontend/vercel.json` adds the SPA rewrite so email links
+> (`/verify-email`, `/reset-password`) don't 404 on direct load. **Domain is TBD** — everything
+> below works on free `*.vercel.app` / `*.onrender.com` subdomains; a custom domain only changes
+> `FROM_EMAIL` (needs a **verified Resend domain** to email teachers other than yourself),
+> `FRONTEND_URL`/`VITE_API_URL`, and the public URLs. Until a domain is verified, self-signup
+> email won't reach other teachers — onboard manually or add the domain first.
+
 ### 3a. Database — Neon
 - [ ] Create a Neon project → copy the connection string (`postgresql://…?sslmode=require`).
 - [ ] Run **schema-only** migrations against it (NO demo seed):
@@ -51,7 +60,8 @@ Do not deploy the auth endpoints to the internet without these.
       `docs/RUNBOOK_restore.md`.
 
 ### 3b. API — Render (free web service)
-- [ ] New Web Service → connect the repo → root = repo root, start = `npm start`.
+- [ ] New → **Blueprint** → pick the repo (uses `render.yaml`). Or a Web Service with
+      **root directory = `elocin`** (the app is in a subdirectory), build = `npm install`, start = `npm start`.
 - [ ] Env vars: `NODE_ENV=production`, `DATABASE_URL` (Neon), `JWT_SECRET` (strong),
       `FRONTEND_URL` (your Vercel URL), `RESEND_API_KEY`, `FROM_EMAIL`, `ELOCIN_BACKUP_PASSPHRASE`,
       `PORT` (Render provides one). Boot **fails** in prod if the email vars are missing.
@@ -59,20 +69,24 @@ Do not deploy the auth endpoints to the internet without these.
 - [ ] Note: free API **sleeps when idle** (~30–60s cold start). Fine for a few teachers.
 
 ### 3c. Frontend — Vercel
-- [ ] Import repo → project root = `frontend/`, build = `npm run build`, output = `dist`.
+- [ ] Import repo → **root directory = `elocin/frontend`**, build = `npm run build`, output = `dist`
+      (`vercel.json` there adds the SPA rewrite so client routes/email links resolve on direct load).
 - [ ] Env var: `VITE_API_URL` = the Render API URL.
 - [ ] Deploy → open the `*.vercel.app` URL.
 
 ### 3d. Email — Resend
 - [x] **Password-reset email is wired** to the Resend REST API (`src/infra/notify.js#sendPasswordReset`,
       no SDK dep). Dev runs SAMPLE MODE (logs the link) when the keys are unset.
+- [x] **Signup verification email** uses the same Resend transport (`sendSignupVerification`) — so
+      **new-org signup won't work in prod until the sending domain is verified**. Same SAMPLE MODE in dev.
 - [ ] Create a Resend account + API key; set `RESEND_API_KEY` + `FROM_EMAIL`; **verify the
       sending domain (SPF/DKIM)** or mail bounces.
 - [ ] Send one real forgot→reset end-to-end to confirm delivery.
 - [ ] Staff-invite email is still SAMPLE MODE (`sendStaffInvite`) — wire it the same way when needed.
 
 ## 4. Launch-day smoke test (do all six, on the LIVE site)
-- [ ] Sign up a brand-new org + owner.
+- [ ] Sign up a brand-new org + owner (**email-verified flow**: submit org/name/email → open the
+      verification link from the email → set a policy-compliant password → lands signed in).
 - [ ] Create a classroom + add a student.
 - [ ] Write an observation → it saves and shows tags.
 - [ ] Edit that observation → original preserved, edit shows (revisions working).

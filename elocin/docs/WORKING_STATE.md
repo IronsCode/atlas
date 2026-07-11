@@ -44,7 +44,7 @@ ships. If it looks wrong live, redeploy the previous build and fix locally.
 Do this **only** when a change needs a new table/column. Never for code-only changes.
 
 ```
-1. Write a NEW migration file: migrations/017_*.sql  (additive only — latest is 016)
+1. Write a NEW migration file: migrations/018_*.sql  (additive only — latest is 017)
      - ALTER TABLE ... ADD COLUMN ...      ✅
      - CREATE TABLE ...                     ✅
      - DROP / rename / retype columns       ❌ (breaks live data)

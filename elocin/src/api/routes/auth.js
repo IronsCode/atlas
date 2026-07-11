@@ -7,14 +7,23 @@
  * POST /observations routes.
  *
  * Routes:
- *   POST /auth/signup                — { org_name, email, full_name, password }
- *   POST /auth/signin                — { email, password }
- *   GET  /auth/me                    — resolve the current token to { user, organization }
- *                                       (added for the frontend, which stores only the
- *                                       token and needs to rehydrate session state on reload)
- *   GET  /auth/invite/:token         — public: what is this staff invite for?
- *   POST /auth/invite/:token/accept  — public: set password, auto-login
- *                                       (see api/routes/users.js for the invite-creation side)
+ *   POST /auth/signup                        — { org_name, email, full_name } → stages a
+ *                                               pending signup + emails a verification link.
+ *                                               NO account is created yet, NO password taken.
+ *   GET  /auth/verify-signup/:token          — public: validate the link, mark the email
+ *                                               verified, return { email, org_name }.
+ *   POST /auth/verify-signup/:token/complete — public: { password } → create org + owner,
+ *                                               auto-login (same shape as signin).
+ *   POST /auth/signin                        — { email, password }
+ *   GET  /auth/me                            — resolve the current token to { user, organization }
+ *                                               (added for the frontend, which stores only the
+ *                                               token and needs to rehydrate session state on reload)
+ *   GET  /auth/invite/:token                 — public: what is this staff invite for?
+ *   POST /auth/invite/:token/accept          — public: set password, auto-login
+ *                                               (see api/routes/users.js for the invite-creation side)
+ *
+ * Every password-setting flow (signup completion, reset, change, invite-accept)
+ * enforces the shared policy in lib/password.js.
  */
 
 import { Router } from 'express'
@@ -23,7 +32,8 @@ import bcrypt from 'bcryptjs'
 import { query, transaction } from '../../data/db.js'
 import { issueToken, requireOrgRole } from '../../infra/auth.js'
 import { asyncHandler } from '../../lib/http.js'
-import { sendPasswordReset } from '../../infra/notify.js'
+import { sendPasswordReset, sendSignupVerification } from '../../infra/notify.js'
+import { validatePassword } from '../../lib/password.js'
 
 export const authRouter = Router()
 
@@ -36,48 +46,128 @@ const DUMMY_HASH = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
 const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex')
 
 // ---------------------------------------------------------------------------
-// POST /auth/signup — create organization + owner user
+// POST /auth/signup — stage a pending signup and email a verification link.
+// No account and no password yet: the org + owner user are created only after
+// the email is verified and a password is set (see /verify-signup/:token/*).
+// Enumeration-safe: identical response whether or not the email is already
+// taken; a pending row + email are only produced for a genuinely new address.
+// Rate-limited at the mount (see server.js).
 // ---------------------------------------------------------------------------
 authRouter.post('/signup', asyncHandler(async (req, res) => {
-  const { org_name, email, full_name, password } = req.body
+  const { org_name, email, full_name } = req.body
 
-  if (!org_name?.trim() || !email?.trim() || !full_name?.trim() || !password) {
-    return res.status(400).json({ error: 'org_name, email, full_name, and password are required' })
-  }
-  if (password.length < 8) {
-    return res.status(400).json({ error: 'password must be at least 8 characters' })
+  if (!org_name?.trim() || !email?.trim() || !full_name?.trim()) {
+    return res.status(400).json({ error: 'org_name, email, and full_name are required' })
   }
 
   const normalizedEmail = email.trim().toLowerCase()
-  const existing = await query(`SELECT id FROM users WHERE email = $1`, [normalizedEmail])
-  if (existing.rows.length) {
-    return res.status(409).json({ error: 'Email is already registered' })
+  const existing = await query(
+    `SELECT 1 FROM users WHERE email = $1 AND deleted_at IS NULL`,
+    [normalizedEmail]
+  )
+  if (!existing.rows.length) {
+    const rawToken = crypto.randomBytes(32).toString('hex')
+    // A re-signup for the same email replaces any prior pending row (and resends).
+    await query(`DELETE FROM pending_signups WHERE lower(email) = $1`, [normalizedEmail])
+    await query(
+      `INSERT INTO pending_signups (org_name, full_name, email, token_hash, expires_at)
+       VALUES ($1, $2, $3, $4, NOW() + INTERVAL '24 hours')`,
+      [org_name.trim(), full_name.trim(), normalizedEmail, sha256(rawToken)]
+    )
+    const verifyUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/verify-email?token=${rawToken}`
+    console.warn(`[auth] signup verification requested for ${normalizedEmail}`)
+    // Fire-and-forget (see forgot-password for the timing/enumeration rationale).
+    void sendSignupVerification({ email: normalizedEmail, full_name: full_name.trim() }, verifyUrl).catch(() => {})
+  }
+
+  return res.status(202).json({
+    ok: true,
+    message: 'Check your email for a verification link to finish creating your account.'
+  })
+}))
+
+// ---------------------------------------------------------------------------
+// GET /auth/verify-signup/:token — validate the link and mark the email
+// verified. Returns the staged org/email so the set-password page can greet
+// the user. 400 if the link is bad/expired; 409 if the email got claimed in
+// the meantime.
+// ---------------------------------------------------------------------------
+authRouter.get('/verify-signup/:token', asyncHandler(async (req, res) => {
+  const pending = await loadPendingSignup(req.params.token)
+  if (!pending) {
+    return res.status(400).json({ error: 'This verification link is invalid or has expired.' })
+  }
+
+  const taken = await query(
+    `SELECT 1 FROM users WHERE email = $1 AND deleted_at IS NULL`,
+    [pending.email]
+  )
+  if (taken.rows.length) {
+    return res.status(409).json({ error: 'An account with this email already exists. Please sign in.' })
+  }
+
+  if (!pending.email_verified_at) {
+    await query(`UPDATE pending_signups SET email_verified_at = NOW() WHERE id = $1`, [pending.id])
+  }
+  return res.json({ email: pending.email, org_name: pending.org_name, full_name: pending.full_name })
+}))
+
+// ---------------------------------------------------------------------------
+// POST /auth/verify-signup/:token/complete — set the password and create the
+// real organization + owner user, then auto-login. Requires the email to have
+// been verified first (the GET above). Deletes the pending row on success.
+// ---------------------------------------------------------------------------
+authRouter.post('/verify-signup/:token/complete', asyncHandler(async (req, res) => {
+  const { password } = req.body
+  const check = validatePassword(password)
+  if (!check.ok) return res.status(400).json({ error: check.error })
+
+  const pending = await loadPendingSignup(req.params.token)
+  if (!pending) {
+    return res.status(400).json({ error: 'This verification link is invalid or has expired.' })
+  }
+  if (!pending.email_verified_at) {
+    return res.status(400).json({ error: 'Please verify your email before choosing a password.' })
   }
 
   const passwordHash = await bcrypt.hash(password, 10)
 
-  const { org, user } = await transaction(async (client) => {
-    const slug = await uniqueSlug(client, slugify(org_name))
+  let org, user
+  try {
+    ({ org, user } = await transaction(async (client) => {
+      // Re-check inside the transaction so a race can't create two accounts.
+      const dup = await client.query(
+        `SELECT 1 FROM users WHERE email = $1 AND deleted_at IS NULL`,
+        [pending.email]
+      )
+      if (dup.rows.length) {
+        const e = new Error('EMAIL_TAKEN'); e.code = 'EMAIL_TAKEN'; throw e
+      }
+      const slug = await uniqueSlug(client, slugify(pending.org_name))
+      const { rows: orgRows } = await client.query(
+        `INSERT INTO organizations (name, slug) VALUES ($1, $2)
+         RETURNING id, name, slug`,
+        [pending.org_name, slug]
+      )
+      const newOrg = orgRows[0]
+      const { rows: userRows } = await client.query(
+        `INSERT INTO users (organization_id, email, full_name, password_hash, org_role)
+         VALUES ($1, $2, $3, $4, 'owner')
+         RETURNING id, organization_id, email, full_name, org_role`,
+        [newOrg.id, pending.email, pending.full_name, passwordHash]
+      )
+      await client.query(`DELETE FROM pending_signups WHERE id = $1`, [pending.id])
+      return { org: newOrg, user: userRows[0] }
+    }))
+  } catch (err) {
+    if (err.code === 'EMAIL_TAKEN') {
+      return res.status(409).json({ error: 'An account with this email already exists. Please sign in.' })
+    }
+    throw err
+  }
 
-    const { rows: orgRows } = await client.query(
-      `INSERT INTO organizations (name, slug) VALUES ($1, $2)
-       RETURNING id, name, slug`,
-      [org_name.trim(), slug]
-    )
-    const org = orgRows[0]
-
-    const { rows: userRows } = await client.query(
-      `INSERT INTO users (organization_id, email, full_name, password_hash, org_role)
-       VALUES ($1, $2, $3, $4, 'owner')
-       RETURNING id, organization_id, email, full_name, org_role`,
-      [org.id, normalizedEmail, full_name.trim(), passwordHash]
-    )
-
-    return { org, user: userRows[0] }
-  })
-
+  console.warn(`[auth] signup completed for ${user.email}`)
   const token = issueToken(user)
-
   return res.status(201).json({
     token,
     user: { id: user.id, email: user.email, full_name: user.full_name, org_role: user.org_role },
@@ -182,15 +272,17 @@ authRouter.post('/change-password', requireOrgRole([]), asyncHandler(async (req,
   if (!current_password || !new_password) {
     return res.status(400).json({ error: 'current_password and new_password are required' })
   }
-  if (new_password.length < 8) {
-    return res.status(400).json({ error: 'new_password must be at least 8 characters' })
-  }
 
+  // Verify the current password FIRST — a caller who can't authenticate gets a
+  // 403 regardless of the new password's strength (don't leak the policy to them).
   const { rows } = await query(`SELECT password_hash FROM users WHERE id = $1`, [req.user.id])
   const valid = await bcrypt.compare(current_password, rows[0]?.password_hash || DUMMY_HASH)
   if (!rows.length || !valid) {
     return res.status(403).json({ error: 'Current password is incorrect' })
   }
+
+  const pwCheck = validatePassword(new_password)
+  if (!pwCheck.ok) return res.status(400).json({ error: pwCheck.error })
 
   const passwordHash = await bcrypt.hash(new_password, 10)
   // Stamp password_changed_at so every previously-issued JWT is invalidated,
@@ -251,9 +343,8 @@ authRouter.post('/reset-password', asyncHandler(async (req, res) => {
   if (!token || !new_password) {
     return res.status(400).json({ error: 'token and new_password are required' })
   }
-  if (new_password.length < 8) {
-    return res.status(400).json({ error: 'new_password must be at least 8 characters' })
-  }
+  const pwCheck = validatePassword(new_password)
+  if (!pwCheck.ok) return res.status(400).json({ error: pwCheck.error })
 
   const { rows } = await query(
     `SELECT u.id, u.organization_id, u.email, u.full_name,
@@ -332,9 +423,8 @@ authRouter.get('/invite/:token', asyncHandler(async (req, res) => {
 // ---------------------------------------------------------------------------
 authRouter.post('/invite/:token/accept', asyncHandler(async (req, res) => {
   const { password } = req.body
-  if (!password || password.length < 8) {
-    return res.status(400).json({ error: 'password must be at least 8 characters' })
-  }
+  const pwCheck = validatePassword(password)
+  if (!pwCheck.ok) return res.status(400).json({ error: pwCheck.error })
 
   const { rows } = await query(
     `SELECT u.id, u.organization_id, u.email, u.full_name, o.id AS org_id, o.name AS org_name, o.slug AS org_slug
@@ -366,6 +456,19 @@ authRouter.post('/invite/:token/accept', asyncHandler(async (req, res) => {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
+
+// Load a non-expired pending signup by its raw (emailed) token, or null.
+async function loadPendingSignup(rawToken) {
+  if (!rawToken) return null
+  const { rows } = await query(
+    `SELECT id, org_name, full_name, email, email_verified_at
+     FROM pending_signups
+     WHERE token_hash = $1 AND expires_at > NOW()`,
+    [sha256(rawToken)]
+  )
+  return rows[0] || null
+}
+
 function slugify(name) {
   const base = name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-+|-+$)/g, '')
   return base || 'org'

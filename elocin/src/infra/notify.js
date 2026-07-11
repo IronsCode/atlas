@@ -106,10 +106,55 @@ export async function sendPasswordReset(user, resetUrl) {
     console.log(`[SAMPLE — not a live send] password reset link for ${user.email}: ${resetUrl}`)
     return { sent: false, sample: true, channel: 'email' }
   }
+  return sendViaResend(user.email, subject, text, html, 'password reset')
+}
 
-  // Live send via Resend REST API. Never throws to the caller — on any failure
-  // we log (without the token/URL) and return, so the route's generic response
-  // is preserved and no partial state is corrupted.
+// The signup verification email. No password, no account details — only the
+// action link and a 24-hour expiry. Sent once at signup, before any account
+// exists (the account is created after this link is followed and a password
+// is set).
+export function buildVerificationEmail(verifyUrl) {
+  const subject = 'Verify your email to finish setting up Elocin'
+  const text =
+    `Welcome to Elocin! Confirm your email address to finish creating your account ` +
+    `and choose a password.\n\n` +
+    `Verify here (this link expires in 24 hours):\n${verifyUrl}\n\n` +
+    `If you didn't try to create an Elocin account, you can safely ignore this email.`
+  const html = `<!doctype html><html><body style="margin:0;background:#f5f3ee;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#33322e;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px;">
+    <table role="presentation" width="100%" style="max-width:480px;background:#ffffff;border-radius:12px;padding:32px;">
+      <tr><td style="font-size:18px;font-weight:600;padding-bottom:8px;">Verify your email</td></tr>
+      <tr><td style="font-size:14px;line-height:1.6;color:#5c5a52;padding-bottom:24px;">
+        Confirm your email address to finish creating your Elocin account and choose a password. This link expires in <strong>24 hours</strong>.
+      </td></tr>
+      <tr><td style="padding-bottom:24px;">
+        <a href="${verifyUrl}" style="display:inline-block;background:#6b8f71;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 24px;border-radius:8px;">Verify email</a>
+      </td></tr>
+      <tr><td style="font-size:12px;line-height:1.6;color:#8a887f;">
+        If the button doesn't work, copy this link into your browser:<br>
+        <span style="color:#6b8f71;word-break:break-all;">${verifyUrl}</span>
+      </td></tr>
+      <tr><td style="font-size:12px;line-height:1.6;color:#8a887f;padding-top:24px;border-top:1px solid #eceae3;">
+        If you didn't try to create an Elocin account, you can safely ignore this email.
+      </td></tr>
+    </table>
+  </td></tr></table></body></html>`
+  return { subject, text, html }
+}
+
+export async function sendSignupVerification(recipient, verifyUrl) {
+  const { subject, text, html } = buildVerificationEmail(verifyUrl)
+  if (!emailIsLive()) {
+    console.log(`[SAMPLE — not a live send] signup verification link for ${recipient.email}: ${verifyUrl}`)
+    return { sent: false, sample: true, channel: 'email' }
+  }
+  return sendViaResend(recipient.email, subject, text, html, 'signup verification')
+}
+
+// Shared Resend transport. Never throws to the caller — on any failure it logs
+// the status only (never the body/URL, which could echo a token) and returns,
+// so the route's generic response is preserved and no partial state corrupts.
+async function sendViaResend(to, subject, text, html, label) {
   try {
     const res = await fetch(RESEND_ENDPOINT, {
       method: 'POST',
@@ -117,17 +162,16 @@ export async function sendPasswordReset(user, resetUrl) {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ from: process.env.FROM_EMAIL, to: user.email, subject, text, html })
+      body: JSON.stringify({ from: process.env.FROM_EMAIL, to, subject, text, html })
     })
     if (!res.ok) {
-      // Log status only — never the response body (could echo the link/token).
-      console.error(`[email] password reset send failed (status ${res.status})`)
+      console.error(`[email] ${label} send failed (status ${res.status})`)
       return { sent: false, sample: false, channel: 'email', error: true }
     }
-    console.log('[email] password reset email sent')
+    console.log(`[email] ${label} email sent`)
     return { sent: true, sample: false, channel: 'email' }
   } catch (err) {
-    console.error(`[email] password reset transport error: ${err.message}`)
+    console.error(`[email] ${label} transport error: ${err.message}`)
     return { sent: false, sample: false, channel: 'email', error: true }
   }
 }

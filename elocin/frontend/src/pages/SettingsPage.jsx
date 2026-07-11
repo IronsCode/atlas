@@ -7,6 +7,8 @@ import { Input } from '../components/ui/Input.jsx'
 import { Button } from '../components/ui/Button.jsx'
 import { PageHeader } from '../components/ui/PageHeader.jsx'
 import { IconSettings, IconMail } from '../components/ui/Icon.jsx'
+import { PasswordRequirements } from '../components/PasswordRequirements.jsx'
+import { passwordMeetsPolicy } from '../lib/password.js'
 
 const APP_VERSION = '0.1.0'
 const SUPPORT_EMAIL = import.meta.env.VITE_SUPPORT_EMAIL || 'support@elocin.app'
@@ -106,9 +108,8 @@ function SecurityCard({ toast }) {
   const [saving, setSaving] = useState(false)
   const [signingOut, setSigningOut] = useState(false)
 
-  const tooShort = next.length > 0 && next.length < 8
   const mismatch = confirm.length > 0 && next !== confirm
-  const canSubmit = current && next.length >= 8 && next === confirm
+  const canSubmit = current && passwordMeetsPolicy(next) && next === confirm
 
   async function save(e) {
     e.preventDefault()
@@ -143,9 +144,9 @@ function SecurityCard({ toast }) {
     <SettingSection title="Security" description="Change your password or sign out of other devices.">
       <form onSubmit={save} className="space-y-2">
         <Input type={pwType} placeholder="Current password" value={current} onChange={(e) => setCurrent(e.target.value)} />
-        <Input type={pwType} placeholder="New password (at least 8 characters)" value={next} onChange={(e) => setNext(e.target.value)} />
+        <Input type={pwType} placeholder="New password" value={next} onChange={(e) => setNext(e.target.value)} />
+        {next.length > 0 && <PasswordRequirements password={next} />}
         <Input type={pwType} placeholder="Confirm new password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
-        {tooShort && <p className="text-xs text-danger">Password must be at least 8 characters.</p>}
         {mismatch && <p className="text-xs text-danger">Passwords don’t match.</p>}
         <div className="flex items-center justify-between pt-1">
           <label className="flex items-center gap-1.5 text-xs text-ink3">
