@@ -12,7 +12,7 @@ advance only when a step's checks pass, not because time passed.
 
 ## 0. Where we are
 - App runs **locally only** (Docker Postgres + Vite).
-- M0 / M1A / M1B are green; `npm test` = **225 passing (21 suites)** — run per-file
+- M0 / M1A / M1B are green; `npm test` = **~258 passing (21 suites)** — run per-file
   (`node --env-file=.env --test src/tests/<name>.test.js`); the all-files glob contends on the DB pool.
 - Free target stack: **Neon** (Postgres) · **Render** (API) · **Vercel**
   (frontend) · **Resend** (email). Total cost: $0 on default subdomains.

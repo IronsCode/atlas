@@ -56,6 +56,13 @@ export function AssistiveCapture({ preview, previewing, hasText, studentName, pe
   const extraMethods = [...kept.methods].filter((k) => !methodKeys.has(k))
   const hasChips = areas.length || methods.length || extraSkills.length || extraMethods.length
 
+  // Gentle coaching: the note names what happened (a skill/area) but not HOW.
+  // Naming the method is the single highest-leverage detail for surfacing
+  // patterns and interventions, so we invite it — never require it, never block.
+  const hasMethod = methods.length > 0 || extraMethods.length > 0 || kept.methods.size > 0
+  const hasArea = areas.length > 0 || extraSkills.length > 0 || kept.skills.size > 0
+  const suggestContext = hasArea && !hasMethod
+
   return (
     <Card className="mt-2 space-y-3 p-3">
       <div className="flex items-center gap-1.5 text-sm font-medium text-ink">
@@ -108,6 +115,12 @@ export function AssistiveCapture({ preview, previewing, hasText, studentName, pe
           </>
         ) : (
           <p className="text-xs text-ink3">No connections to suggest yet — your note saves exactly as you wrote it.</p>
+        )}
+
+        {suggestContext && (
+          <p className="rounded-sm border-l-2 border-amber/40 bg-amber/5 py-1.5 pl-2 pr-2 text-xs leading-snug text-ink2">
+            Optional — add <span className="font-medium">how it happened</span> (small group · 1:1 · with counters) so Elocin can tell what’s working{studentName ? <> for {studentName}</> : ''}.
+          </p>
         )}
 
         <button type="button" onClick={() => setShowAdjust((v) => !v)} className="text-[11px] text-sage hover:underline">

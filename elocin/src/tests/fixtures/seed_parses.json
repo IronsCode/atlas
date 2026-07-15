@@ -1,12 +1,10 @@
 {
-  "lexicon": "1.3",
+  "lexicon": "1.4",
   "notes": [
     {
-      "raw": "Emma struggled with CVC blending but got 3/5 with picture cards, up from 1/5 without.",
+      "raw": "Struggled with CVC blending but got 3/5 with picture cards, up from 1/5 without.",
       "parsed": {
-        "students": [
-          "Emma"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "phonics"
@@ -22,7 +20,9 @@
         "outcome": "mixed",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -52,15 +52,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Emma decoded 8 of 10 sounds independently today, a clear improvement.",
+      "raw": "Decoded 8 of 10 sounds independently today — big jump from last week.",
       "parsed": {
-        "students": [
-          "Emma"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [],
         "methods": [
@@ -74,12 +72,15 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
           "skills": [
             "phonics",
+            "gross_motor",
             "independence"
           ],
           "methods": []
@@ -99,24 +100,16 @@
               "trigger": "independently",
               "negated": false,
               "polarity": "positive"
-            },
-            {
-              "word": "improvement",
-              "trigger": "improvement",
-              "negated": false,
-              "polarity": "positive"
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Emma used counters for counting to 20 and got all correct, her first time independently.",
+      "raw": "Used counters for counting to 20 and got all correct, her first time independently.",
       "parsed": {
-        "students": [
-          "Emma"
-        ],
+        "students": [],
         "context": "maths",
         "skills": [
           "counting"
@@ -132,7 +125,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -176,15 +171,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Emma raised her hand to ask for help during small group reading.",
+      "raw": "Raised her hand to ask for help during small group reading.",
       "parsed": {
-        "students": [
-          "Emma"
-        ],
+        "students": [],
         "context": "social",
         "skills": [
           "communication"
@@ -200,7 +193,9 @@
         "outcome": "unknown",
         "confidence": "HIGH",
         "confidenceScore": 3,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 3,
         "suggestions": {
@@ -223,35 +218,36 @@
           },
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Emma stayed calm during transitions and used her coping strategy without a verbal prompt, a big success.",
+      "raw": "Stayed calm through transitions and used her coping strategy independently this time.",
       "parsed": {
-        "students": [
-          "Emma"
-        ],
+        "students": [],
         "context": "behaviour",
         "skills": [
           "self_regulation"
         ],
         "methods": [
           {
-            "key": "verbal_prompt",
-            "label": "Verbal prompt / Cue",
-            "negated": true,
+            "key": "independent",
+            "label": "Independent practice",
+            "negated": false,
             "source": "auto"
           }
         ],
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
           "skills": [
+            "independence",
             "problem_solving"
           ],
           "methods": []
@@ -264,30 +260,28 @@
             }
           },
           "methods": {
-            "verbal_prompt": {
-              "trigger": "verbal prompt",
-              "match": "verbal prompt",
-              "negated": true
+            "independent": {
+              "trigger": "independently",
+              "match": "independently",
+              "negated": false
             }
           },
           "outcome": [
             {
-              "word": "success",
-              "trigger": "success",
+              "word": "independently",
+              "trigger": "independently",
               "negated": false,
               "polarity": "positive"
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Emma read the passage and answered comprehension questions correctly with one-on-one support.",
+      "raw": "Read the passage and answered comprehension questions correctly with one-on-one support.",
       "parsed": {
-        "students": [
-          "Emma"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "reading_comprehension",
@@ -304,7 +298,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -338,15 +334,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Noah blended 4 of 5 words but struggled to focus in group work.",
+      "raw": "Blended 4 of 5 words but struggled to focus in group work.",
       "parsed": {
-        "students": [
-          "Noah"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [],
         "methods": [
@@ -360,7 +354,9 @@
         "outcome": "mixed",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -387,15 +383,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Noah struggled with number sense and could not complete the number line.",
+      "raw": "Struggled with number sense and could not complete the number line.",
       "parsed": {
-        "students": [
-          "Noah"
-        ],
+        "students": [],
         "context": "maths",
         "skills": [],
         "methods": [
@@ -409,7 +403,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -442,15 +438,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Noah refused to share materials and had a meltdown during transition.",
+      "raw": "Refused to share materials and had a meltdown during transition.",
       "parsed": {
-        "students": [
-          "Noah"
-        ],
+        "students": [],
         "context": "behaviour",
         "skills": [
           "self_regulation"
@@ -459,7 +453,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 3,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 3,
         "suggestions": {
@@ -485,15 +481,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Noah tried again after a verbal prompt and figured out the problem.",
+      "raw": "Tried again after a verbal prompt and figured out the problem.",
       "parsed": {
-        "students": [
-          "Noah"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "problem_solving"
@@ -509,7 +503,9 @@
         "outcome": "unknown",
         "confidence": "HIGH",
         "confidenceScore": 3,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 3,
         "suggestions": {
@@ -532,15 +528,13 @@
           },
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Lily lost focus mid-lesson but completed the worksheet accurately one-on-one.",
+      "raw": "Lost focus mid-lesson but completed the worksheet accurately one-on-one.",
       "parsed": {
-        "students": [
-          "Lily"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "engagement"
@@ -556,7 +550,9 @@
         "outcome": "mixed",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -592,15 +588,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Lily struggled to self-regulate and could not calm down in group work.",
+      "raw": "Struggled to self-regulate and could not calm down in group work.",
       "parsed": {
-        "students": [
-          "Lily"
-        ],
+        "students": [],
         "context": "behaviour",
         "skills": [
           "self_regulation"
@@ -616,7 +610,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -652,15 +648,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Lily struggled to self-regulate during transitions and would not settle in group work.",
+      "raw": "Struggled to self-regulate during transitions and would not settle in group work.",
       "parsed": {
-        "students": [
-          "Lily"
-        ],
+        "students": [],
         "context": "behaviour",
         "skills": [
           "self_regulation"
@@ -676,7 +670,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -706,15 +702,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Lily struggled to self-regulate and refused to join group work again.",
+      "raw": "Struggled to self-regulate and refused to join group work again.",
       "parsed": {
-        "students": [
-          "Lily"
-        ],
+        "students": [],
         "context": "behaviour",
         "skills": [
           "self_regulation"
@@ -730,7 +724,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -768,15 +764,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Marcus struggled with pencil grip during handwriting but improved with one-on-one support.",
+      "raw": "Struggled with pencil grip during handwriting but improved with one-on-one support.",
       "parsed": {
-        "students": [
-          "Marcus"
-        ],
+        "students": [],
         "context": "motor",
         "skills": [
           "letter_formation",
@@ -793,7 +787,9 @@
         "outcome": "mixed",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -833,15 +829,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Marcus cut along the line with fine motor control, a real improvement.",
+      "raw": "Cut along the line with good control today — his grip has really improved.",
       "parsed": {
-        "students": [
-          "Marcus"
-        ],
+        "students": [],
         "context": "motor",
         "skills": [
           "fine_motor"
@@ -850,7 +844,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 3,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 3,
         "suggestions": {
@@ -860,29 +856,27 @@
         "evidence": {
           "skills": {
             "fine_motor": {
-              "trigger": "fine motor",
-              "match": "fine motor"
+              "trigger": "cut along",
+              "match": "cut along"
             }
           },
           "methods": {},
           "outcome": [
             {
-              "word": "improvement",
-              "trigger": "improvement",
+              "word": "improved",
+              "trigger": "improved",
               "negated": false,
               "polarity": "positive"
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Marcus wrote his name independently for the first time.",
+      "raw": "Wrote his name independently for the first time.",
       "parsed": {
-        "students": [
-          "Marcus"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "writing"
@@ -898,7 +892,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -930,15 +926,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Aisha decoded CVC words using picture cards and got 4 of 5 correct.",
+      "raw": "Decoded CVC words using picture cards and got 4 of 5 correct.",
       "parsed": {
-        "students": [
-          "Aisha"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "phonics"
@@ -954,7 +948,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -984,15 +980,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Aisha struggled with blending sounds at first but improved with one-on-one support.",
+      "raw": "Struggled with blending sounds at first but improved with one-on-one support.",
       "parsed": {
-        "students": [
-          "Aisha"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [],
         "methods": [
@@ -1006,7 +1000,9 @@
         "outcome": "mixed",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -1039,15 +1035,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Aisha read the passage and answered comprehension questions independently.",
+      "raw": "Read the passage and answered comprehension questions independently.",
       "parsed": {
-        "students": [
-          "Aisha"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "reading_comprehension",
@@ -1064,7 +1058,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -1100,15 +1096,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Aisha collaborated well and took turns with peers during small group work.",
+      "raw": "Collaborated well and took turns with peers during small group work.",
       "parsed": {
-        "students": [
-          "Aisha"
-        ],
+        "students": [],
         "context": "social",
         "skills": [
           "turn_taking",
@@ -1125,7 +1119,9 @@
         "outcome": "unknown",
         "confidence": "HIGH",
         "confidenceScore": 3,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 3,
         "suggestions": {
@@ -1154,15 +1150,13 @@
           },
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Aisha mastered counting to 50 using manipulatives, a clear success.",
+      "raw": "Mastered counting to 50 using manipulatives — so pleased with her.",
       "parsed": {
-        "students": [
-          "Aisha"
-        ],
+        "students": [],
         "context": "maths",
         "skills": [
           "counting"
@@ -1178,7 +1172,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -1205,24 +1201,16 @@
               "trigger": "mastered",
               "negated": false,
               "polarity": "positive"
-            },
-            {
-              "word": "success",
-              "trigger": "success",
-              "negated": false,
-              "polarity": "positive"
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Aisha wrote a full sentence independently with correct spelling.",
+      "raw": "Wrote a full sentence independently with correct spelling.",
       "parsed": {
-        "students": [
-          "Aisha"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "writing"
@@ -1238,7 +1226,9 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -1276,15 +1266,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Diego struggled with phonics and could not decode simple sounds.",
+      "raw": "Struggled with phonics and could not decode simple sounds.",
       "parsed": {
-        "students": [
-          "Diego"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "phonics"
@@ -1293,7 +1281,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 3,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 3,
         "suggestions": {
@@ -1323,15 +1313,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Diego had difficulty counting and confused numbers on the number line.",
+      "raw": "Had difficulty counting and confused numbers on the number line.",
       "parsed": {
-        "students": [
-          "Diego"
-        ],
+        "students": [],
         "context": "maths",
         "skills": [
           "counting"
@@ -1347,7 +1335,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -1385,15 +1375,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Diego refused to participate in group work and had a meltdown.",
+      "raw": "Refused to participate in group work and had a meltdown.",
       "parsed": {
-        "students": [
-          "Diego"
-        ],
+        "students": [],
         "context": "behaviour",
         "skills": [
           "self_regulation"
@@ -1409,7 +1397,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
@@ -1441,15 +1431,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Diego could not sound out CVC words even with verbal prompting.",
+      "raw": "Could not sound out CVC words even with verbal prompting.",
       "parsed": {
-        "students": [
-          "Diego"
-        ],
+        "students": [],
         "context": "literacy",
         "skills": [
           "phonics"
@@ -1458,7 +1446,9 @@
         "outcome": "negative",
         "confidence": "HIGH",
         "confidenceScore": 3,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 3,
         "suggestions": {
@@ -1482,15 +1472,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Sophia shared materials and took turns with peers all morning.",
+      "raw": "Shared materials and took turns with peers all morning.",
       "parsed": {
-        "students": [
-          "Sophia"
-        ],
+        "students": [],
         "context": "social",
         "skills": [
           "turn_taking",
@@ -1501,7 +1489,9 @@
         "outcome": "unknown",
         "confidence": "MEDIUM",
         "confidenceScore": 2,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 2,
         "suggestions": {
@@ -1526,17 +1516,16 @@
           "methods": {},
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Sophia collaborated in small group work and helped a peer, a great success.",
+      "raw": "Collaborated in small group work and helped a peer — her teamwork has really improved.",
       "parsed": {
-        "students": [
-          "Sophia"
-        ],
+        "students": [],
         "context": "social",
         "skills": [
+          "collaboration",
           "peer_interaction"
         ],
         "methods": [
@@ -1550,17 +1539,21 @@
         "outcome": "positive",
         "confidence": "HIGH",
         "confidenceScore": 4,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 4,
         "suggestions": {
-          "skills": [
-            "collaboration"
-          ],
+          "skills": [],
           "methods": []
         },
         "evidence": {
           "skills": {
+            "collaboration": {
+              "trigger": "teamwork",
+              "match": "teamwork"
+            },
             "peer_interaction": {
               "trigger": "helped a peer",
               "match": "helped a peer"
@@ -1575,22 +1568,20 @@
           },
           "outcome": [
             {
-              "word": "success",
-              "trigger": "success",
+              "word": "improved",
+              "trigger": "improved",
               "negated": false,
               "polarity": "positive"
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Sophia expressed her ideas clearly and raised her hand to contribute.",
+      "raw": "Expressed her ideas clearly and raised her hand to contribute.",
       "parsed": {
-        "students": [
-          "Sophia"
-        ],
+        "students": [],
         "context": "social",
         "skills": [
           "communication"
@@ -1599,7 +1590,9 @@
         "outcome": "unknown",
         "confidence": "MEDIUM",
         "confidenceScore": 2,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 2,
         "suggestions": {
@@ -1616,22 +1609,22 @@
           "methods": {},
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Sophia solved the puzzle using a new strategy and persisted when stuck.",
+      "raw": "Solved the puzzle using a new strategy and persisted when stuck.",
       "parsed": {
-        "students": [
-          "Sophia"
-        ],
+        "students": [],
         "context": "maths",
         "skills": [],
         "methods": [],
         "outcome": "unknown",
         "confidence": "MEDIUM",
         "confidenceScore": 2,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 2,
         "suggestions": {
@@ -1645,7 +1638,7 @@
           "methods": {},
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
@@ -1680,15 +1673,13 @@
             }
           ]
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Liam practiced counting to ten with counters today.",
+      "raw": "Practiced counting to ten with counters today.",
       "parsed": {
-        "students": [
-          "Liam"
-        ],
+        "students": [],
         "context": "maths",
         "skills": [
           "counting"
@@ -1697,7 +1688,9 @@
         "outcome": "unknown",
         "confidence": "MEDIUM",
         "confidenceScore": 2,
-        "flags": [],
+        "flags": [
+          "no_student_matched"
+        ],
         "llmFallbackSuggested": false,
         "signalStrength": 2,
         "suggestions": {
@@ -1725,15 +1718,13 @@
           "methods": {},
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
       }
     },
     {
-      "raw": "Liam asked for help.",
+      "raw": "Asked for help.",
       "parsed": {
-        "students": [
-          "Liam"
-        ],
+        "students": [],
         "context": "social",
         "skills": [
           "communication"
@@ -1743,6 +1734,7 @@
         "confidence": "MEDIUM",
         "confidenceScore": 2,
         "flags": [
+          "no_student_matched",
           "note_too_short"
         ],
         "llmFallbackSuggested": false,
@@ -1761,7 +1753,1630 @@
           "methods": {},
           "outcome": []
         },
-        "lexicon": "1.3"
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Named every letter in her name and matched three uppercase letters to lowercase — so proud of her.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "letter_knowledge"
+        ],
+        "methods": [],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "letter_knowledge": {
+              "trigger": "uppercase letters",
+              "match": "uppercase letters"
+            }
+          },
+          "methods": {},
+          "outcome": [
+            {
+              "word": "proud",
+              "trigger": "proud",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Shared the blocks and took turns with a friend during free play.",
+      "parsed": {
+        "students": [],
+        "context": "social",
+        "skills": [
+          "turn_taking",
+          "sharing_cooperation",
+          "peer_interaction"
+        ],
+        "methods": [],
+        "outcome": "unknown",
+        "confidence": "MEDIUM",
+        "confidenceScore": 2,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 2,
+        "suggestions": {
+          "skills": [],
+          "methods": [
+            {
+              "key": "kinesthetic",
+              "label": "Hands-on / Manipulatives",
+              "negated": false
+            }
+          ]
+        },
+        "evidence": {
+          "skills": {
+            "turn_taking": {
+              "trigger": "took turns",
+              "match": "took turns"
+            },
+            "sharing_cooperation": {
+              "trigger": "shared the",
+              "match": "shared the"
+            },
+            "peer_interaction": {
+              "trigger": "with a friend",
+              "match": "with a friend"
+            }
+          },
+          "methods": {},
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Counted ten bears one to one and got them all correct.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [
+          "counting",
+          "one_to_one"
+        ],
+        "methods": [],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "counting": {
+              "trigger": "counted",
+              "match": "counted"
+            },
+            "one_to_one": {
+              "trigger": "one to one",
+              "match": "one to one"
+            }
+          },
+          "methods": {},
+          "outcome": [
+            {
+              "word": "correct",
+              "trigger": "correct",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Cut along the line with scissors with good control, improving well.",
+      "parsed": {
+        "students": [],
+        "context": "motor",
+        "skills": [
+          "fine_motor"
+        ],
+        "methods": [],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "fine_motor": {
+              "trigger": "cut along",
+              "match": "cut along"
+            }
+          },
+          "methods": {},
+          "outcome": [
+            {
+              "word": "improve",
+              "trigger": "improved",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Recognized some letters but struggled to stay focused during circle time.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [],
+        "methods": [
+          {
+            "key": "whole_group",
+            "label": "Whole group",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "engagement"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {
+            "whole_group": {
+              "trigger": "circle time",
+              "match": "circle time",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Settled after a verbal prompt and joined the group.",
+      "parsed": {
+        "students": [],
+        "context": "behaviour",
+        "skills": [
+          "peer_interaction"
+        ],
+        "methods": [
+          {
+            "key": "verbal_prompt",
+            "label": "Verbal prompt / Cue",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "unknown",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [
+            "addition"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "peer_interaction": {
+              "trigger": "joined the group",
+              "match": "joined the group"
+            }
+          },
+          "methods": {
+            "verbal_prompt": {
+              "trigger": "verbal prompt",
+              "match": "verbal prompt",
+              "negated": false
+            }
+          },
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled to self-regulate and could not calm down during group work.",
+      "parsed": {
+        "students": [],
+        "context": "behaviour",
+        "skills": [
+          "self_regulation"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "self_regulation": {
+              "trigger": "self-regulate",
+              "match": "self-regulate"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            },
+            {
+              "word": "could not",
+              "trigger": "could not",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled to self-regulate and would not settle during group work.",
+      "parsed": {
+        "students": [],
+        "context": "behaviour",
+        "skills": [
+          "self_regulation"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "self_regulation": {
+              "trigger": "self-regulate",
+              "match": "self-regulate"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled to self-regulate and refused to join group work again.",
+      "parsed": {
+        "students": [],
+        "context": "behaviour",
+        "skills": [
+          "self_regulation"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "addition"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "self_regulation": {
+              "trigger": "self-regulate",
+              "match": "self-regulate"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            },
+            {
+              "word": "refused",
+              "trigger": "refused",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Practiced her pencil grip with one-on-one support.",
+      "parsed": {
+        "students": [],
+        "context": "motor",
+        "skills": [
+          "fine_motor"
+        ],
+        "methods": [
+          {
+            "key": "one_on_one",
+            "label": "1-on-1 support",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "unknown",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [],
+          "methods": [
+            {
+              "key": "repetition",
+              "label": "Repetition / Practice",
+              "negated": false
+            }
+          ]
+        },
+        "evidence": {
+          "skills": {
+            "fine_motor": {
+              "trigger": "pencil grip",
+              "match": "pencil grip"
+            }
+          },
+          "methods": {
+            "one_on_one": {
+              "trigger": "one-on-one",
+              "match": "one-on-one",
+              "negated": false
+            }
+          },
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Tough morning.",
+      "parsed": {
+        "students": [],
+        "context": "other",
+        "skills": [],
+        "methods": [],
+        "outcome": "unknown",
+        "confidence": "LOW",
+        "confidenceScore": 0,
+        "flags": [
+          "no_student_matched",
+          "note_too_short"
+        ],
+        "llmFallbackSuggested": true,
+        "signalStrength": 0,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {},
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Read the passage and answered comprehension questions independently.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "reading_comprehension",
+          "reading"
+        ],
+        "methods": [
+          {
+            "key": "independent",
+            "label": "Independent practice",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "independence"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "reading_comprehension": {
+              "trigger": "comprehension",
+              "match": "comprehension"
+            },
+            "reading": {
+              "trigger": "read the passage",
+              "match": "read the passage"
+            }
+          },
+          "methods": {
+            "independent": {
+              "trigger": "independently",
+              "match": "independently",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "independently",
+              "trigger": "independently",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Mastered counting to 50 using manipulatives, no help needed.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [
+          "counting"
+        ],
+        "methods": [
+          {
+            "key": "kinesthetic",
+            "label": "Hands-on / Manipulatives",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "counting": {
+              "trigger": "counting to",
+              "match": "counting to"
+            }
+          },
+          "methods": {
+            "kinesthetic": {
+              "trigger": "manipulative",
+              "match": "manipulatives",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "mastered",
+              "trigger": "mastered",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Collaborated well and helped a peer during small group work.",
+      "parsed": {
+        "students": [],
+        "context": "social",
+        "skills": [
+          "peer_interaction"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "unknown",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [
+            "collaboration"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "peer_interaction": {
+              "trigger": "helped a peer",
+              "match": "helped a peer"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "small group",
+              "match": "small group",
+              "negated": false
+            }
+          },
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Decoded 9 of 10 sounds independently — really coming along.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [],
+        "methods": [
+          {
+            "key": "independent",
+            "label": "Independent practice",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "phonics",
+            "independence"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {
+            "independent": {
+              "trigger": "independently",
+              "match": "independently",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "independently",
+              "trigger": "independently",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Completed the number line with support but struggled when working alone.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [],
+        "methods": [
+          {
+            "key": "visual",
+            "label": "Visual / Picture cues",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "number_recognition"
+          ],
+          "methods": [
+            {
+              "key": "independent",
+              "label": "Independent practice",
+              "negated": false
+            }
+          ]
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {
+            "visual": {
+              "trigger": "number line",
+              "match": "number line",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Figured out the tricky word after trying again.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "sight_words",
+          "problem_solving"
+        ],
+        "methods": [],
+        "outcome": "unknown",
+        "confidence": "MEDIUM",
+        "confidenceScore": 2,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 2,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "sight_words": {
+              "trigger": "tricky word",
+              "match": "tricky word"
+            },
+            "problem_solving": {
+              "trigger": "figured out",
+              "match": "figured out"
+            }
+          },
+          "methods": {},
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled to read and could not decode words during group work.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "phonics"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "phonics": {
+              "trigger": "decode",
+              "match": "decode"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            },
+            {
+              "word": "could not",
+              "trigger": "could not",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled to read and could not decode words during group work today.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "phonics"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "phonics": {
+              "trigger": "decode",
+              "match": "decode"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            },
+            {
+              "word": "could not",
+              "trigger": "could not",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled to read and could not decode words during group work again.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "phonics"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "phonics": {
+              "trigger": "decode",
+              "match": "decode"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            },
+            {
+              "word": "could not",
+              "trigger": "could not",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Wrote a short sentence with one-on-one support.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "writing"
+        ],
+        "methods": [
+          {
+            "key": "one_on_one",
+            "label": "1-on-1 support",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "unknown",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "writing": {
+              "trigger": "wrote",
+              "match": "wrote"
+            }
+          },
+          "methods": {
+            "one_on_one": {
+              "trigger": "one-on-one",
+              "match": "one-on-one",
+              "negated": false
+            }
+          },
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Asked for help.",
+      "parsed": {
+        "students": [],
+        "context": "other",
+        "skills": [
+          "communication"
+        ],
+        "methods": [],
+        "outcome": "unknown",
+        "confidence": "MEDIUM",
+        "confidenceScore": 2,
+        "flags": [
+          "no_student_matched",
+          "note_too_short"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 2,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "communication": {
+              "trigger": "asked for help",
+              "match": "asked for help"
+            }
+          },
+          "methods": {},
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Read a grade-2 passage fluently and summarized it accurately on her own.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [],
+        "methods": [
+          {
+            "key": "independent",
+            "label": "Independent practice",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "independence"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {
+            "independent": {
+              "trigger": "on her own",
+              "match": "on her own",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "accurately",
+              "trigger": "accurately",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Solved two-digit addition problems independently and got them all correct.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [
+          "addition"
+        ],
+        "methods": [
+          {
+            "key": "independent",
+            "label": "Independent practice",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "independence"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "addition": {
+              "trigger": "addition",
+              "match": "addition"
+            }
+          },
+          "methods": {
+            "independent": {
+              "trigger": "independently",
+              "match": "independently",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "independently",
+              "trigger": "independently",
+              "negated": false,
+              "polarity": "positive"
+            },
+            {
+              "word": "correct",
+              "trigger": "correct",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Mastered his addition facts to 20 — knows them cold now.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [
+          "addition"
+        ],
+        "methods": [],
+        "outcome": "positive",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "addition": {
+              "trigger": "addition",
+              "match": "addition"
+            }
+          },
+          "methods": {},
+          "outcome": [
+            {
+              "word": "mastered",
+              "trigger": "mastered",
+              "negated": false,
+              "polarity": "positive"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Expressed his ideas clearly and took turns during group discussion.",
+      "parsed": {
+        "students": [],
+        "context": "social",
+        "skills": [
+          "communication",
+          "turn_taking"
+        ],
+        "methods": [],
+        "outcome": "unknown",
+        "confidence": "MEDIUM",
+        "confidenceScore": 2,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 2,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "communication": {
+              "trigger": "expressed",
+              "match": "expressed"
+            },
+            "turn_taking": {
+              "trigger": "took turns",
+              "match": "took turns"
+            }
+          },
+          "methods": {},
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Read with good accuracy but struggled to stay focused during independent work.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [],
+        "methods": [
+          {
+            "key": "independent",
+            "label": "Independent practice",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "engagement"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {
+            "independent": {
+              "trigger": "independent work",
+              "match": "independent work",
+              "negated": false
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Persisted and solved the word problem after trying a new strategy.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [],
+        "methods": [],
+        "outcome": "unknown",
+        "confidence": "MEDIUM",
+        "confidenceScore": 2,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 2,
+        "suggestions": {
+          "skills": [
+            "problem_solving"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {},
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled with counting and could not keep up during group work.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [
+          "counting"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "counting": {
+              "trigger": "counting",
+              "match": "counting"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            },
+            {
+              "word": "could not",
+              "trigger": "could not",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled with counting and would not participate in group work.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [
+          "counting"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [
+            "engagement"
+          ],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "counting": {
+              "trigger": "counting",
+              "match": "counting"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Struggled with counting and could not keep up during group work again.",
+      "parsed": {
+        "students": [],
+        "context": "maths",
+        "skills": [
+          "counting"
+        ],
+        "methods": [
+          {
+            "key": "small_group",
+            "label": "Small group",
+            "negated": true,
+            "source": "auto"
+          }
+        ],
+        "outcome": "negative",
+        "confidence": "HIGH",
+        "confidenceScore": 4,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 4,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "counting": {
+              "trigger": "counting",
+              "match": "counting"
+            }
+          },
+          "methods": {
+            "small_group": {
+              "trigger": "group work",
+              "match": "group work",
+              "negated": true
+            }
+          },
+          "outcome": [
+            {
+              "word": "struggled",
+              "trigger": "struggled",
+              "negated": false,
+              "polarity": "negative"
+            },
+            {
+              "word": "could not",
+              "trigger": "could not",
+              "negated": false,
+              "polarity": "negative"
+            }
+          ]
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Wrote two sentences with one-on-one support.",
+      "parsed": {
+        "students": [],
+        "context": "literacy",
+        "skills": [
+          "writing"
+        ],
+        "methods": [
+          {
+            "key": "one_on_one",
+            "label": "1-on-1 support",
+            "negated": false,
+            "source": "auto"
+          }
+        ],
+        "outcome": "unknown",
+        "confidence": "HIGH",
+        "confidenceScore": 3,
+        "flags": [
+          "no_student_matched"
+        ],
+        "llmFallbackSuggested": false,
+        "signalStrength": 3,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {
+            "writing": {
+              "trigger": "wrote",
+              "match": "wrote"
+            }
+          },
+          "methods": {
+            "one_on_one": {
+              "trigger": "one-on-one",
+              "match": "one-on-one",
+              "negated": false
+            }
+          },
+          "outcome": []
+        },
+        "lexicon": "1.4"
+      }
+    },
+    {
+      "raw": "Good day.",
+      "parsed": {
+        "students": [],
+        "context": "other",
+        "skills": [],
+        "methods": [],
+        "outcome": "unknown",
+        "confidence": "LOW",
+        "confidenceScore": 0,
+        "flags": [
+          "no_student_matched",
+          "note_too_short"
+        ],
+        "llmFallbackSuggested": true,
+        "signalStrength": 0,
+        "suggestions": {
+          "skills": [],
+          "methods": []
+        },
+        "evidence": {
+          "skills": {},
+          "methods": {},
+          "outcome": []
+        },
+        "lexicon": "1.4"
       }
     }
   ]

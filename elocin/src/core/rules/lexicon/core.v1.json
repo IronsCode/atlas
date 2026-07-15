@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "description": "Elocin core deterministic tagging lexicon v1. Universal pre-K-2 vocabulary. Method keys are a CLOSED set of 16; curriculum packs add triggers to these keys but never new keys. Skill keys are additive over the pre-lexicon set (existing keys kept stable). Per-trigger tiers: triggers_high = exact hit auto-applies; triggers_medium (single common nouns / ambiguous) = suggestion only, never auto-applied. Normalization preserves ':' and '-' so 1:1 / 1-on-1 match. Negation and outcome word lists are DISJOINT (no double-counting).",
   "methods": {
     "visual": {
@@ -39,7 +39,7 @@
     },
     "small_group": {
       "label": "Small group",
-      "triggers_high": ["small group", "group work", "guided group", "guided reading group", "table group", "math group", "reading group"],
+      "triggers_high": ["small group", "group work", "guided group", "guided reading group", "table group", "math group", "reading group", "group setting", "group settings"],
       "triggers_medium": ["group activity", "center group"]
     },
     "whole_group": {
@@ -92,7 +92,7 @@
       "sight_words": { "triggers_high": ["sight word", "heart word", "tricky word", "trick word", "red word", "high frequency word"], "triggers_medium": [] },
       "fluency": { "triggers_high": ["fluency", "tracking print", "read with expression", "phrasing", "decodable reader", "decodable text", "read aloud", "read out loud", "reading aloud", "read to the class", "oral reading"], "triggers_medium": ["choppy", "expression", "decodable"] },
       "reading_comprehension": { "triggers_high": ["reading comprehension", "comprehension", "retell", "retold", "main idea", "story elements", "answered questions about the story", "sequenced the story"], "triggers_medium": ["predict", "prediction", "recall"] },
-      "reading": { "triggers_high": ["read the passage", "read a book", "read the text", "guided reading"], "triggers_medium": ["big word", "big words"] },
+      "reading": { "triggers_high": ["read the passage", "read a book", "read the text", "guided reading", "reads well", "reads poorly", "reads not well", "not reading well", "reading level", "reading below", "below reading level"], "triggers_medium": ["big word", "big words"] },
       "writing": { "triggers_high": ["writing", "wrote", "spelling", "invented spelling", "write a sentence", "wrote a sentence", "full sentence", "complete sentence", "dictation", "journal"], "triggers_medium": ["spacing", "label", "copy words", "sentence", "write"] }
     },
     "maths": {
@@ -130,7 +130,7 @@
   },
   "outcomes": {
     "positive": ["mastered", "independently", "confidently", "correct", "correctly", "accurate", "accurately", "improved", "improvement", "success", "successful", "successfully", "did well", "accomplished", "excelled", "achieved", "got it", "nailed it", "with ease", "no prompts", "consistent", "consistently", "made progress", "proud", "breakthrough", "was able to", "managed to", "finally able", "did it"],
-    "negative": ["struggled", "struggle", "distracted", "lost focus", "off task", "frustrated", "frustration", "gave up", "shut down", "avoided", "resisted", "difficulty", "difficult", "could not", "couldnt", "cant", "cannot", "unable", "confused", "failed", "refused", "reversed", "incorrect", "not yet", "hard time"]
+    "negative": ["struggled", "struggle", "distracted", "lost focus", "off task", "frustrated", "frustration", "gave up", "shut down", "avoided", "resisted", "difficulty", "difficult", "could not", "couldnt", "cant", "cannot", "unable", "confused", "failed", "refused", "reversed", "incorrect", "not yet", "hard time", "not well", "poorly", "not confident"]
   },
   "negations": ["not", "never", "no", "didnt", "doesnt", "dont", "without", "refused to", "no longer", "wouldnt", "wont", "hasnt", "isnt", "instead of"],
   "action_verbs": ["wrote", "write", "writing", "counted", "count", "counting", "read", "reading", "shared", "share", "built", "build", "building", "made", "make", "drew", "draw", "drawing", "painted", "paint", "cut", "glued", "glue", "sorted", "sort", "matched", "match", "stacked", "stack", "poured", "pour", "zipped", "zip", "buttoned", "button", "tied", "tie", "climbed", "climb", "jumped", "jump", "hopped", "hop", "ran", "run", "threw", "throw", "caught", "catch", "kicked", "kick", "rolled", "roll", "asked", "ask", "answered", "answer", "told", "tell", "named", "name", "pointed", "point", "showed", "show", "helped", "help", "played", "play", "sang", "sing", "danced", "dance", "followed", "follow", "finished", "finish", "tried", "try", "solved", "solve", "fixed", "fix", "opened", "open", "washed", "wash", "cleaned", "clean", "traced", "trace", "colored", "color", "spelled", "spell", "measured", "measure", "compared", "compare", "balanced", "balance", "walked", "walk", "listened", "listen", "waited", "wait", "chose", "choose", "picked", "pick", "arranged", "arrange", "placed", "place"],

@@ -14,19 +14,48 @@ without a real backing field; when a plan conflicts with a LOCKED interface or
 the stored seed parses, STOP and show me the conflict instead of resolving it
 silently.
 
-WHERE THINGS STAND (Post-S35 — M0/M1A/M1B GREEN; GO-LIVE hardening DONE; email-verified signup +
-password policy DONE; remaining
-before pilots is OPERATIONAL deploy, not code — see "## Session 34" in PROJECT_STATE):
-- Tests: ~225 across 21 suites, all green. RUN PER-FILE (node --env-file=.env --test
-  src/tests/<name>.test.js) — the all-files glob contends on the local DB pool and
-  can hang; that's an env quirk, not a failure. Suites added since S33: interpretations,
-  telemetry, settings, crud, stage0_tools, authHardening, emailReset, users. Frontend
-  build + lint clean. Nothing is committed to git yet (elocin/ is untracked) — ask before
-  committing. NOTE: this session's new UI (dashboard outcomes tile, goals add/edit/achieve
-  on PersonPage, rebuilt SettingsPage) is compile/lint/test-verified but NOT yet rendered
-  in a browser — do a screenshot pass.
-- Login: any seeded email + "demo1234" (best: patel@westfield.edu = owner). Seed =
-  Westfield org, 2 classrooms, 36 generator-produced observations.
+WHERE THINGS STAND (Post-S36 — M0/M1A/M1B GREEN; GO-LIVE hardening DONE; email-verified signup +
+password policy DONE; trial launch prep DONE; demo data + onboarding coaching + lexicon v1.4 DONE;
+offline lexicon proposer + external-AI privacy pipeline BUILT (S36); knowledge-graph architecture
+DESIGN-ONLY (S36); the ONE blocker before pilots is Resend + a verified sending domain, then deploy —
+see "## Session 36" then "## Session 35" in PROJECT_STATE for the full arc):
+- Tests: ~258 across 21 suites green as of S35; S36 added `deidentify` / `externalAI` /
+  `lexicon_proposer` suites (24 tests, green). RUN PER-FILE (node --env-file=.env --test
+  src/tests/<name>.test.js) — the all-files glob contends on the local DB pool and can hang; that's an
+  env quirk, not a failure. Full suite not re-run per-file this session — re-run before deploy.
+  Frontend build + lint clean.
+- GIT: root repo = /Users/duwanirons/Desktop/atlas (app in elocin/); pushed to PRIVATE
+  github.com/IronsCode/atlas on `main`. Baseline `c57e1a7`; `251a4b9` = signup + password policy +
+  launch prep + api_key_state + deploy config + grade cap. EVERYTHING AFTER `251a4b9` IS
+  UNCOMMITTED (S35: demo data / gen_seed + 002_seed + seed_parses, onboarding coaching, lexicon v1.4 +
+  core.v1.json + normalize.js spelling, LEXICON_CHANGELOG; S36: scripts/lexicon_proposer.mjs,
+  src/lib/{deidentify,externalAI}.js, migrations/018_ai_governance.sql, src/tests/{deidentify,
+  externalAI,lexicon_proposer}.test.js, docs/{lexicon_proposer,privacy_external_ai,
+  privacy_external_ai_review}.md, docs/design/{knowledge_graph,concept_lifecycle,
+  concept_lifecycle_review}.md, .env.example + package.json (lexicon:propose + 018 wiring); doc
+  updates) — ask before committing.
+- EMAIL IS THE BLOCKER: RESEND_API_KEY/FROM_EMAIL are unset → forgot-password AND signup
+  verification run in SAMPLE MODE (link only logged to the backend console, never delivered), so no
+  real teacher can self-signup or reset. Fix = Resend key + a VERIFIED sending domain (SPF/DKIM);
+  the sandbox onboarding@resend.dev only mails your own address. sendStaffInvite also SAMPLE-MODE.
+  See docs/api_key_state.md (the only real external key needed is RESEND_API_KEY).
+- DEPLOY is prepped, not done: render.yaml (rootDir=elocin) + frontend/vercel.json (SPA rewrite);
+  Neon + Render(blueprint) + Vercel; `npm run migrate:prod` (schema only). Domain TBD (with the
+  business partner) — works on free *.vercel.app/*.onrender.com subdomains until then.
+- AI: no ML in the record path (S23 holds). The OFFLINE Haiku proposer over lexicon_misses is now
+  BUILT (`npm run lexicon:propose`; proposals constrained to existing keys + tier=medium, gitignored
+  artifact, human-approved; ~$0.01–0.06/mo at 100 students). ALL external AI routes through
+  `src/lib/externalAI.js` — OFF BY DEFAULT (needs EXTERNAL_AI_ENABLED=true + ANTHROPIC_API_KEY + the
+  org's external_processing_allowed=TRUE), de-identified (`src/lib/deidentify.js`), fail-closed on
+  residual PII, audited (`ai_request_audit`, migration 018; raw prompt never logged). Privacy sign-off
+  = Approve with Required Changes — SAFEST PILOT POSTURE IS EXTERNAL AI OFF. Before running the
+  proposer on REAL data: fix the roster soft-delete leak (fetchRosters filters deleted_at IS NULL —
+  one-liner, NOT applied), provider DPA + zero-retention + a special-category-content decision, a CI
+  egress guard, English-only. See docs/privacy_external_ai{,_review}.md.
+- Login: any seeded email + "demo1234". Seed = Westfield org, **5 classrooms (Pre-K–Grade 2), 26
+  students, 67 observations**. Best: patel@westfield.edu (owner, sees all 5); new teachers
+  bello/chen/ford@westfield.edu (Rooms 2/7/8). Every student spans the tone range (thriving →
+  monitor → priority → needs-a-note); observations are name-less authentic teacher voice.
 
 GATED PROGRAM (advance only on acceptance criteria, never calendar):
 - M0 EVIDENCE INTEGRITY ✅ — migrations 009–013. Raw text is IMMUTABLE: edits append to
@@ -75,13 +104,24 @@ GATED PROGRAM (advance only on acceptance criteria, never calendar):
   DIRECTLY in the DB then signs in (signup is email-gated); TEST_PASSWORD stays testpassword123.
   auth.test.js stages pending_signups rows directly (the emailed token isn't readable).
 
-ENGINE (unchanged, still the core; deterministic, no LLM): versioned LEXICON v1.3
+ENGINE (still the core; deterministic, no LLM): versioned LEXICON v1.4
 (core/rules/lexicon/core.v1.json + 8 packs + normalize.js, driven by parseObservation.js).
-Method keys = CLOSED 16; skill keys = LOCKED additive ~26; per-trigger TIERS (high→auto,
-medium→suggestion). Outcomes negation-aware; numeric scores thresholded. Eval gate =
+v1.4 (S35) added group-setting→small_group, negative-reading phrases, and not-well/poorly→negative;
+normalize.js now also does US/UK spelling normalization (behaviour→behavior, recognise→recognize,
+practise→practice, independantly→independently) idempotent on the American lemmas, so a UK teacher's
+note matches the same triggers. Method keys = CLOSED 16; skill keys = LOCKED additive ~26;
+per-trigger TIERS (high→auto, medium→suggestion). Outcomes negation-aware; numeric scores
+thresholded. After ANY lexicon/normalize change: bump version + LEXICON_CHANGELOG + the p.lexicon
+assertion, `npm run lexicon:seed`, reload DB, `npm test` + `npm run lexicon:eval`. Eval gate =
 held-out gold_corpus_test.json; `npm run lexicon:eval` enforces a precision floor +
 non-regression (src/tests/lexicon_eval.test.js). Miss-review flywheel is LIVE (confirmed
-tags the engine missed log manual_tag to lexicon_misses → Admin "Lexicon review").
+tags the engine missed log manual_tag to lexicon_misses → Admin "Lexicon review"). The OFFLINE
+lexicon PROPOSER (S36, `npm run lexicon:propose`) closes the loop on low_confidence misses — but it
+only PROPOSES triggers for the EXISTING taxonomy; the human still edits core.v1.json + re-runs the
+eval gate. A decade-horizon KNOWLEDGE-GRAPH design (Semantic/Observation/Efficacy graphs, "Meaning
+Before Intelligence") is written up in docs/design/{knowledge_graph,concept_lifecycle,
+concept_lifecycle_review}.md — DESIGN ONLY, nothing built; Stage 0 there = split language (lexicon)
+from meaning (taxonomy), which the proposer already anticipates.
 
 YOUR TASK — GO LIVE (see docs/LAUNCH.md; still LOCAL-only today). In order:
 1. P1 SECURITY HARDENING ✅ DONE (Session 34): security headers, in-memory rate limiting
@@ -105,8 +145,16 @@ OPEN DECISIONS (don't act silently):
 - (S33) Deprecating the LOCKED observations.confidence / confidence_score columns +
   HIGH/MEDIUM/LOW enum — no teacher surface treats them as a grade now, but dropping/
   renaming is a locked-interface + migration change. Needs an explicit call.
-- Whether the grade dropdown should be limited to Pre-K–Grade 2 for the trial (currently
-  Pre-K–12 for K-12 expansion). One-line change.
+- (RESOLVED S35) Grade dropdown capped to Pre-K–Grade 2 for the trial (frontend/src/lib/grades.jsx;
+  K–12 restore documented in a comment). Existing data outside the range is still preserved.
+- (S36) External AI is OFF by default and the pilot doesn't need it on. Before the offline proposer
+  ever runs on REAL teacher observations, three governance/one code call are open (see
+  docs/privacy_external_ai_review.md): (a) apply the roster soft-delete fix in
+  scripts/lexicon_proposer.mjs (fetchRosters drops departed members — a real name-leak, one line per
+  subquery, NOT yet applied); (b) a provider DPA + zero-retention + a conscious decision on
+  transmitting de-identified special-category content (health/safeguarding), or add a denylist;
+  (c) a CI egress guard so the gateway is a hard boundary, not just a convention. English-only until
+  per-language de-id lands. Do NOT flip EXTERNAL_AI_ENABLED for a real-data run without these.
 
 DEV ENVIRONMENT:
 - Node 20.18.1 is unpacked at elocin/.tools/node-v20.18.1-darwin-x64/ (put its bin/ on
@@ -118,8 +166,8 @@ DEV ENVIRONMENT:
   Vite grabs 5174, API calls silently fail). Check lsof before starting; don't kill a
   dev server you didn't start.
 - DB reset (LOCAL): drop+recreate elocin, then `npm run migrate` — it now runs migrations
-  001, 003–014, 016, 017 then 002_seed (the demo seed runs LAST) then the interpretations backfill.
-  For PROD use `npm run migrate:prod` (schema only, 001, 003–014, 016, 017, NO seed/backfill).
+  001, 003–014, 016, 017, 018 then 002_seed (the demo seed runs LAST) then the interpretations backfill.
+  For PROD use `npm run migrate:prod` (schema only, 001, 003–014, 016, 017, 018, NO seed/backfill).
 - After ANY lexicon change: `npm run lexicon:seed` (regenerates 002_seed.sql AND the
   regression fixture), reload the dev DB, then `npm test` + `npm run lexicon:eval`. Bump
   the lexicon version + docs/LEXICON_CHANGELOG.md + the p.lexicon assertion in

@@ -197,7 +197,7 @@ describe('Curriculum packs (opt-in, no leak)', () => {
 describe('Additive parsed_json fields + invariants', () => {
   test('methods carry source, output stamps lexicon version, suggestions present', () => {
     const p = parseObservation('Ava used picture cards to read the passage', { roster: ['Ava'] })
-    assert.equal(p.lexicon, '1.3')
+    assert.equal(p.lexicon, '1.4')
     assert.ok(p.methods.every((m) => m.source === 'auto'))
     assert.ok(Array.isArray(p.suggestions.skills) && Array.isArray(p.suggestions.methods))
   })

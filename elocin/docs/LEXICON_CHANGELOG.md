@@ -28,6 +28,28 @@ here (reproducibility matters for IEP/FERPA longitudinal records).
 
 ---
 
+## v1.4 — 2026-07-11
+Gap-fix from live dogfooding: the note "reads not well in group settings" tagged
+**nothing**. Three real, common teacher phrasings were missing. Eval held exactly
+(DEV skills F1 96.4 / methods 100 / outcome 95.6; held-out TEST skills F1 96.3 /
+methods 100 / outcome 95.0; **suggestion precision non-regressed**) — the gate
+passes; no baseline change needed.
+
+- **`small_group` method** += `group setting`, `group settings` (HIGH). "group
+  work"/"small group" already matched; "group setting(s)" did not.
+- **`reading` skill** += `reads well`, `reads poorly`, `reads not well`,
+  `not reading well`, `reading level`, `reading below`, `below reading level`
+  (HIGH). Deliberately **specific multi-word phrases, not bare `read`/`reads`** —
+  a bare token stems to `read` and collides with `fluency`'s "read aloud / read
+  the sentence", which regressed suggestion precision on the gold corpus. The
+  precise phrases catch the real negative-reading phrasings without the collision.
+- **`outcomes.negative`** += `not well`, `poorly`, `not confident`. "not well"
+  now reads as a tricky moment instead of `unknown`.
+
+Net effect on the reported note: `reads not well in group settings` →
+skills `[reading]`, method `small_group` (negated — "isn't working"), outcome
+`negative` — i.e. it can now feed a "small group not working for reading" pattern.
+
 ## v1.3 — 2026-07-08
 Capture-redesign support (Session 33). Adds a signal for "the note describes
 something a child did" and re-weights the note score so natural notes are never

@@ -21,13 +21,35 @@
 // apostrophe-free by convention).
 const APOSTROPHES = /[‘’ʼ'`]/g
 
+// British → American spelling (+ a couple of very common ed-term misspellings
+// that carry real signal), so a UK teacher's note matches the same
+// American-spelled lexicon triggers. Whole-word, applied before matching, and
+// idempotent on the (American) lexicon lemmas it also passes through. This is a
+// bounded, greppable set on purpose — the long tail of typos is handled by the
+// miss-review flywheel, not enumerated here.
+const SPELLING = {
+  behaviour: 'behavior', behaviours: 'behaviors', behavioural: 'behavioral',
+  recognise: 'recognize', recognises: 'recognizes', recognised: 'recognized', recognising: 'recognizing',
+  practise: 'practice', practises: 'practices', practised: 'practiced', practising: 'practicing',
+  colour: 'color', colours: 'colors', coloured: 'colored', colouring: 'coloring',
+  organise: 'organize', organised: 'organized', organising: 'organizing',
+  summarise: 'summarize', summarised: 'summarized', summarising: 'summarizing',
+  apologise: 'apologize', apologised: 'apologized',
+  centre: 'center', centres: 'centers',
+  independant: 'independent', independantly: 'independently'
+}
+function applySpelling(text) {
+  return text.replace(/[a-z]+/g, (w) => SPELLING[w] || w)
+}
+
 export function normalizeExact(text) {
-  return String(text || '')
+  const base = String(text || '')
     .toLowerCase()
     .replace(APOSTROPHES, '')
     .replace(/[–—]/g, '-') // en/em dash → hyphen
     .replace(/\s+/g, ' ')
     .trim()
+  return applySpelling(base)
 }
 
 /**

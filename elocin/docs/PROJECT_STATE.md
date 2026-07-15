@@ -1,5 +1,36 @@
 # Elocin — Project State
-**Updated:** Session 35 (2026-07-11) — **Email-verified signup + a global password
+**Updated:** Session 36 (2026-07-12) — **Offline lexicon proposer (BUILT + privacy-hardened) + an
+external-AI privacy pipeline (BUILT) + a knowledge-graph architecture design set (DESIGN ONLY).**
+Three arcs, all **uncommitted** (add to the already-uncommitted post-`251a4b9` work). **(A) Offline
+lexicon proposer — BUILT** (`scripts/lexicon_proposer.mjs`, `npm run lexicon:propose`,
+`docs/lexicon_proposer.md`): read-only over `lexicon_misses` (consented orgs only), one batched
+**Haiku 4.5** call via the gateway, proposals constrained to the existing closed key set + forced
+`tier:medium`, gitignored review artifact, SAMPLE MODE without a key — nothing auto-applied, never in
+the record path. ~$0.01–0.06/mo at 100 students. **(B) External-AI privacy pipeline — BUILT**
+(migration **018**, additive): `lib/deidentify.js` (deterministic roster redaction → role
+placeholders + structural-PII scrub + a mid-sentence capitalized-name backstop; no ML),
+`lib/externalAI.js` (the SINGLE gateway: global kill switch **`EXTERNAL_AI_ENABLED` off by default** +
+provider key; **fail-closed** residual-PII refusal on the outgoing prompt; PII-free `ai_request_audit`
+— raw prompt never logged), and per-org consent `organizations.external_processing_allowed` (**default
+FALSE**). External AI is OFF unless all three gates pass. Verified end-to-end in SAMPLE MODE (real
+student name → `Student A`, non-roster name → `[name]`, email → `[email]`; meaning preserved). New
+suites `deidentify` / `externalAI` / `lexicon_proposer` (**24 tests, green**). `docs/privacy_external_ai.md`.
+**(C) Knowledge-graph architecture — DESIGN ONLY, nothing built** (`docs/design/`): `knowledge_graph.md`
+(v2 — three graphs **Semantic/Observation/Efficacy**, "Meaning Before Intelligence," a referential
+spine, opaque IDs, edge epistemology **ASSERTED/OBSERVED/INFERRED**, framework-neutral spine +
+SKOS/CASE mappings), `concept_lifecycle.md` (governance: release-pinning, the alias→concept→redefine→
+never ladder, splits/merges never rewrite history, provenance), plus two **adversarial reviews**
+(`concept_lifecycle_review.md`, `privacy_external_ai_review.md`). **Security sign-off (privacy review):
+Approve with Required Changes** — the safest pilot posture is **external AI OFF** (zero exposure).
+**Open, before the proposer ever runs on REAL data:** (1) **roster soft-delete leak** —
+`fetchRosters` filters `deleted_at IS NULL`, so a departed student's/teacher's name isn't redacted
+(one-line fix, **NOT yet applied**); (2) **special-category content** (health/safeguarding) is
+transmitted de-identified → needs a provider **DPA + zero-retention** or a sensitive-term denylist;
+(3) the gateway is a **convention, not a hard boundary** (ambient API key; a direct `fetch` bypasses)
+→ add a **CI egress guard**; (4) roster redaction is **Latin-biased** (`\b` is ASCII) → English-only
+for now. Prior phase = the M0→M1A→M1B gated program + go-live hardening + signup (below).
+
+**Prior update:** Session 35 (2026-07-11) — **Email-verified signup + a global password
 policy; first git baseline; S34 verification pass.** Signup is now **verify-first**:
 `POST /auth/signup` takes only `{org_name, full_name, email}`, stages a `pending_signups`
 row (migration **017**, additive) and emails a verification link (**Resend** live / dev
@@ -10,12 +41,30 @@ a password is set (`GET /auth/verify-signup/:token`, `POST /auth/verify-signup/:
 enforced on **every** set-password path (signup-complete, reset, change-password,
 invite-accept), each with a live requirements checklist. Also: the whole `elocin/` tree was
 **committed to git for the first time** (baseline `c57e1a7`, local `main`, **no remote yet**;
-the signup work on top is **still uncommitted**); the full suite was re-run per-file
-(**225 passing / 21 suites** — corrects the stale 188/194 counts below); and the S34 UI
+the signup work was later committed + pushed — see "Same session" below); the full suite
+was re-run per-file (**225→~258 passing / 21 suites** — corrects the stale 188/194 below); and the S34 UI
 (dashboard outcomes tile, goals add/edit/mark-achieved, rebuilt Settings) was
 **screenshot-verified**. Remaining before pilots is still **operational** (deploy
 Neon/Render/Vercel/Resend, verify the sending domain, backup + restore drill). Prior phase =
 the M0→M1A→M1B gated program (below).
+
+**Same session, later arcs (all 2026-07-11):** the whole `elocin/` tree was **committed and
+pushed to GitHub** (private `github.com/IronsCode/atlas`; baseline `c57e1a7`, then `251a4b9` =
+signup + password policy + trial-launch prep). **Trial launch prep:** grade dropdown capped to
+**Pre-K–2**, **backup + restore drill run/verified** (7 assertions PASS), **deploy config**
+(`render.yaml` `rootDir: elocin` + `frontend/vercel.json` SPA rewrite; prod boot guards
+verified), and `docs/api_key_state.md` — the only real external key needed is **`RESEND_API_KEY`**;
+forgot-password + signup email are **dead in dev (SAMPLE MODE)** and need Resend **+ a verified
+sending domain** before teachers can self-signup. **Demo data rebuilt to 5 classrooms / 26
+students** (Pre-K–Grade 2) spanning the full tone range (thriving → monitor → **priority** →
+needs-a-note), written in **authentic name-less teacher voice** (a teacher doesn't restate the
+pre-selected student). **Onboarding coaching + an inline "add how it happened" nudge** (gentle,
+never blocking). **Lexicon v1.3→v1.4** (live-dogfood gap "reads not well in group settings" now
+tags reading + small-group + negative) **+ US/UK spelling normalization** (`behaviour→behavior`,
+`recognise→recognize`, `practise→practice`, `independantly→independently`). Everything **after
+`251a4b9` is uncommitted** (demo data, coaching, lexicon v1.4, spelling). **AI decision:** no ML
+in the record path (S23 holds); the sanctioned use is a cheap **offline Haiku proposer** over
+`lexicon_misses` (~$1/mo — not <0.001¢/call, which is unachievable; realistic floor ~0.05¢).
 
 **Prior update:** Session 34 (2026-07-10) — **GO-LIVE hardening + account/goals/settings
 UX.** Auth hardened end-to-end (password reset via **Resend**, `password_changed_at`
@@ -77,7 +126,8 @@ gated program (below).
   not an inline form. Docs added: `docs/LAUNCH.md` (go-live runbook) +
   `docs/WORKING_STATE.md` (live ops / additive-migration rules). New npm scripts:
   `migrate:prod` (schema only — NO demo seed), `metrics`, `baseline`.
-- **Validation:** **225 tests across 21 suites, all green** (run per-file; the
+- **Validation:** **~258 tests across 21 suites, all green** (the `lexicon` suite now
+  re-parses all 67 seed notes → 114 there). Run per-file; the
   all-files glob contends on the local DB pool). New suites since M1A:
   `interpretations`, `telemetry`, `settings`, `crud`, `password`. Frontend build + lint clean.
 
@@ -443,11 +493,94 @@ row) and is the natural starting reference point.
 
 ---
 
-## Session 35 — Email-verified signup + global password policy (2026-07-11)
+## Session 36 — Offline lexicon proposer + external-AI privacy pipeline + knowledge-graph design (2026-07-12)
+
+Three arcs. **A + B are BUILT code (uncommitted, tests green); C is design-only (nothing built).**
+
+**A. Offline lexicon proposer — BUILT.** The sanctioned offline, human-approved LLM use (S23 holds:
+no AI in the record path). `scripts/lexicon_proposer.mjs` + `npm run lexicon:propose` +
+`docs/lexicon_proposer.md`. Reads `lexicon_misses` **read-only** (`withReadOnly`), clusters them, and
+asks **Haiku 4.5** (one batched call) to PROPOSE new triggers for the EXISTING taxonomy. Guardrails:
+proposals constrained to the compiled closed key set (16 methods / ~26 skills / 2 outcome polarities)
++ forced `tier:medium` (`sanitize`); output is a **gitignored** review artifact
+(`scripts/proposals/`), never auto-applied; the human then edits `core.v1.json` → `lexicon:eval` (must
+not regress) → `lexicon:seed`. Cost printed from real `usage`; ~$0.01–0.06/mo at 100 students
+(batched). Needs real trial misses to be useful (seed has ~0). `gather`/prompt/sanitize exported for
+tests.
+
+**B. External-AI privacy pipeline — BUILT (migration 018, additive).** Prompted by the privacy review
+finding that the proposer could ship a child's name to a third party. Now EVERY external-AI request
+routes through one privacy layer:
+- `src/lib/deidentify.js` (pure, no I/O, **no ML**): (1) **roster redaction** — known names →
+  role placeholders (`Student A/B`, `the teacher`, `a parent`, `the classroom`, `the school`), one
+  stable pseudonym per person, longest-name-first, possessives preserved; (2) **structural PII scrub**
+  (email/phone/url/date/id/ssn/address → tokens); (3) a **mid-sentence capitalized-name backstop** →
+  `[name]` (sentence-initial left alone to avoid nuking ordinary words; own placeholders stop-worded).
+  Exports `scanStructuralPII` (used by the gateway) + `DEIDENTIFY_VERSION`.
+- `src/lib/externalAI.js` — **the single choke point.** `isExternalAIEnabled()` requires BOTH the
+  global kill switch `EXTERNAL_AI_ENABLED === 'true'` AND a provider key (**off by default**).
+  `externalAIRequest()` runs a **fail-closed** residual-PII scan on the outgoing prompt (refuses to
+  send if any structural PII remains, regardless of caller diligence), does the Anthropic REST call
+  (no SDK, mirrors `notify.js`), and writes a PII-free `ai_request_audit` row (decision + versions +
+  token counts; **raw prompt never logged**). Never throws for a refusal/kill-switch/provider error.
+- Migration **018** (`018_ai_governance.sql`): `organizations.external_processing_allowed BOOLEAN NOT
+  NULL DEFAULT FALSE` (per-org consent, privacy by default) + `ai_request_audit`. Wired into `migrate`
+  + `migrate:prod` (after 017, before `002_seed`). Applied locally.
+- Proposer rewired: fetches misses **only from consented orgs**, de-identifies each against its **org**
+  roster (superset of classroom) **before** clustering (so names don't fragment clusters and never
+  leave un-redacted), drops residual-PII misses, calls via the gateway. SAMPLE MODE prints the
+  **de-identified** prompt.
+- Tests: `deidentify.test.js`, `externalAI.test.js` (kill switch + fail-closed refusal without a
+  network call), rewritten `lexicon_proposer.test.js` — **24 tests green.** `.env.example` gains
+  `EXTERNAL_AI_ENABLED=false` + `ANTHROPIC_API_KEY=`. Verified live in SAMPLE MODE against the seed
+  (real name → `Student A`, `Kai` → `[name]`, `mom@example.com` → `[email]`; DB reverted after).
+  `docs/privacy_external_ai.md` (PII inventory + threat model + config).
+
+**C. Knowledge-graph architecture — DESIGN ONLY (nothing built; `docs/design/`).** A decade-horizon
+"educational brain" blueprint, developed across several review rounds:
+- `knowledge_graph.md` (**v2**): three graphs — **Semantic** ("what exists", curated/versioned/no PII),
+  **Observation** ("what happened", per-child/PII/huge), **Efficacy** ("what works", inferred/earned).
+  Core principle **Meaning Before Intelligence** (build the referential spine now, defer the
+  intelligence layer until real data shapes it). Opaque flat concept IDs (taxonomy = edges, not the
+  id). Edge epistemology **ASSERTED / OBSERVED / INFERRED** (DB-enforced; an inferred edge without
+  lineage is un-insertable). Framework-neutral spine + SKOS/CASE mappings (no single framework
+  canonical). Graph *model* now, Postgres store, graph DB later.
+- `concept_lifecycle.md`: governance to keep the semantic layer from rotting — meaning is
+  release-pinned and never rewritten; the **alias → new concept → redefinition → mutation(forbidden)**
+  ladder; splits/merges are forward-only and never rewrite history (analytics must pick a lens, never
+  fabricate a distribution); lexicon versions independently from semantic releases; PROV-shaped
+  provenance; governance ceremony scales with team size.
+- Two **adversarial reviews**: `concept_lifecycle_review.md` (Approve with Required Changes — flags
+  the non-retrofittable causal substrate, parser-improvement-biases-analytics, multilingual ≠
+  localization, and the "neutral spine is itself a skills-based framework" validity point) and
+  `privacy_external_ai_review.md` (the security sign-off below).
+
+**Security sign-off (`privacy_external_ai_review.md`) — Approve with Required Changes.** Key reframe:
+the **pilot doesn't need external AI on** — with the default kill switch off, external exposure is
+zero. Required before the proposer ever runs on REAL teacher observations: (1) **fix the roster
+soft-delete leak** — `fetchRosters` filters `deleted_at IS NULL`, so a departed student's/teacher's
+name isn't in the roster and only the backstop can catch it (**one-line fix per subquery, NOT yet
+applied**); (2) **provider DPA + zero-retention** + a conscious decision on transmitting de-identified
+**special-category content** (health/safeguarding notes carry no name pattern, so de-id doesn't remove
+them) — or add a sensitive-term denylist; (3) a **CI egress guard** (the gateway is a convention, not
+a hard boundary — the API key is ambient, a direct `fetch` bypasses it); (4) **English-only** for now
+(roster `\b` matching is ASCII-biased). The proposed "de-identification receipt" was **evaluated and
+rejected** (attests process not correctness; doesn't stop direct-fetch) in favor of inverting the
+gateway interface (gateway owns de-id) + the CI guard.
+
+**Follow-ups (S36):** apply the roster soft-delete fix + CI egress guard (both trivial) before any
+real-data proposer run; make the DPA / special-category governance call; the KG design is a
+build-later blueprint (Stage 0 = the language/meaning split, already anticipated by the proposer).
+Everything this session is **uncommitted** — ask before committing.
+
+---
+
+## Session 35 — Signup + launch prep + first push + demo data + coaching + lexicon v1.4 (2026-07-11)
 
 Three arcs: (A) first **git baseline** + a **verification pass** on Session 34's work, then
 (B) a new **verify-first signup** flow with (C) a **shared password policy** across every
-password-setting path. **225 tests / 21 suites green; frontend build + lint clean.** The
+password-setting path. **~258 tests / 21 suites green (225 at the signup-completion point);
+frontend build + lint clean.** The
 signup work is **not yet committed** (baseline commit `c57e1a7` predates it — ask before
 committing).
 
@@ -494,9 +627,66 @@ committing).
   assertions hold), and made every new-password in settings/authHardening/users
   policy-compliant.
 
-**Follow-ups:** push to a **private** GitHub remote before deploy; `sendStaffInvite` is still
-SAMPLE-MODE (wire to Resend like the others when needed); consider a `pending_signups` expiry
-sweep (harmless to leave, but rows accumulate).
+**D. Trial launch prep + first push.** Committed the baseline (`c57e1a7`), then all the above +
+prep as `251a4b9`, and **pushed to private `github.com/IronsCode/atlas`** (root repo = `atlas`,
+app in `elocin/`; only `.env.example` tracked, real `.env` excluded). Grade dropdown capped to
+**Pre-K–2** (`frontend/src/lib/grades.jsx`; the parser is pre-K–2; K–12 restore documented in a
+comment). Ran `npm run backup` + `backup:verify` — **restore drill PASS** (7 integrity
+assertions). **Deploy config:** `render.yaml` (repo root, `rootDir: elocin`, `generateValue`
+JWT_SECRET) + `frontend/vercel.json` (SPA rewrite so the emailed `/verify-email` `/reset-password`
+links don't 404); prod boot guards verified (weak secret refused in prod; prod-shaped env boots).
+`docs/api_key_state.md` inventories every env var — the **only real external key is
+`RESEND_API_KEY`**; forgot-password + signup email are **dead in dev (SAMPLE MODE)** and need
+Resend + a **verified sending domain** before real teachers can self-signup (`sendStaffInvite`
+also still SAMPLE-MODE). Diagnosed a "forgot password doesn't work" report as exactly this (not a
+bug) and restored patel's `demo1234` after the end-to-end reset test.
+
+**E. Demo data → 5 classrooms / 26 students (in `scripts/gen_seed.mjs`, regenerable).** Added
+Room 2 (Pre-K), Room 7 (Grade 1), Room 8 (Grade 2) + teachers Bello/Chen/Ford (login `demo1234`),
+6 students each, under the same Westfield org so patel sees all 5 via the sidebar scope filter.
+Every student carries a tone across the range: **priority** (Jack self-reg, Sam phonics, Gabe
+counting — each a **3× (skill, negated-method) pattern** + an active intervention), **monitor**,
+**needs-a-note** (stale), **on-track**. Light showcase data (goals incl. an achieved "recent
+win", interventions, Pre-K/Grade-2 milestones, reports, parent contacts) on a representative
+subset. **Realism pass:** the generator now **strips the leading student name** (a teacher
+doesn't restate the pre-selected child — verified the parse is byte-identical with/without it) and
+capitalizes; the 11 formulaic "…, a clear success." tails were naturalized while **preserving the
+outcome signal words** (4 briefly fell to `unknown` → re-added `independently`/`improved`).
+Outcome mix held (20 pos / 22 neg / 20 unknown / 5 mixed); all tones verified live + screenshots.
+
+**F. Onboarding coaching + inline capture nudge (assistant, not validator).**
+`OnboardingChecklist.jsx`: a gentle "Writing a note Elocin can learn from" block with two
+**before→after** examples (never marks the short note wrong). `AssistiveCapture.jsx`: when a note
+has a skill but **no method**, a dismissible amber "Optional — add how it happened (small group ·
+1:1 · with counters)" nudge — the single high-leverage habit (naming the method is what turns a
+struggle into an intervention). Both verified live; build + lint clean.
+
+**G. Lexicon v1.3 → v1.4 + US/UK spelling normalization (eval-gated).** Live-dogfood miss:
+*"reads not well in group settings"* tagged **nothing**. Added `group setting(s)`→small_group
+(HIGH), specific negative-reading phrases (`reads not well` / `not reading well` / `reads poorly`
+/ `reading level` / `reading below` — deliberately **not** bare `read`, which stems into
+`fluency`'s "read aloud" and regressed suggestion precision on the gold corpus), and `not well` /
+`poorly` / `not confident` → negative outcome. Bumped version + `LEXICON_CHANGELOG` + the
+`p.lexicon` assertion; regenerated seed + fixture; **eval gate green (no precision regression)**.
+Separately, `core/rules/normalize.js` gained a **US/UK spelling map** (`behaviour→behavior`,
+`recognise→recognize`, `practise→practice`, `centre→center`, + `independantly→independently`)
+applied before matching in both tiers — **idempotent on the American lexicon lemmas**, so the gold
+corpus + seed parse identically; a UK teacher's note now hits the same triggers. **Philosophy
+(reaffirmed):** don't hand-enumerate the phrasing/typo tail — deterministic core + normalization +
+**flywheel growth on real `lexicon_misses`** + an optional **offline AI proposer**; never AI in
+the record path (S23).
+
+**Follow-ups / open (ordered):** (1) **Resend + a verified sending domain** — the #1 blocker;
+until then no teacher can self-signup or reset a password. (2) **Commit + push** the post-`251a4b9`
+work (demo data, coaching, lexicon v1.4, spelling) — currently uncommitted. (3) **Deploy:** Neon +
+Render (blueprint) + Vercel; `npm run migrate:prod` (schema only, NEVER `migrate` on prod) + one
+restore drill. (4) Set `VITE_SUPPORT_EMAIL`. (5) `sendStaffInvite` → Resend when staff invites are
+needed. (6) **Offline lexicon proposer — BUILT** (`scripts/lexicon_proposer.mjs`, `npm run lexicon:propose`,
+`docs/lexicon_proposer.md`, `lexicon_proposer.test.js` = 9): read-only over `lexicon_misses`, one batched **Haiku 4.5**
+call (raw `fetch`, no SDK; SAMPLE MODE without `ANTHROPIC_API_KEY`); proposals constrained to the existing closed key
+set + forced `tier:medium`, written to a gitignored review artifact — nothing auto-applied, never in the record path.
+Cost ~$0.01–0.06/mo at 100 students (≪ $1); needs real trial misses to be useful (`ANTHROPIC_API_KEY` in `.env.example`).
+(7) `pending_signups` expiry sweep. Grow the lexicon on **real trial data**, not by guessing.
 
 ---
 

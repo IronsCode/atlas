@@ -10,6 +10,15 @@ const DISMISS_KEY = 'elocin_onboarding_dismissed'
 // user to the "aha" moment: note in → structured insight out → report.
 export const ONBOARDING_DISMISS_KEY = DISMISS_KEY
 
+// Gentle, example-first coaching shown inside the first-run card. We never mark a
+// short note "wrong" — any note is a good note. The richer version simply shows
+// what Elocin can learn from, especially *how* it happened (the method/context),
+// which is what turns a note into a pattern and an intervention.
+const NOTE_EXAMPLES = [
+  { before: 'Maya is good at reading.', after: 'Maya read the CVC passage on her own in a small group.', adds: 'what she did + how' },
+  { before: 'Rough morning for Sam.', after: 'Sam couldn’t settle during group work and left the table twice.', adds: 'what you saw + the context' }
+]
+
 export function OnboardingChecklist({ hasClassroom, hasStudent, hasObservation, firstTeamId, reported, onCreateClassroom, onDismiss }) {
   const steps = [
     {
@@ -84,6 +93,33 @@ export function OnboardingChecklist({ hasClassroom, hasStudent, hasObservation, 
             {!s.done && s.action}
           </div>
         ))}
+      </div>
+
+      {/* Example-first coaching: how to write a note Elocin can learn from.
+          Deliberately gentle — the short version isn't wrong, the richer one just
+          gives the engine more to work with (especially the method / "how"). */}
+      <div className="border-t border-border bg-surface2 px-4 py-3">
+        <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-ink">
+          <IconSparkles className="text-sage" />
+          Writing a note Elocin can learn from
+        </div>
+        <p className="mb-2 text-xs leading-snug text-ink3">
+          Write what you saw, in your own words — any note is a good note. The more you say{' '}
+          <span className="font-medium text-ink2">what happened</span> and{' '}
+          <span className="font-medium text-ink2">how</span> (small group · 1:1 · with counters),
+          the more useful Elocin’s suggestions and next steps become.
+        </p>
+        <div className="space-y-1.5">
+          {NOTE_EXAMPLES.map((ex) => (
+            <div key={ex.before} className="rounded-sm bg-surface p-2 text-xs">
+              <div className="text-ink3">“{ex.before}”</div>
+              <div className="mt-0.5 flex items-start gap-1 text-ink2">
+                <IconArrowRight className="mt-0.5 flex-shrink-0 text-sage" />
+                <span>“{ex.after}” <span className="text-ink3">— adds {ex.adds}</span></span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </Card>
   )
